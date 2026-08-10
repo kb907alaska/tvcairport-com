@@ -274,10 +274,12 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure');
       </div>
 
       <div class="modal-actions-flex">
-        <a href="/parking-transportation" class="btn btn-navy btn-sm">Terminal Parking Directions</a>
-        <button type="button" class="btn btn-outline btn-sm" onclick="alert('Flight status subscription saved! You will receive SMS alerts for UA1234.')">📱 SMS Status Updates</button>
+        <a href="/flights/airlines" class="btn btn-navy btn-sm">Airline Contact Desk →</a>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.watchFlightModal()">⭐ Watch Flight</button>
+        <button type="button" class="btn btn-teal btn-sm" onclick="window.shareFlightModal()">🔗 Share Flight</button>
+        <a href="/parking-transportation" class="btn btn-outline btn-sm">Terminal Directions</a>
       </div>
-      <p class="modal-disclaimer">* Flight information updated via official airline operational data feed.</p>
+      <p class="modal-disclaimer">* Prototype live-flight experience. Production implementation connects to NRAA’s authorized flight-data source.</p>
     </div>
   </div>
 </Layout>
@@ -575,5 +577,16 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure');
       resultTime.innerText = `Leave home by ${leaveTimeStr} EST`;
       resultBreakdown.innerText = `Includes ${originMins} min drive + ${baggageMins} min baggage/check-in buffer + 45 min parking, TSA security & gate boarding buffer.`;
     }
+  };
+
+  (window as any).watchFlightModal = function() {
+    const code = document.getElementById('modal-code')?.innerText || 'Flight';
+    alert(`⭐ Flight ${code} added to your watched flight list! Notifications enabled.`);
+  };
+
+  (window as any).shareFlightModal = function() {
+    const code = document.getElementById('modal-code')?.innerText || 'Flight';
+    navigator.clipboard?.writeText(window.location.href);
+    alert(`🔗 Flight ${code} status link copied to clipboard! You can paste and text this to your pickup driver.`);
   };
 </script>

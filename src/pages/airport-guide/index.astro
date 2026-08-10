@@ -67,6 +67,61 @@ import { AMENITIES_DATA } from '../../data/amenities';
           <p class="text-sm font-semibold text-navy-dark" id="wayfind-text">From Ticketing → Walk 40 feet forward to TSA Security Checkpoint. Proceed through screening to Gates 1–5.</p>
           <span class="text-xs text-muted mt-2 block" id="wayfind-access-text">Standard Direct Walk · 2 minutes · Elevators & Ramp Available</span>
         </div>
+
+        <!-- Interactive Visual SVG Terminal Floorplan -->
+        <div class="terminal-svg-wrapper mt-6 p-4 bg-slate-900 rounded-xl border border-slate-700">
+          <div class="flex justify-between items-center mb-3">
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wide">🗺️ Interactive Visual Terminal Floorplan</span>
+            <span class="text-xs text-emerald-400 font-semibold">Click any zone to route</span>
+          </div>
+
+          <svg viewBox="0 0 900 350" class="w-full h-auto rounded-lg bg-slate-950 border border-slate-800" id="terminal-svg-map">
+            <!-- Terminal Outer Shell -->
+            <rect x="20" y="20" width="860" height="310" rx="12" fill="#0B192C" stroke="#334155" stroke-width="2" />
+
+            <!-- Zone: Ticketing Hall -->
+            <g id="svg-zone-ticketing" class="svg-map-zone cursor-pointer" onclick="window.selectSvgZone('ticketing')">
+              <rect x="40" y="40" width="220" height="120" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2" />
+              <text x="150" y="95" fill="#F8FAFC" font-weight="800" font-size="14" text-anchor="middle">🎟️ Airline Ticketing</text>
+              <text x="150" y="115" fill="#94A3B8" font-size="11" text-anchor="middle">Check-in Counters 1–12</text>
+            </g>
+
+            <!-- Zone: TSA Security -->
+            <g id="svg-zone-tsa" class="svg-map-zone cursor-pointer" onclick="window.selectSvgZone('tsa')">
+              <rect x="280" y="40" width="160" height="120" rx="8" fill="#1E3E62" stroke="#0EA5E9" stroke-width="2" />
+              <text x="360" y="95" fill="#FFFFFF" font-weight="800" font-size="14" text-anchor="middle">🛡️ TSA Security</text>
+              <text x="360" y="115" fill="#BAE6FD" font-size="11" text-anchor="middle">Main Checkpoint</text>
+            </g>
+
+            <!-- Zone: Concourse Gates 1-5 -->
+            <g id="svg-zone-gates" class="svg-map-zone cursor-pointer" onclick="window.selectSvgZone('gates')">
+              <rect x="460" y="40" width="400" height="120" rx="8" fill="#0369A1" stroke="#38BDF8" stroke-width="2" />
+              <text x="660" y="95" fill="#FFFFFF" font-weight="800" font-size="16" text-anchor="middle">✈️ Concourse Gates 1–5 & Dining</text>
+              <text x="660" y="115" fill="#E0F2FE" font-size="11" text-anchor="middle">Cherry Capital Grill & Gift Shop</text>
+            </g>
+
+            <!-- Zone: Baggage Claim -->
+            <g id="svg-zone-baggage" class="svg-map-zone cursor-pointer" onclick="window.selectSvgZone('baggage')">
+              <rect x="40" y="180" width="340" height="130" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2" />
+              <text x="210" y="240" fill="#F8FAFC" font-weight="800" font-size="14" text-anchor="middle">🧳 Baggage Claim & Rental Cars</text>
+              <text x="210" y="260" fill="#94A3B8" font-size="11" text-anchor="middle">Carousels 1 & 2 · Rental Desks</text>
+            </g>
+
+            <!-- Zone: Lactation Suite -->
+            <g id="svg-zone-lactation" class="svg-map-zone cursor-pointer" onclick="window.selectSvgZone('lactation')">
+              <rect x="400" y="180" width="220" height="130" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2" />
+              <text x="510" y="240" fill="#F8FAFC" font-weight="800" font-size="13" text-anchor="middle">🤱 Mamava Lactation Suite</text>
+              <text x="510" y="260" fill="#94A3B8" font-size="11" text-anchor="middle">Private Family Care Room</text>
+            </g>
+
+            <!-- Zone: Pet Relief -->
+            <g id="svg-zone-pet" class="svg-map-zone cursor-pointer" onclick="window.selectSvgZone('pet')">
+              <rect x="640" y="180" width="220" height="130" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2" />
+              <text x="750" y="240" fill="#F8FAFC" font-weight="800" font-size="13" text-anchor="middle">🐕 Service Pet Relief</text>
+              <text x="750" y="260" fill="#94A3B8" font-size="11" text-anchor="middle">Outdoor Turf Area Door 2</text>
+            </g>
+          </svg>
+        </div>
       </div>
 
       <!-- Amenity Categories Filter -->
@@ -210,5 +265,22 @@ import { AMENITIES_DATA } from '../../data/amenities';
 
     textElem.innerText = route;
     accessElem.innerText = accessInfo;
+  };
+
+  (window as any).selectSvgZone = function(zoneId: string) {
+    const endSelect = document.getElementById('wayfind-end') as HTMLSelectElement;
+    if (endSelect) {
+      endSelect.value = zoneId;
+      (window as any).updateWayfindingPath();
+    }
+
+    const zones = document.querySelectorAll('.svg-map-zone rect');
+    zones.forEach(r => (r as HTMLElement).style.strokeWidth = '2');
+
+    const selectedRect = document.querySelector(`#svg-zone-${zoneId} rect`);
+    if (selectedRect) {
+      (selectedRect as HTMLElement).style.strokeWidth = '4';
+      (selectedRect as HTMLElement).style.stroke = '#F59E0B';
+    }
   };
 </script>

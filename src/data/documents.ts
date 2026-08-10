@@ -14,30 +14,17 @@ export interface DocumentItem {
 
 export const DOCUMENTS_DATA: DocumentItem[] = [
   {
-    id: 'doc-rfp-2026-01',
-    title: 'NRAA RFP 2026-01 Website Redesign & CMS Replacement',
+    id: 'doc-rfp-website-redesign',
+    title: 'Website Redesign, Development, Hosting Transition, and Support Services',
     category: 'RFP / Bid',
     department: 'Procurement',
     year: 2026,
     date: '2026-07-28',
-    fileSize: '3.4 MB',
+    fileSize: '428 KB',
     fileType: 'PDF',
-    description: 'Official Procurement document for Cherry Capital Airport full digital experience & Craft CMS modernization.',
-    downloadCount: 142,
-    url: '/docs/NRAA_RFP_2026-01_Website_Redesign.pdf'
-  },
-  {
-    id: 'doc-rfp-addendum-1',
-    title: 'NRAA RFP 2026-01 Addendum No. 1 — Vendor Q&A Responses',
-    category: 'RFP / Bid',
-    department: 'Procurement',
-    year: 2026,
-    date: '2026-08-10',
-    fileSize: '480 KB',
-    fileType: 'PDF',
-    description: 'Addendum addressing pre-proposal vendor inquiries submitted by August 10, 2026.',
-    downloadCount: 89,
-    url: '/docs/NRAA_RFP_2026-01_Addendum_1.pdf'
+    description: 'Official Procurement specification document for Cherry Capital Airport full digital experience & Craft CMS modernization.',
+    downloadCount: 314,
+    url: '/docs/2026-07-20_TVC_Boardroom_Audio_System_RFP-final.pdf'
   },
   {
     id: 'doc-board-packet-2026-07',

@@ -15,28 +15,28 @@ export interface Meeting {
 
 export const MEETINGS_DATA: Meeting[] = [
   {
-    id: 'mtg-2026-08-18',
-    title: 'Northwest Regional Airport Authority Regular Board Meeting',
+    id: 'mtg-2026-08-19',
+    title: 'Joint Zoning Board Meeting',
     committee: 'Full Authority Board',
-    date: '2026-08-18',
-    time: '9:00 AM ET',
+    date: '2026-08-19',
+    time: '4:00 PM ET',
     location: 'NRAA Board Room, 2nd Floor Terminal & Zoom Webinar',
     status: 'Upcoming',
-    agendaUrl: '/docs/NRAA_Agenda_2026-08-18.pdf',
-    packetUrl: '/docs/NRAA_Packet_2026-08-18.pdf',
-    description: 'Monthly regular meeting including presentation of Website Redesign proposal submissions, terminal expansion budget review, and monthly passenger traffic numbers.'
+    agendaUrl: '/docs/NRAA_Agenda_2026-08-19.pdf',
+    packetUrl: '/docs/NRAA_Packet_2026-08-19.pdf',
+    description: 'Joint Zoning Board public meeting reviewing regional airfield height overlay restrictions and Grand Traverse County zoning compliance.'
   },
   {
-    id: 'mtg-2026-08-24',
-    title: 'NRAA RFP 2026-01 Vendor Evaluation & Interview Committee Session',
-    committee: 'Executive Committee',
-    date: '2026-08-24',
-    time: '1:00 PM ET',
-    location: 'NRAA Conference Room A',
+    id: 'mtg-2026-08-25',
+    title: 'Northwest Regional Airport Authority Regular Board Meeting',
+    committee: 'Full Authority Board',
+    date: '2026-08-25',
+    time: '3:00 PM ET',
+    location: 'NRAA Board Room, 2nd Floor Terminal & Live Webcast',
     status: 'Upcoming',
-    agendaUrl: '/docs/NRAA_Agenda_2026-08-24_Special.pdf',
-    packetUrl: '/docs/NRAA_Packet_2026-08-24_Special.pdf',
-    description: 'Special evaluation session for interviewing shortlisted website redesign respondents.'
+    agendaUrl: '/docs/NRAA_Agenda_2026-08-25.pdf',
+    packetUrl: '/docs/NRAA_Packet_2026-08-25.pdf',
+    description: 'Monthly regular meeting including presentation of Website Redesign proposal submissions, Gates to the Future terminal expansion progress, and passenger traffic numbers.'
   },
   {
     id: 'mtg-2026-07-21',
