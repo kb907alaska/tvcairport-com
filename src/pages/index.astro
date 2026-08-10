@@ -17,14 +17,14 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure').slice(0, 5);
       <div class="hero-header">
         <div class="hero-tag">
           <span class="pulse-dot"></span>
-          AIRPORT PROTOTYPE · SAMPLE FLIGHT DISPLAY · NOT LIVE OPERATIONAL DATA
+          CHERRY CAPITAL AIRPORT (TVC) · TRAVERSE CITY, MI · 68°F PARTLY CLOUDY
         </div>
         <h1 class="hero-title">Your Gateway to Northern Michigan</h1>
-        <p class="hero-subtitle">Simple travel. Remarkable destination.</p>
+        <p class="hero-subtitle">Simple, stress-free passenger travel. Nonstop connections to major US hubs.</p>
 
         <!-- Traveler Quick Action Mode Bar -->
         <div class="traveler-mode-bar flex justify-center gap-3 mt-4 flex-wrap">
-          <button type="button" class="btn btn-navy btn-sm" onclick="window.activateTravelerMode('flying')">
+          <button type="button" class="btn btn-primary btn-sm" onclick="window.activateTravelerMode('flying')">
             ✈️ I’m Flying Today Mode
           </button>
           <button type="button" class="btn btn-teal btn-sm" onclick="window.activateTravelerMode('pickup')">
@@ -32,6 +32,30 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure').slice(0, 5);
           </button>
           <a href="/status" class="btn btn-outline-white btn-sm">
             📊 Airport Status Center
+          </a>
+        </div>
+
+        <!-- Quick Passenger Task Shortcuts Grid -->
+        <div class="hero-task-grid mt-6">
+          <a href="/flights" class="hero-task-chip">
+            <span class="chip-icon">🛬</span>
+            <span class="chip-text">Flight Status</span>
+          </a>
+          <a href="/parking-transportation" class="hero-task-chip">
+            <span class="chip-icon">🅿️</span>
+            <span class="chip-text">Parking Rates</span>
+          </a>
+          <a href="/parking-transportation#ground" class="hero-task-chip">
+            <span class="chip-icon">🚗</span>
+            <span class="chip-text">Ground Transport</span>
+          </a>
+          <a href="/flights/nonstop-destinations" class="hero-task-chip">
+            <span class="chip-icon">🗺️</span>
+            <span class="chip-text">Nonstop Map</span>
+          </a>
+          <a href="/airport-guide" class="hero-task-chip">
+            <span class="chip-icon">🧭</span>
+            <span class="chip-text">Terminal Guide</span>
           </a>
         </div>
       </div>
@@ -449,10 +473,42 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure').slice(0, 5);
   /* Hero Section */
   .hero-section {
     position: relative;
-    background: linear-gradient(180deg, var(--color-navy-dark) 0%, var(--color-navy) 100%);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(11, 25, 44, 0.94) 100%), url('/media/terminal/tvc-terminal-night.webp');
+    background-size: cover;
+    background-position: center center;
     color: white;
-    padding: 60px 0 80px;
+    padding: 70px 0 90px;
     overflow: hidden;
+  }
+
+  .hero-task-grid {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero-task-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    color: white;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .hero-task-chip:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   }
 
   .hero-backdrop-glow {
