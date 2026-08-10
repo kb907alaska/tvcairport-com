@@ -1,0 +1,134 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="NRAA Emergency Publishing Studio · TVC Airport Admin"
+  description="Simulated 60-second Emergency Alert Publishing Studio for Northwest Regional Airport Authority staff to test sitewide passenger advisories."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/nraa">NRAA</a> / <span>Admin Studio</span>
+      </div>
+      <h1 class="page-title">Emergency Alert Publishing Studio</h1>
+      <p class="page-intro">Simulated 60-second emergency publishing interface for NRAA staff to issue sitewide advisories across Flights, Parking, Homepage, and Mobile channels.</p>
+    </div>
+  </div>
+
+  <section class="admin-section">
+    <div class="container max-w-4xl">
+      <div class="tvc-card admin-card p-6">
+        <div class="flex justify-between items-center mb-6 pb-4 border-b">
+          <div>
+            <span class="eyebrow">CMS ADMIN PREVIEW</span>
+            <h2 class="text-xl font-bold text-navy-dark">Create & Publish Emergency Passenger Advisory</h2>
+          </div>
+          <span class="status-pill bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">
+            ● CMS Session Active
+          </span>
+        </div>
+
+        <form onsubmit="event.preventDefault(); window.publishAdvisory();" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="adv-severity" class="block text-xs font-bold text-slate-700 uppercase mb-1">Advisory Severity Level *</label>
+              <select id="adv-severity" class="w-full p-2.5 border rounded-md font-bold text-slate-800">
+                <option value="CRITICAL">🔴 CRITICAL (Severe Weather / Airport Closure)</option>
+                <option value="WARNING" selected>🟡 WARNING (Parking Lot Full / Gate Detour)</option>
+                <option value="INFO">🔵 INFO (Seasonal Flight Schedule Update)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="adv-channel" class="block text-xs font-bold text-slate-700 uppercase mb-1">Target Distribution Channels *</label>
+              <select id="adv-channel" class="w-full p-2.5 border rounded-md font-bold text-slate-800">
+                <option value="ALL">Entire Site & Mobile Banner (All Pages)</option>
+                <option value="FLIGHTS">Flight Status & Boarding Pages Only</option>
+                <option value="PARKING">Parking & Ground Transportation Only</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="adv-title" class="block text-xs font-bold text-slate-700 uppercase mb-1">Advisory Headline *</label>
+            <input type="text" id="adv-title" class="w-full p-2.5 border rounded-md font-semibold text-slate-900" value="LONG TERM PARKING LOT AT 95% CAPACITY — ECONOMY LOT RECOMMENDED" />
+          </div>
+
+          <div>
+            <label for="adv-body" class="block text-xs font-bold text-slate-700 uppercase mb-1">Passenger Guidance Message *</label>
+            <textarea id="adv-body" rows="3" class="w-full p-2.5 border rounded-md text-sm text-slate-800">Due to heavy summer leisure travel volume, the Long Term parking lot is near capacity. Departing travelers are advised to park in the Economy Lot or allow 15 additional minutes for terminal drop-off.</textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="adv-expire" class="block text-xs font-bold text-slate-700 uppercase mb-1">Smart Auto-Expiration *</label>
+              <select id="adv-expire" class="w-full p-2.5 border rounded-md font-semibold text-slate-800">
+                <option value="4">Expire Automatically in 4 Hours</option>
+                <option value="12" selected>Expire Automatically in 12 Hours</option>
+                <option value="24">Expire Automatically in 24 Hours</option>
+                <option value="MANUAL">Manual Resolution Only</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="adv-author" class="block text-xs font-bold text-slate-700 uppercase mb-1">Authorized NRAA Publisher</label>
+              <input type="text" id="adv-author" class="w-full p-2.5 border rounded-md bg-slate-100 text-slate-600 font-semibold" value="Kevin B. · Public Safety Operations" readonly />
+            </div>
+          </div>
+
+          <div class="pt-4 flex gap-3">
+            <button type="submit" class="btn btn-primary">
+              🚀 Publish Advisory Sitewide (&lt; 60 Seconds)
+            </button>
+            <button type="button" class="btn btn-outline" onclick="window.previewAdvisory()">
+              👁️ Live Preview Banner
+            </button>
+          </div>
+        </form>
+
+        <!-- Simulated Preview Box -->
+        <div id="advisory-preview" class="mt-8 p-4 bg-amber-50 rounded-xl border border-amber-300 hidden">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-xs font-black text-amber-800 uppercase tracking-wide">LIVE ADVISORY BANNER PREVIEW</span>
+            <span class="text-xs text-amber-700 font-semibold">Auto-Expiring in 12h</span>
+          </div>
+          <h4 class="font-bold text-amber-950 text-base" id="prev-head">LONG TERM PARKING LOT AT 95% CAPACITY</h4>
+          <p class="text-xs text-amber-900 mt-1" id="prev-text">Due to heavy summer leisure travel volume, the Long Term parking lot is near capacity. Departing travelers are advised to park in the Economy Lot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 44px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 8px; }
+  .breadcrumb a { color: #CBD5E1; text-decoration: none; }
+  .page-title { font-size: 2.2rem; color: white; font-weight: 800; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .admin-section { padding: 48px 0 80px; background: #F8FAFC; }
+</style>
+
+<script>
+  (window as any).previewAdvisory = function() {
+    const head = (document.getElementById('adv-title') as HTMLInputElement)?.value;
+    const body = (document.getElementById('adv-body') as HTMLTextAreaElement)?.value;
+
+    const box = document.getElementById('advisory-preview');
+    const headEl = document.getElementById('prev-head');
+    const bodyEl = document.getElementById('prev-text');
+
+    if (box && headEl && bodyEl) {
+      headEl.innerText = head;
+      bodyEl.innerText = body;
+      box.classList.remove('hidden');
+    }
+  };
+
+  (window as any).publishAdvisory = function() {
+    (window as any).previewAdvisory();
+    alert('✅ EMERGENCY ADVISORY PUBLISHED! Advisory is now live across targeted passenger channels with smart auto-expiration.');
+  };
+</script>

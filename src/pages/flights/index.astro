@@ -29,6 +29,56 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure');
         <a href="/flights/nonstop-destinations" class="subnav-btn">🗺️ Nonstop Route Map</a>
       </div>
 
+      <!-- Interactive Preflight "When Should I Leave?" Calculator -->
+      <div class="leave-time-card tvc-card mb-8">
+        <div class="flex justify-between items-center flex-wrap gap-4 mb-3">
+          <div>
+            <span class="eyebrow">PREFLIGHT TIME CALCULATOR</span>
+            <h2 class="text-xl font-bold text-navy-dark">⏱️ "When Should I Leave for TVC?" Calculator</h2>
+          </div>
+          <span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded">Drive + Parking + TSA Buffer</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label for="calc-origin" class="text-xs font-bold text-slate-600 block mb-1">Your Starting Location:</label>
+            <select id="calc-origin" class="w-full p-2 border rounded-md font-bold text-slate-800" onchange="window.calculateLeaveTime()">
+              <option value="15">Downtown Traverse City (15 min drive)</option>
+              <option value="35">Sleeping Bear / Glen Arbor (35 min drive)</option>
+              <option value="45">Charlevoix / Petoskey Area (45 min drive)</option>
+              <option value="60">Cadillac / Gaylord Region (60 min drive)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="calc-flight-time" class="text-xs font-bold text-slate-600 block mb-1">Scheduled Flight Departure Time:</label>
+            <select id="calc-flight-time" class="w-full p-2 border rounded-md font-bold text-slate-800" onchange="window.calculateLeaveTime()">
+              <option value="14:55">2:55 PM (UA 1892 to Chicago)</option>
+              <option value="15:45">3:45 PM (DL 1402 to Detroit)</option>
+              <option value="16:20">4:20 PM (AA 2109 to Charlotte)</option>
+              <option value="18:00">6:00 PM (G4 805 to Punta Gorda)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="calc-baggage" class="text-xs font-bold text-slate-600 block mb-1">Checked Baggage Status:</label>
+            <select id="calc-baggage" class="w-full p-2 border rounded-md font-bold text-slate-800" onchange="window.calculateLeaveTime()">
+              <option value="30">Checking Bags (Need 90 min airport buffer)</option>
+              <option value="15" selected>Carry-On Only / PreCheck (60 min airport buffer)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="leave-result-box" class="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200 flex justify-between items-center flex-wrap gap-2">
+          <div>
+            <span class="text-xs font-bold text-emerald-800 uppercase block">RECOMMENDED DEPARTURE HOME TIME</span>
+            <div class="text-2xl font-black text-emerald-950 mt-0.5" id="leave-result-time">Leave home by 1:20 PM EST</div>
+            <p class="text-xs text-emerald-800 mt-1" id="leave-result-breakdown">Includes 15 min drive + 10 min parking & walk + 60 min airport security & boarding buffer.</p>
+          </div>
+          <a href="/parking-transportation" class="btn btn-navy btn-sm">Park & Arrive Guidance →</a>
+        </div>
+      </div>
+
       <!-- Controls & Filters Container -->
       <div class="filter-toolbar tvc-card">
         <div class="toolbar-left">
@@ -502,5 +552,28 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure');
   (window as any).closeFlightModal = function() {
     const modal = document.getElementById('flight-modal');
     if (modal) modal.style.display = 'none';
+  };
+
+  (window as any).calculateLeaveTime = function() {
+    const originMins = parseInt((document.getElementById('calc-origin') as HTMLSelectElement)?.value || '15', 10);
+    const flightTimeVal = (document.getElementById('calc-flight-time') as HTMLSelectElement)?.value || '14:55';
+    const baggageMins = parseInt((document.getElementById('calc-baggage') as HTMLSelectElement)?.value || '15', 10);
+
+    const [hrs, mins] = flightTimeVal.split(':').map(Number);
+    const totalBufferMins = originMins + baggageMins + 45; // 45 min parking & TSA
+
+    const depDate = new Date();
+    depDate.setHours(hrs, mins, 0, 0);
+
+    const leaveDate = new Date(depDate.getTime() - (totalBufferMins * 60 * 1000));
+    const leaveTimeStr = leaveDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const resultTime = document.getElementById('leave-result-time');
+    const resultBreakdown = document.getElementById('leave-result-breakdown');
+
+    if (resultTime && resultBreakdown) {
+      resultTime.innerText = `Leave home by ${leaveTimeStr} EST`;
+      resultBreakdown.innerText = `Includes ${originMins} min drive + ${baggageMins} min baggage/check-in buffer + 45 min parking, TSA security & gate boarding buffer.`;
+    }
   };
 </script>
