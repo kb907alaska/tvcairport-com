@@ -46,18 +46,21 @@ Functional MVP design prototype developed by **FOURAK** for the **Northwest Regi
 
 ---
 
-## 📱 Prototype Interactive Routes (23 Total)
+## 📱 Prototype Interactive Routes (25 Total)
 
 | Page / Route | Path | Description |
 | :--- | :--- | :--- |
-| **Homepage Airport Dashboard** | [`/`](https://tvcairport-com.pages.dev/) | 375px-first airport dashboard with live flights, task shortcuts, parking rates, and travel advisories. |
-| **Live Flight Status Board** | [`/flights`](https://tvcairport-com.pages.dev/flights) | Real-time arrivals & departures board with flight code/city search and carrier filters. |
+| **Homepage Airport Dashboard** | [`/`](https://tvcairport-com.pages.dev/) | 375px-first airport dashboard with atmospheric terminal night hero background, live status pill, quick task chips, and interactive flight search. |
+| **Airport Status Center** | [`/status`](https://tvcairport-com.pages.dev/status) | 🔥 Real-time operational status center tracking airfield state, parking capacity gauges, METAR weather, and digital service uptime. |
+| **Emergency Publishing Studio** | [`/admin/alert-publisher`](https://tvcairport-com.pages.dev/admin/alert-publisher) | 🔥 Simulated 60-second emergency publishing interface for NRAA staff to test sitewide passenger advisories. |
+| **Live Flight Status Board** | [`/flights`](https://tvcairport-com.pages.dev/flights) | Real-time arrivals & departures board with "When Should I Leave?" preflight calculator and flight detail modal. |
 | **Airlines Directory** | [`/flights/airlines`](https://tvcairport-com.pages.dev/flights/airlines) | Directory for Delta, American, United, Allegiant, and Sun Country. |
-| **Nonstop Route Map** | [`/flights/nonstop-destinations`](https://tvcairport-com.pages.dev/flights/nonstop-destinations) | Interactive route map & filterable city directory for 12 year-round and seasonal nonstops. |
-| **Parking & Transportation** | [`/parking-transportation`](https://tvcairport-com.pages.dev/parking-transportation) | Interactive parking rate fee calculator, SVG terminal parking map, rental cars, and rideshare. |
+| **Nonstop Route Map** | [`/flights/nonstop-destinations`](https://tvcairport-com.pages.dev/flights/nonstop-destinations) | Interactive route map with month-by-month seasonal calendar picker for 12 year-round and seasonal nonstops. |
+| **Parking & Transportation** | [`/parking-transportation`](https://tvcairport-com.pages.dev/parking-transportation) | Interactive parking rate fee calculator, ground transportation filter bar, and 1-click emergency parking assistance button. |
 | **Why Fly TVC Calculator** | [`/why-tvc`](https://tvcairport-com.pages.dev/why-tvc) | Interactive **Drive vs. Fly Savings Calculator** comparing time/gas/parking against DTW and ORD. |
-| **Terminal Guide & Amenities** | [`/airport-guide`](https://tvcairport-com.pages.dev/airport-guide) | Searchable directory of airport dining, shopping, lactation suites, pet relief, and TSA lanes. |
-| **Accessibility & TSA Cares** | [`/airport-guide/accessibility`](https://tvcairport-com.pages.dev/airport-guide/accessibility) | WCAG 2.2 AA hub with TSA Cares, wheelchair request procedures, and alternative format forms. |
+| **Terminal Guide & Amenities** | [`/airport-guide`](https://tvcairport-com.pages.dev/airport-guide) | Searchable directory of airport dining, shopping, Mamava lactation suite, and "Where Am I?" Interactive Step-by-Step Wayfinder. |
+| **Accessibility & TSA Cares** | [`/airport-guide/accessibility`](https://tvcairport-com.pages.dev/airport-guide/accessibility) | WCAG 2.2 AA hub with TSA checkpoint wait time gauge, TSA Cares, wheelchair request procedures, and alternative format forms. |
+| **Lost & Found Router** | [`/lost-and-found`](https://tvcairport-com.pages.dev/lost-and-found) | 🔥 Interactive Decision Tree Wizard routing misplaced items to Airlines, TSA Vault, Terminal Police, or Rental Desks. |
 | **Corporate Travel & FBO** | [`/business-travel`](https://tvcairport-com.pages.dev/business-travel) | Executive travel services and Avflight General Aviation FBO radio/runway specs. |
 | **Explore Northern Michigan** | [`/visit-northern-michigan`](https://tvcairport-com.pages.dev/visit-northern-michigan) | Regional gateway highlighting Traverse City, Sleeping Bear Dunes, golf, and lakes. |
 | **NRAA Governance Portal** | [`/nraa`](https://tvcairport-com.pages.dev/nraa) | Northwest Regional Airport Authority overview, Board of Directors, and leadership. |
