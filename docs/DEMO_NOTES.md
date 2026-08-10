@@ -1,6 +1,6 @@
 # TVC Interactive MVP Prototype Demo Notes
 
-**Demo Target**: `https://tvcairport-com.pages.dev/`  
+**Live Demo URL**: [https://tvcairport-com.pages.dev/](https://tvcairport-com.pages.dev/)  
 **Prepared For**: Northwest Regional Airport Authority (NRAA) Evaluators  
 
 ---
