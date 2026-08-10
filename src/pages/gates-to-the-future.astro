@@ -29,6 +29,12 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
+      <!-- Architectural Rendering Showcase -->
+      <div class="rendering-hero-box tvc-card mb-8 text-center">
+        <img src="/media/gates-to-the-future/Gates-to-the-Future-Rendering.jpg" alt="Official Gates to the Future Terminal Expansion Architectural Rendering" class="official-rendering-img" width="1080" height="608" />
+        <p class="rendering-caption mt-2"><strong>Official Architectural Rendering</strong>: Northwest Regional Airport Authority Terminal Expansion Initiative.</p>
+      </div>
+
       <!-- Expansion Overview Cards -->
       <div class="overview-grid mb-12">
         <div class="tvc-card">
@@ -118,6 +124,9 @@ import Layout from '../layouts/Layout.astro';
   .adv-icon { font-size: 2rem; }
   .passenger-advisory h3 { font-size: 1.15rem; color: #92400E; margin-bottom: 4px; }
   .passenger-advisory p { font-size: 0.88rem; color: #78350F; }
+
+  .official-rendering-img { width: 100%; height: auto; border-radius: 10px; border: 1px solid #E2E8F0; }
+  .rendering-caption { font-size: 0.84rem; color: var(--color-text-muted); }
 
   .overview-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
   @media (min-width: 768px) { .overview-grid { grid-template-columns: repeat(3, 1fr); } }

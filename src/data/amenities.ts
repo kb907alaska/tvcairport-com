@@ -20,7 +20,7 @@ export const AMENITIES_DATA: Amenity[] = [
     securityState: 'Post-Security',
     hours: '5:00 AM – Last Departure',
     description: 'Featuring local Northern Michigan craft beer on tap, regional wines, artisan sandwiches, fresh breakfast items, and local Traverse City cherry treats.',
-    image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80',
+    image: '/media/terminal/tvc-terminal-night.webp',
     icon: 'utensils',
     features: ['Local Craft Beer', 'Made-to-Order Breakfast', 'Take-on-board Meals', 'Power Outlets']
   },
@@ -32,7 +32,7 @@ export const AMENITIES_DATA: Amenity[] = [
     securityState: 'Pre-Security',
     hours: '5:00 AM – 7:00 PM Daily',
     description: 'Grab-and-go espresso drinks, newsstand items, travel essentials, magazines, and authentic Traverse City cherry souvenirs.',
-    image: 'https://images.unsplash.com/photo-1534723452862-4c874018d66d?auto=format&fit=crop&w=600&q=80',
+    image: '/media/northern-michigan/tc-visitors-bureau.jpg',
     icon: 'shopping-bag',
     features: ['Fresh Coffee', 'Local Cherry Products', 'Magazines & Books', 'Travel Electronics']
   },
@@ -44,7 +44,7 @@ export const AMENITIES_DATA: Amenity[] = [
     securityState: 'Pre-Security',
     hours: 'Operates during all scheduled departures',
     description: 'Dedicated expedited security screening lane for enrolled TSA PreCheck travelers.',
-    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80',
+    image: '/media/airport/Real-ID.webp',
     icon: 'shield-check',
     features: ['Expedited Screening', 'Shoes Stay On', 'Laptops Stay in Bag']
   },
@@ -56,7 +56,7 @@ export const AMENITIES_DATA: Amenity[] = [
     securityState: 'Post-Security',
     hours: '24/7 Terminal Access',
     description: 'Private, clean, lockable lactation suite equipped with comfortable seating, power outlets, changing station, and soothing lighting.',
-    image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=600&q=80',
+    image: '/media/terminal/tvc-terminal-night.webp',
     icon: 'baby',
     features: ['Private & Lockable', 'Power & USB Ports', 'Changing Table', 'ADA Accessible']
   },
@@ -68,7 +68,7 @@ export const AMENITIES_DATA: Amenity[] = [
     securityState: 'Both',
     hours: '24/7 Access',
     description: 'Designated artificial turf pet relief areas with waste disposal bags, hand sanitizer, and freshwater dispensers.',
-    image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80',
+    image: '/media/airport/tvc-sign-A9736_1.jpg',
     icon: 'dog',
     features: ['Synthetic Turf', 'Waste Receptacles', 'Hand Sanitizer', 'ADA Accessible']
   },
@@ -80,7 +80,7 @@ export const AMENITIES_DATA: Amenity[] = [
     securityState: 'Pre-Security',
     hours: '24/7 Operations',
     description: 'Full-service fixed-base operator providing jet fuel, hangar storage, pilot lounge, executive transport, and charter support.',
-    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80',
+    image: '/media/aircraft/tvc-airport-plane.jpg',
     icon: 'plane-tail',
     features: ['Jet A & 100LL Fuel', 'Heated Hangar Space', 'Executive Conference Room', 'Crew Cars']
   }
