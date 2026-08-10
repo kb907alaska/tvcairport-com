@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const NEWS_ARTICLES = [
+  {
+    id: 'news-1',
+    title: 'Northwest Regional Airport Authority Announces Terminal Expansion Project "Gates to the Future"',
+    category: 'Capital Improvement',
+    date: 'August 04, 2026',
+    summary: 'The NRAA Board of Directors has approved phase 1 engineering plans for a multi-gate terminal expansion adding modern passenger hold rooms, expanded concessions, and enhanced TSA security screening lanes.',
+    link: '/gates-to-the-future'
+  },
+  {
+    id: 'news-2',
+    title: 'Cherry Capital Airport Reaches Record Passenger Growth for Summer Season',
+    category: 'Air Service',
+    date: 'July 18, 2026',
+    summary: 'TVC welcomed over 120,000 passengers in June and July across 12 year-round and seasonal nonstop carrier destinations served by American, Delta, United, Allegiant, and Sun Country.',
+    link: '/flights/nonstop-destinations'
+  },
+  {
+    id: 'news-3',
+    title: 'NRAA Issues RFP 2026-01 for Website Redesign & Modernization',
+    category: 'Procurement',
+    date: 'July 01, 2026',
+    summary: 'The Northwest Regional Airport Authority is soliciting proposals from qualified digital agencies for the complete redesign, development, hosting transition, and support of tvcairport.com.',
+    link: '/business-opportunities'
+  }
+];
+---
+
+<Layout
+  title="Airport News & Operational Advisories · TVC Airport"
+  description="Stay informed with official Cherry Capital Airport press releases, operational notices, terminal expansion updates, and Northwest Regional Airport Authority advisories."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>News & Advisories</span>
+      </div>
+      <h1 class="page-title">Airport News & Advisories</h1>
+      <p class="page-intro">Official press releases, operational notices, and administrative announcements from Cherry Capital Airport (TVC).</p>
+    </div>
+  </div>
+
+  <section class="news-section">
+    <div class="container">
+      <div class="news-grid">
+        <!-- Articles List -->
+        <div class="news-articles">
+          {NEWS_ARTICLES.map((article) => (
+            <article class="news-card tvc-card mb-6">
+              <div class="news-meta">
+                <span class="news-cat">{article.category}</span>
+                <span class="news-date">{article.date}</span>
+              </div>
+              <h2 class="news-title">{article.title}</h2>
+              <p class="news-summary">{article.summary}</p>
+              <div class="news-action mt-4">
+                <a href={article.link} class="btn btn-outline btn-sm">Read Full Story →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- Sidebar Widget -->
+        <div class="news-sidebar">
+          <div class="tvc-card mb-6">
+            <span class="badge-tag">Media Contacts</span>
+            <h3 class="side-title">Press & Media Relations</h3>
+            <p class="side-text">For official press inquiries, interview requests, or airport media filming permits:</p>
+            <div class="media-contact-box mt-3">
+              <strong>Autumn MacClaren</strong><br />
+              Director of Air Service Development & Marketing<br />
+              <a href="mailto:autumn.macclaren@tvcairport.com">autumn.macclaren@tvcairport.com</a><br />
+              Phone: (231) 947-2250
+            </div>
+          </div>
+
+          <div class="tvc-card">
+            <span class="badge-tag">Stay Informed</span>
+            <h3 class="side-title">Public Meetings & Records</h3>
+            <p class="side-text">View upcoming NRAA board meetings, agendas, downloadable packets, and official public notices.</p>
+            <a href="/nraa/meetings" class="btn btn-primary btn-sm mt-3 w-100">View Board Calendar →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 44px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; font-weight: 800; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; max-width: 760px; line-height: 1.6; }
+
+  .news-section { padding: 60px 0; background: #F8FAFC; }
+  .news-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 32px; }
+  @media (min-width: 850px) { .news-grid { grid-template-columns: 1fr 340px; align-items: start; } }
+
+  .news-card { background: white; padding: 28px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+  .mb-6 { margin-bottom: 24px; }
+  .mt-4 { margin-top: 16px; }
+  .mt-3 { margin-top: 12px; }
+  .w-100 { width: 100%; text-align: center; display: block; }
+
+  .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; }
+  .news-cat { color: var(--color-teal); text-transform: uppercase; letter-spacing: 0.5px; }
+  .news-date { color: var(--color-text-muted); }
+  .news-title { font-size: 1.4rem; color: var(--color-navy-dark); font-weight: 800; margin-bottom: 8px; line-height: 1.3; }
+  .news-summary { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; }
+
+  .badge-tag { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--color-teal); letter-spacing: 1px; }
+  .side-title { font-size: 1.2rem; color: var(--color-navy-dark); font-weight: 800; margin-top: 4px; margin-bottom: 6px; }
+  .side-text { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; }
+  .media-contact-box { font-size: 0.82rem; color: var(--color-navy); background: #F1F5F9; padding: 12px; border-radius: 8px; line-height: 1.5; }
+  .media-contact-box a { color: var(--color-teal); text-decoration: none; font-weight: 600; }
+</style>

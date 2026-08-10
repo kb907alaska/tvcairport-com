@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact Us & Airport Directory · TVC Cherry Capital Airport"
+  description="Contact Northwest Regional Airport Authority administration, lost and found, public safety, media relations, or send a general passenger feedback inquiry."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Contact</span>
+      </div>
+      <h1 class="page-title">Contact Cherry Capital Airport</h1>
+      <p class="page-intro">We are here to assist with passenger inquiries, administrative services, accessibility coordination, and regional airport operations.</p>
+    </div>
+  </div>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Directory Cards -->
+        <div class="contact-info">
+          <div class="tvc-card mb-6">
+            <h3 class="card-title">📍 Airport Location & Address</h3>
+            <p class="address-text">
+              <strong>Northwest Regional Airport Authority</strong><br />
+              Cherry Capital Airport (TVC)<br />
+              727 Fly Don't Drive<br />
+              Traverse City, MI 49686
+            </p>
+            <div class="info-row">
+              <span class="info-label">Main Administration Phone:</span>
+              <a href="tel:2319472250" class="info-link">(231) 947-2250</a>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Administration Hours:</span>
+              <span class="info-val">Monday – Friday: 8:00 AM – 5:00 PM ET</span>
+            </div>
+          </div>
+
+          <div class="tvc-card mb-6">
+            <h3 class="card-title">📞 Department Directory</h3>
+            <div class="dept-list">
+              <div class="dept-item">
+                <div class="dept-name">TSA Security & Passenger Screening</div>
+                <div class="dept-contact">TSA Cares Help Desk: <a href="tel:8557872227">(855) 787-2227</a></div>
+              </div>
+              <div class="dept-item">
+                <div class="dept-name">Airport Public Safety & Police</div>
+                <div class="dept-contact">Non-Emergency dispatch: <a href="tel:2319472250">(231) 947-2250</a> · Emergency: 911</div>
+              </div>
+              <div class="dept-item">
+                <div class="dept-name">Lost & Found (Terminal Items)</div>
+                <div class="dept-contact">NRAA Administrative Office: <a href="tel:2319472250">(231) 947-2250</a></div>
+              </div>
+              <div class="dept-item">
+                <div class="dept-name">General Aviation FBO (Avflight TVC)</div>
+                <div class="dept-contact">Flight Desk: <a href="tel:2319470200">(231) 947-0200</a></div>
+              </div>
+              <div class="dept-item">
+                <div class="dept-name">Air Service & Marketing</div>
+                <div class="dept-contact">Email: <a href="mailto:autumn.macclaren@tvcairport.com">autumn.macclaren@tvcairport.com</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="tvc-card contact-form-card">
+          <span class="badge-tag">Get In Touch</span>
+          <h2 class="form-heading">Send Us a Message</h2>
+          <p class="form-sub">For flight status or ticket changes, please contact your airline directly. For airport questions or feedback, submit below.</p>
+
+          <form id="contactForm" onsubmit="event.preventDefault(); window.submitContactForm();">
+            <div class="form-group mb-4">
+              <label for="contactName">Your Full Name *</label>
+              <input type="text" id="contactName" class="form-input" required placeholder="e.g. Michael Smith" />
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="contactEmail">Email Address *</label>
+              <input type="email" id="contactEmail" class="form-input" required placeholder="michael@example.com" />
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="contactCategory">Inquiry Category *</label>
+              <select id="contactCategory" class="form-select" required>
+                <option value="">Select a category...</option>
+                <option value="General Information">General Airport Question</option>
+                <option value="Parking & Transportation">Parking & Ground Transportation</option>
+                <option value="Accessibility Services">Accessibility & Special Assistance</option>
+                <option value="Lost and Found">Lost & Found Inquiry</option>
+                <option value="NRAA Board Governance">NRAA Board & Public Records</option>
+                <option value="Media & Press Relations">Media / Press Inquiry</option>
+              </select>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="contactSubject">Subject *</label>
+              <input type="text" id="contactSubject" class="form-input" required placeholder="Brief topic summary..." />
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="contactMessage">Your Message *</label>
+              <textarea id="contactMessage" class="form-textarea" rows="5" required placeholder="How can our airport team assist you today?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  (window as any).submitContactForm = function() {
+    alert('Thank you for contacting Cherry Capital Airport (TVC)! Your message has been received by NRAA Customer Service and a team member will respond shortly.');
+    const form = document.getElementById('contactForm') as HTMLFormElement;
+    if (form) form.reset();
+  };
+</script>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 44px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; font-weight: 800; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; max-width: 760px; line-height: 1.6; }
+
+  .contact-section { padding: 60px 0; background: #F8FAFC; }
+  .contact-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 32px; }
+  @media (min-width: 900px) { .contact-grid { grid-template-columns: 1fr 1.1fr; align-items: start; } }
+
+  .tvc-card { background: white; padding: 28px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+  .mb-6 { margin-bottom: 24px; }
+  .mb-4 { margin-bottom: 16px; }
+  .w-100 { width: 100%; }
+
+  .card-title { font-size: 1.25rem; color: var(--color-navy-dark); font-weight: 800; margin-bottom: 12px; }
+  .address-text { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 14px; }
+
+  .info-row { display: flex; flex-direction: column; gap: 2px; font-size: 0.86rem; margin-bottom: 6px; }
+  .info-label { font-weight: 700; color: var(--color-navy); }
+  .info-link { color: var(--color-teal); font-weight: 700; text-decoration: none; }
+  .info-val { color: var(--color-text-muted); }
+
+  .dept-list { display: flex; flex-direction: column; gap: 12px; }
+  .dept-item { border-bottom: 1px solid #F1F5F9; padding-bottom: 10px; }
+  .dept-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .dept-name { font-size: 0.9rem; font-weight: 700; color: var(--color-navy-dark); }
+  .dept-contact { font-size: 0.82rem; color: var(--color-text-muted); }
+  .dept-contact a { color: var(--color-teal); text-decoration: none; font-weight: 600; }
+
+  .contact-form-card { background: white; }
+  .badge-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-teal); letter-spacing: 1px; }
+  .form-heading { font-size: 1.8rem; color: var(--color-navy-dark); font-weight: 800; margin-top: 4px; margin-bottom: 6px; }
+  .form-sub { font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 20px; line-height: 1.5; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.82rem; font-weight: 700; color: var(--color-navy); }
+  .form-input, .form-select, .form-textarea { padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--color-teal); outline: none; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15); }
+</style>

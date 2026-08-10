@@ -1,0 +1,127 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const FAQS = [
+  {
+    category: 'TSA & Security',
+    q: 'How early should I arrive before my flight at TVC?',
+    a: 'We recommend arriving 90 minutes prior to domestic flight departure times during peak summer travel and 60 minutes during off-peak seasons. This provides comfortable time for baggage check-in, TSA security screening, and gate boarding.'
+  },
+  {
+    category: 'TSA & Security',
+    q: 'Does TVC have dedicated TSA PreCheck lanes?',
+    a: 'Yes! TVC features dedicated TSA PreCheck screening lanes for eligible passengers. Checkpoint wait times at TVC average under 10 minutes.'
+  },
+  {
+    category: 'Parking',
+    q: 'Can I reserve parking in advance?',
+    a: 'Parking at TVC is available on a first-come, first-served basis across Short Term, Long Term, and Economy lots. All lots are located within a 1 to 4 minute walk to the main terminal building.'
+  },
+  {
+    category: 'Parking',
+    q: 'What are the daily parking rates?',
+    a: 'Short Term parking is $22.00/day max; Long Term parking is $16.00/day max; Economy parking is $12.00/day max. Free parking for the first 15 minutes is provided in Short Term for passenger drop-off.'
+  },
+  {
+    category: 'Pets & Animals',
+    q: 'Where are pet relief areas located?',
+    a: 'TVC provides a dedicated post-security pet relief room inside the main concourse near Gate 4, as well as an outdoor designated relief lawn adjacent to the main terminal entrance.'
+  },
+  {
+    category: 'Accessibility',
+    q: 'How do I request wheelchair assistance?',
+    a: 'Wheelchair and special assistance can be requested through your airline when booking or at airport check-in counters. You can also coordinate with TSA Cares 72 hours prior to flight departure.'
+  },
+  {
+    category: 'Baggage',
+    q: 'Where is baggage claim located?',
+    a: 'Baggage claim carousels are located on the main ground level of the terminal building, directly accessible from the main entrance doors.'
+  }
+];
+---
+
+<Layout
+  title="Passenger FAQ & Frequently Asked Questions · TVC Airport"
+  description="Find quick answers to common passenger questions regarding flight check-in, TSA security, parking rates, pet relief, baggage, and accessibility services."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>FAQ</span>
+      </div>
+      <h1 class="page-title">Passenger Frequently Asked Questions</h1>
+      <p class="page-intro">Quick answers to common questions about traveling through Cherry Capital Airport.</p>
+    </div>
+  </div>
+
+  <section class="faq-section">
+    <div class="container">
+      <!-- Search Filter -->
+      <div class="faq-search-box tvc-card mb-8">
+        <label for="faqSearchInput" class="sr-only">Search FAQ questions</label>
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="faqSearchInput"
+            class="faq-search-input"
+            placeholder="Search FAQ by keyword (e.g. parking, TSA, pets, baggage)..."
+            onkeyup="window.filterFAQs()"
+          />
+        </div>
+      </div>
+
+      <!-- FAQ List -->
+      <div class="faq-list">
+        {FAQS.map((faq, index) => (
+          <div class="faq-card tvc-card mb-4" data-category={faq.category} data-text={`${faq.q} ${faq.a}`}>
+            <div class="faq-category-badge">{faq.category}</div>
+            <h3 class="faq-question">{faq.q}</h3>
+            <p class="faq-answer">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  (window as any).filterFAQs = function() {
+    const input = document.getElementById('faqSearchInput') as HTMLInputElement;
+    const filter = input ? input.value.toLowerCase() : '';
+    const cards = document.querySelectorAll('.faq-card');
+
+    cards.forEach(card => {
+      const text = card.getAttribute('data-text') || '';
+      if (text.toLowerCase().includes(filter)) {
+        (card as HTMLElement).style.display = 'block';
+      } else {
+        (card as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+</script>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 44px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; font-weight: 800; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; max-width: 760px; line-height: 1.6; }
+
+  .faq-section { padding: 60px 0; background: #F8FAFC; }
+  .mb-8 { margin-bottom: 32px; }
+  .mb-4 { margin-bottom: 16px; }
+
+  .faq-search-box { background: white; padding: 20px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+  .search-input-wrap { display: flex; align-items: center; gap: 10px; }
+  .search-icon { font-size: 1.2rem; }
+  .faq-search-input { width: 100%; border: none; font-size: 1.05rem; outline: none; font-family: inherit; }
+
+  .faq-card { background: white; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+  .faq-category-badge { font-size: 0.72rem; font-weight: 800; color: var(--color-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .faq-question { font-size: 1.3rem; color: var(--color-navy-dark); font-weight: 800; margin-bottom: 8px; }
+  .faq-answer { font-size: 0.92rem; color: var(--color-text-muted); line-height: 1.6; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+</style>

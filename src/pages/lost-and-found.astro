@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Lost & Found Service · TVC Airport"
+  description="Report lost items at Cherry Capital Airport. Determine whether your item was left at TSA checkpoints, aboard an aircraft, or inside the main terminal building."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/airport-guide">Airport Guide</a> / <span>Lost & Found</span>
+      </div>
+      <h1 class="page-title">Lost & Found Service</h1>
+      <p class="page-intro">Find out where to inquire about lost property based on where it was misplaced within Cherry Capital Airport.</p>
+    </div>
+  </div>
+
+  <section class="lost-section">
+    <div class="container">
+      <!-- 3 Jurisdiction Guidance Cards -->
+      <div class="jurisdiction-grid mb-8">
+        <div class="tvc-card jur-card">
+          <div class="jur-icon">🛫</div>
+          <h3>Lost On an Aircraft or Gate</h3>
+          <p>Items left inside an airplane or at boarding gate seats are handled directly by the individual airline operator.</p>
+          <div class="jur-action">
+            <a href="/flights/airlines" class="btn btn-outline btn-sm">Airline Contacts Directory →</a>
+          </div>
+        </div>
+
+        <div class="tvc-card jur-card">
+          <div class="jur-icon">🛡️</div>
+          <h3>Lost At TSA Security Checkpoint</h3>
+          <p>Items left behind during security screening (jackets, laptops, IDs, belts) are secured by TSA officers.</p>
+          <div class="jur-action">
+            <a href="https://www.tsa.gov/form/inquiry-form" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">File TSA Claim Online ↗</a>
+          </div>
+        </div>
+
+        <div class="tvc-card jur-card highlight">
+          <div class="jur-icon">🏢</div>
+          <h3>Lost In Terminal or Parking</h3>
+          <p>Items found in restrooms, baggage claim, dining areas, or parking lots are logged by NRAA Public Safety.</p>
+          <div class="jur-action">
+            <a href="#claimForm" class="btn btn-primary btn-sm">Report Lost Item Below ↓</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Inquiry Form -->
+      <div id="claimForm" class="tvc-card form-box">
+        <span class="badge-tag">Terminal Lost Property</span>
+        <h2>Submit a Terminal Lost Item Report</h2>
+        <p class="sub-text">Please provide detailed descriptions (color, brand, serial number, date lost) to help our airport staff match found items.</p>
+
+        <form onsubmit="event.preventDefault(); window.submitLostItemForm();">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="ownerName">Full Name *</label>
+              <input type="text" id="ownerName" class="form-input" required placeholder="e.g. Sarah Jenkins" />
+            </div>
+
+            <div class="form-group">
+              <label for="ownerPhone">Phone Number *</label>
+              <input type="tel" id="ownerPhone" class="form-input" required placeholder="(231) 555-0144" />
+            </div>
+
+            <div class="form-group">
+              <label for="ownerEmail">Email Address *</label>
+              <input type="email" id="ownerEmail" class="form-input" required placeholder="sarah@example.com" />
+            </div>
+
+            <div class="form-group">
+              <label for="dateLost">Date Misplaced *</label>
+              <input type="date" id="dateLost" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label for="itemCategory">Item Category *</label>
+              <select id="itemCategory" class="form-select" required>
+                <option value="">Select category...</option>
+                <option value="Electronics">Electronics (Phone, Tablet, Headphones)</option>
+                <option value="ID / Wallet">ID, Driver's License, Wallet, Passport</option>
+                <option value="Clothing / Bag">Clothing, Coat, Luggage, Purse</option>
+                <option value="Keys / Glasses">Keys, Eyeglasses, Jewelry</option>
+                <option value="Other">Other Miscellaneous Item</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="locationLost">Estimated Terminal Location *</label>
+              <select id="locationLost" class="form-select" required>
+                <option value="Baggage Claim">Baggage Claim Area</option>
+                <option value="Terminal Concourse">Concourse Dining / Seating</option>
+                <option value="Parking Lot">Short / Long Term Parking Lot</option>
+                <option value="Restrooms">Terminal Restroom</option>
+                <option value="Unsure">Unsure / General Airport Property</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group mt-4 mb-4">
+            <label for="itemDescription">Item Description & Identifiers *</label>
+            <textarea id="itemDescription" class="form-textarea" rows="4" required placeholder="Specify color, brand, case style, wallpaper, unique markings, or contents..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit Lost Item Report →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  (window as any).submitLostItemForm = function() {
+    alert('Your lost item report has been logged with TVC Airport Public Safety. If an item matching your description is turned in, an officer will contact you at the provided phone number.');
+  };
+</script>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 44px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; font-weight: 800; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; max-width: 760px; line-height: 1.6; }
+
+  .lost-section { padding: 60px 0; background: #F8FAFC; }
+  .mb-8 { margin-bottom: 32px; }
+  .mb-4 { margin-bottom: 16px; }
+  .mt-4 { margin-top: 16px; }
+
+  .jurisdiction-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+  @media (min-width: 768px) { .jurisdiction-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .jur-card { background: white; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; flex-direction: column; }
+  .jur-card.highlight { border-color: var(--color-teal); background: linear-gradient(180deg, white 0%, #F0F9FF 100%); }
+  .jur-icon { font-size: 2.2rem; margin-bottom: 10px; }
+  .jur-card h3 { font-size: 1.25rem; color: var(--color-navy-dark); font-weight: 800; margin-bottom: 6px; }
+  .jur-card p { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 16px; flex-grow: 1; }
+
+  .form-box { background: white; padding: 32px; border-radius: 14px; border: 1px solid #E2E8F0; }
+  .badge-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-teal); letter-spacing: 1px; }
+  .form-box h2 { font-size: 1.8rem; color: var(--color-navy-dark); font-weight: 800; margin-top: 4px; margin-bottom: 6px; }
+  .sub-text { font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 24px; }
+
+  .form-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; }
+  @media (min-width: 768px) { .form-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.82rem; font-weight: 700; color: var(--color-navy); }
+  .form-input, .form-select, .form-textarea { padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--color-teal); outline: none; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15); }
+</style>
