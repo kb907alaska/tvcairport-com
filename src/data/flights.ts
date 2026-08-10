@@ -201,7 +201,7 @@ export const AIRLINES_DATA = [
     baggageUrl: 'https://www.aa.com/i18n/travel-info/baggage/baggage-info.jsp',
     gates: 'Gate 5',
     destinations: ['Chicago (ORD)', 'Charlotte (CLT)', 'Dallas/Fort Worth (DFW)', 'Washington (DCA)'],
-    logo: 'https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=120&q=80',
+    logo: '/images/airlines/american.png',
     description: 'Serving TVC with daily nonstops to major hubs across the US.'
   },
   {
@@ -212,7 +212,7 @@ export const AIRLINES_DATA = [
     baggageUrl: 'https://www.delta.com/us/en/baggage/overview',
     gates: 'Gates 2 & 4',
     destinations: ['Atlanta (ATL)', 'Detroit (DTW)', 'Minneapolis (MSP)', 'New York (LGA)'],
-    logo: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=120&q=80',
+    logo: '/images/airlines/delta.png',
     description: 'Providing extensive year-round connection options through Detroit and seasonal hubs.'
   },
   {
@@ -223,7 +223,7 @@ export const AIRLINES_DATA = [
     baggageUrl: 'https://www.united.com/en/us/fly/baggage.html',
     gates: 'Gate 3',
     destinations: ['Chicago (ORD)', 'Denver (DEN)', 'Newark / New York (EWR)'],
-    logo: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=120&q=80',
+    logo: '/images/airlines/united.png',
     description: 'Direct access to Midwest and Mountain regional connections daily.'
   },
   {
@@ -234,7 +234,7 @@ export const AIRLINES_DATA = [
     baggageUrl: 'https://www.allegiantair.com/baggage-info',
     gates: 'Gate 1',
     destinations: ['St. Petersburg / Tampa (PIE)', 'Punta Gorda / Fort Myers (PGD)', 'Orlando / Sanford (SFB)'],
-    logo: 'https://images.unsplash.com/photo-1520437358207-323b43b57539?auto=format&fit=crop&w=120&q=80',
+    logo: '/images/airlines/allegiant.png',
     description: 'Low-cost non-stop flights connecting TVC directly to Florida sunshine destinations.'
   },
   {
@@ -245,7 +245,7 @@ export const AIRLINES_DATA = [
     baggageUrl: 'https://www.suncountry.com/baggage',
     gates: 'Gate 4',
     destinations: ['Minneapolis / St. Paul (MSP)'],
-    logo: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=120&q=80',
+    logo: '/images/airlines/suncountry.png',
     description: 'Seasonal flights connecting Northern Michigan to the Twin Cities.'
   }
 ];

@@ -56,14 +56,7 @@ const currentPath = Astro.url.pathname;
   <div class="main-header">
     <div class="container main-header-container">
       <a href="/" class="brand-logo" aria-label="Cherry Capital Airport Home">
-        <div class="logo-mark">
-          <span class="logo-code">TVC</span>
-          <span class="logo-cherry-icon" aria-hidden="true">🍒</span>
-        </div>
-        <div class="logo-text">
-          <span class="logo-title">Cherry Capital Airport</span>
-          <span class="logo-subtitle">Traverse City, Michigan</span>
-        </div>
+        <img src="/images/logos/tvc-logo-header.png" alt="Cherry Capital Airport TVC Logo" class="official-header-logo" width="240" height="42" />
       </a>
 
       <!-- Desktop Navigation Menu -->
@@ -281,6 +274,13 @@ const currentPath = Astro.url.pathname;
     align-items: center;
     gap: 12px;
     text-decoration: none;
+  }
+
+  .official-header-logo {
+    height: 42px;
+    width: auto;
+    max-width: 240px;
+    object-fit: contain;
   }
 
   .logo-mark {
