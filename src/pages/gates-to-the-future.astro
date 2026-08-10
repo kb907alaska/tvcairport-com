@@ -58,32 +58,48 @@ import Layout from '../layouts/Layout.astro';
 
       <!-- Project Timeline Component -->
       <div class="timeline-card tvc-card mb-12">
-        <h2 class="section-title text-center mb-8">Project Timeline & Milestones</h2>
+        <div class="flex justify-between items-center flex-wrap gap-4 mb-6">
+          <div>
+            <span class="eyebrow">INTERACTIVE PROJECT TIMELINE</span>
+            <h2 class="section-title">Gates to the Future Expansion Milestones</h2>
+          </div>
+          <div class="year-slider-buttons flex gap-2">
+            <button type="button" class="year-btn px-3 py-1 text-xs font-bold border rounded" onclick="window.selectTimelineYear(2024)">2024</button>
+            <button type="button" class="year-btn px-3 py-1 text-xs font-bold border rounded" onclick="window.selectTimelineYear(2025)">2025</button>
+            <button type="button" class="year-btn active px-3 py-1 text-xs font-bold border rounded bg-navy text-white" onclick="window.selectTimelineYear(2026)">2026</button>
+            <button type="button" class="year-btn px-3 py-1 text-xs font-bold border rounded" onclick="window.selectTimelineYear(2027)">2027</button>
+          </div>
+        </div>
 
         <div class="project-timeline">
-          <div class="p-milestone completed">
+          <div class="p-milestone completed" id="year-2024">
             <span class="p-year">2024</span>
             <h4>Planning & Environmental</h4>
-            <p>FAA Environmental Assessment and FONSI clearance completed.</p>
+            <p>FAA Environmental Assessment & FONSI clearance completed.</p>
           </div>
 
-          <div class="p-milestone completed">
+          <div class="p-milestone completed" id="year-2025">
             <span class="p-year">2025</span>
             <h4>Architectural Design</h4>
             <p>Final concourse engineering and construction bid package release.</p>
           </div>
 
-          <div class="p-milestone active">
+          <div class="p-milestone active" id="year-2026">
             <span class="p-year">2026</span>
             <h4>Concourse Construction</h4>
             <p>Foundation work, jet bridge procurement, and structural steel erection.</p>
           </div>
 
-          <div class="p-milestone">
+          <div class="p-milestone" id="year-2027">
             <span class="p-year">2027</span>
             <h4>Phase 1 Opening</h4>
             <p>Commissioning new gates and opening expanded passenger concourse.</p>
           </div>
+        </div>
+
+        <div id="timeline-detail-box" class="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+          <h4 class="font-bold text-navy-dark text-sm mb-1" id="timeline-detail-title">Current Phase 3: 2026 Active Construction</h4>
+          <p class="text-xs text-slate-600" id="timeline-detail-desc">Heavy foundation work and structural steel erection in progress near Gate 4. Jet bridge delivery scheduled for October 2026.</p>
         </div>
       </div>
 
@@ -153,3 +169,40 @@ import Layout from '../layouts/Layout.astro';
   .faq-item summary { font-weight: 700; color: var(--color-navy-dark); font-size: 0.95rem; }
   .faq-item p { margin-top: 8px; font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; }
 </style>
+
+<script>
+  (window as any).selectTimelineYear = function(year: number) {
+    const btns = document.querySelectorAll('.year-btn');
+    btns.forEach(b => {
+      b.classList.remove('active', 'bg-navy', 'text-white');
+      if (b.textContent?.trim() === year.toString()) {
+        b.classList.add('active', 'bg-navy', 'text-white');
+      }
+    });
+
+    const milestones = document.querySelectorAll('.p-milestone');
+    milestones.forEach(m => m.classList.remove('active'));
+
+    const activeEl = document.getElementById(`year-${year}`);
+    if (activeEl) activeEl.classList.add('active');
+
+    const titleEl = document.getElementById('timeline-detail-title');
+    const descEl = document.getElementById('timeline-detail-desc');
+
+    if (!titleEl || !descEl) return;
+
+    if (year === 2024) {
+      titleEl.innerText = 'Phase 1 (2024): Environmental & Master Plan Clearance';
+      descEl.innerText = 'FAA Environmental Assessment completed with Finding of No Significant Impact (FONSI). Public hearings conducted with Grand Traverse & Leelanau leadership.';
+    } else if (year === 2025) {
+      titleEl.innerText = 'Phase 2 (2025): Architectural Engineering & Bid Release';
+      descEl.innerText = 'Final structural engineering, TSA security lane expansion blueprints, and trade contractor bid solicitations issued by NRAA.';
+    } else if (year === 2026) {
+      titleEl.innerText = 'Phase 3 (2026): Active Concourse Structural Construction';
+      descEl.innerText = 'Heavy foundation work and structural steel erection in progress near Gate 4. Glass jet bridge procurement underway.';
+    } else if (year === 2027) {
+      titleEl.innerText = 'Phase 4 (2027): Ribbon Cutting & Concourse Commissioning';
+      descEl.innerText = 'Commissioning 3 new passenger jet gates, expanding post-security dining, and opening full concourse expansion to passengers.';
+    }
+  };
+</script>

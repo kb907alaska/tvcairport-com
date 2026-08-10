@@ -24,6 +24,51 @@ import { AMENITIES_DATA } from '../../data/amenities';
         <a href="/airport-guide/accessibility" class="subnav-btn">♿ Accessibility & TSA Cares</a>
       </div>
 
+      <!-- Interactive "Where Am I?" Terminal Wayfinding Pathfinder -->
+      <div class="wayfinding-card tvc-card mb-8">
+        <div class="flex justify-between items-center flex-wrap gap-4 mb-4">
+          <div>
+            <span class="eyebrow">TERMINAL WAYFINDING PATHFINDER</span>
+            <h2 class="text-xl font-bold text-navy-dark">🧭 "Where Am I?" Interactive Step-by-Step Wayfinder</h2>
+          </div>
+          <label class="flex items-center gap-2 cursor-pointer bg-slate-100 px-3 py-1.5 rounded-md border">
+            <input type="checkbox" id="accessible-mode-toggle" onchange="window.updateWayfindingPath()" />
+            <span class="text-xs font-bold text-navy-dark">♿ Accessible Route Mode</span>
+          </label>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="wayfind-start" class="text-xs font-bold text-slate-500 uppercase block mb-1">Starting Point:</label>
+            <select id="wayfind-start" class="w-full p-2 border rounded-md font-bold text-slate-700" onchange="window.updateWayfindingPath()">
+              <option value="curb">Main Terminal Entrance Curb</option>
+              <option value="ticketing">Airline Check-in & Ticketing Counter</option>
+              <option value="tsa">TSA Main Security Checkpoint</option>
+              <option value="gates">Post-Security Concourse Gate 3</option>
+              <option value="baggage">Baggage Claim Hall Door 2</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="wayfind-end" class="text-xs font-bold text-slate-500 uppercase block mb-1">Destination:</label>
+            <select id="wayfind-end" class="w-full p-2 border rounded-md font-bold text-slate-700" onchange="window.updateWayfindingPath()">
+              <option value="tsa">TSA Security Checkpoint</option>
+              <option value="gates" selected>Concourse Gates 1–5 & Dining</option>
+              <option value="baggage">Baggage Claim & Rental Cars</option>
+              <option value="lactation">Mamava Lactation Suite</option>
+              <option value="pet">Service Animal Pet Relief Area</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Calculated Wayfinding Directions Output -->
+        <div class="wayfinding-result-box mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200" id="wayfinding-output">
+          <span class="text-xs font-bold text-blue-800 uppercase block mb-1">Step-by-Step Route Guidance</span>
+          <p class="text-sm font-semibold text-navy-dark" id="wayfind-text">From Ticketing → Walk 40 feet forward to TSA Security Checkpoint. Proceed through screening to Gates 1–5.</p>
+          <span class="text-xs text-muted mt-2 block" id="wayfind-access-text">Standard Direct Walk · 2 minutes · Elevators & Ramp Available</span>
+        </div>
+      </div>
+
       <!-- Amenity Categories Filter -->
       <div class="filter-toolbar tvc-card">
         <div class="category-buttons">
@@ -124,5 +169,46 @@ import { AMENITIES_DATA } from '../../data/amenities';
         (card as HTMLElement).style.display = 'none';
       }
     });
+  };
+
+  (window as any).updateWayfindingPath = function() {
+    const start = (document.getElementById('wayfind-start') as HTMLSelectElement)?.value;
+    const end = (document.getElementById('wayfind-end') as HTMLSelectElement)?.value;
+    const isAccessible = (document.getElementById('accessible-mode-toggle') as HTMLInputElement)?.checked;
+
+    const textElem = document.getElementById('wayfind-text');
+    const accessElem = document.getElementById('wayfind-access-text');
+
+    if (!textElem || !accessElem) return;
+
+    if (start === end) {
+      textElem.innerText = 'You are already at your destination!';
+      accessElem.innerText = 'No walking required.';
+      return;
+    }
+
+    let route = 'Walk forward through main hall following overhead terminal signs.';
+    let accessInfo = 'Level ground floor walking · 1 to 2 minutes';
+
+    if (start === 'curb' && end === 'gates') {
+      route = 'Main Entrance Curb → Enter Glass Doors → Turn Right to TSA Security Checkpoint → Pass Screening to Concourse Gates 1–5.';
+    } else if (start === 'ticketing' && end === 'gates') {
+      route = 'Ticketing Counters → Walk 50 feet straight to TSA Security Checkpoint → Screened Concourse Area.';
+    } else if (start === 'gates' && end === 'baggage') {
+      route = 'Concourse Gates → Walk past Cherry Capital Grill → Exit Security Glass Doors → Turn Left into Baggage Claim Hall.';
+    } else if (end === 'lactation') {
+      route = 'Pass TSA Security → Turn right towards Gate 3 → Mamava Lactation Suite is located adjacent to Restrooms.';
+      accessInfo = 'ADA accessible lockable suite with power & changing table.';
+    } else if (end === 'pet') {
+      route = 'Exit Baggage Claim Door 2 → Turn Right onto Outdoor Pedestrian Sidewalk → Pet Relief Turf Area is 30 yards ahead.';
+      accessInfo = 'Accessible concrete ramp pathway with artificial turf and waste disposal.';
+    }
+
+    if (isAccessible) {
+      accessInfo += ' ♿ Accessible Route Active: Elevator & Automatic Door Access Verified.';
+    }
+
+    textElem.innerText = route;
+    accessElem.innerText = accessInfo;
   };
 </script>

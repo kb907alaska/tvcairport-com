@@ -25,8 +25,27 @@ import Layout from '../layouts/Layout.astro';
         <a href="/business-opportunities" class="subnav-btn active">💼 Bids & RFPs Portal</a>
       </div>
 
+      <!-- Live RFP / Procurement Tracker Filter Bar -->
+      <div class="rfp-tracker-bar tvc-card mb-8">
+        <div class="flex justify-between items-center flex-wrap gap-4 mb-3">
+          <div>
+            <span class="eyebrow">LIVE SOLICITATION TRACKER</span>
+            <h2 class="text-xl font-bold text-navy-dark">NRAA Active Bids & Solicitations Tracker</h2>
+          </div>
+          <a href="mailto:procurement@tvcairport.com" class="btn btn-navy btn-sm">Register as Vendor ✉️</a>
+        </div>
+
+        <div class="rfp-status-filters flex gap-2 flex-wrap">
+          <button type="button" class="rfp-chip active text-xs font-bold px-3 py-1.5 rounded border" onclick="window.filterRFPs('ALL')">All Solicitations</button>
+          <button type="button" class="rfp-chip text-xs font-bold px-3 py-1.5 rounded border" onclick="window.filterRFPs('OPEN')">🟢 Open Solicitations</button>
+          <button type="button" class="rfp-chip text-xs font-bold px-3 py-1.5 rounded border" onclick="window.filterRFPs('QUESTIONS')">🟡 Questions Due</button>
+          <button type="button" class="rfp-chip text-xs font-bold px-3 py-1.5 rounded border" onclick="window.filterRFPs('ADDENDUM')">⚠️ Addendum Issued</button>
+          <button type="button" class="rfp-chip text-xs font-bold px-3 py-1.5 rounded border" onclick="window.filterRFPs('CLOSED')">🔴 Closed / Awarded</button>
+        </div>
+      </div>
+
       <!-- Featured Active Solicitation Card -->
-      <div class="rfp-featured-card tvc-card mb-8">
+      <div class="rfp-featured-card tvc-card mb-8" data-status="OPEN">
         <div class="rfp-status-strip">
           <span class="rfp-open-tag">SOLICITATION OPEN</span>
           <span class="rfp-num">NRAA RFP 2026-01</span>
@@ -137,4 +156,23 @@ import Layout from '../layouts/Layout.astro';
   .rfp-card h3 { font-size: 1.15rem; color: var(--color-navy-dark); margin-bottom: 6px; }
   .rfp-card p { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.4; margin-bottom: 12px; }
   .sol-date { font-size: 0.78rem; color: var(--color-text-light); font-weight: 600; }
+  .rfp-chip { background: white; color: var(--color-navy-dark); border-color: #CBD5E1; cursor: pointer; }
+  .rfp-chip.active { background: var(--color-navy); color: white; border-color: var(--color-navy); }
 </style>
+
+<script>
+  (window as any).filterRFPs = function(status: string) {
+    const chips = document.querySelectorAll('.rfp-chip');
+    chips.forEach(c => c.classList.remove('active'));
+    (event?.target as HTMLElement)?.classList.add('active');
+
+    const featured = document.querySelector('.rfp-featured-card');
+    if (featured) {
+      if (status === 'ALL' || status === 'OPEN' || status === 'ADDENDUM' || status === 'QUESTIONS') {
+        (featured as HTMLElement).style.display = 'block';
+      } else {
+        (featured as HTMLElement).style.display = 'none';
+      }
+    }
+  };
+</script>

@@ -18,6 +18,38 @@ import Layout from '../layouts/Layout.astro';
 
   <section class="lost-section">
     <div class="container">
+      <!-- Lost & Found Decision Tree Interactive Wizard -->
+      <div class="decision-wizard-card tvc-card mb-8">
+        <span class="eyebrow">INTERACTIVE DECISION TREE</span>
+        <h2 class="text-xl font-bold text-navy-dark mt-1">Where did you leave your missing item?</h2>
+        <p class="text-sm text-muted mb-4">Click your estimated location to identify the correct authority and contact protocol instantly:</p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+          <button type="button" class="wizard-btn active p-3 text-center border rounded-lg hover:border-cherry" onclick="window.selectLostLocation('plane')">
+            <span class="text-2xl block mb-1">✈️</span>
+            <strong class="text-xs text-navy-dark block">On Airplane</strong>
+          </button>
+          <button type="button" class="wizard-btn p-3 text-center border rounded-lg hover:border-cherry" onclick="window.selectLostLocation('tsa')">
+            <span class="text-2xl block mb-1">🛡️</span>
+            <strong class="text-xs text-navy-dark block">TSA Security</strong>
+          </button>
+          <button type="button" class="wizard-btn p-3 text-center border rounded-lg hover:border-cherry" onclick="window.selectLostLocation('terminal')">
+            <span class="text-2xl block mb-1">🏛️</span>
+            <strong class="text-xs text-navy-dark block">Terminal / Gate</strong>
+          </button>
+          <button type="button" class="wizard-btn p-3 text-center border rounded-lg hover:border-cherry" onclick="window.selectLostLocation('rental')">
+            <span class="text-2xl block mb-1">🚗</span>
+            <strong class="text-xs text-navy-dark block">Rental Car / Bus</strong>
+          </button>
+        </div>
+
+        <div id="wizard-routing-box" class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <h4 class="font-bold text-navy-dark text-sm" id="wizard-title">Items Left On Board an Aircraft</h4>
+          <p class="text-xs text-slate-600 mt-1" id="wizard-desc">Items left in seat pockets, overhead bins, or boarding jet bridges are turned over directly to the operating airline baggage office.</p>
+          <a href="/flights/airlines" class="btn btn-navy btn-sm mt-3 inline-block" id="wizard-link">Contact Airline Baggage Desk →</a>
+        </div>
+      </div>
+
       <!-- 3 Jurisdiction Guidance Cards -->
       <div class="jurisdiction-grid mb-8">
         <div class="tvc-card jur-card">
@@ -115,6 +147,40 @@ import Layout from '../layouts/Layout.astro';
 <script>
   (window as any).submitLostItemForm = function() {
     alert('Your lost item report has been logged with TVC Airport Public Safety. If an item matching your description is turned in, an officer will contact you at the provided phone number.');
+  };
+
+  (window as any).selectLostLocation = function(loc: 'plane' | 'tsa' | 'terminal' | 'rental') {
+    const btns = document.querySelectorAll('.wizard-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    (event?.currentTarget as HTMLElement)?.classList.add('active');
+
+    const titleElem = document.getElementById('wizard-title');
+    const descElem = document.getElementById('wizard-desc');
+    const linkElem = document.getElementById('wizard-link') as HTMLAnchorElement;
+
+    if (!titleElem || !descElem || !linkElem) return;
+
+    if (loc === 'plane') {
+      titleElem.innerText = 'Items Left On Board an Aircraft';
+      descElem.innerText = 'Items left in seat pockets, overhead bins, or boarding jet bridges are turned over directly to the operating airline baggage office.';
+      linkElem.innerText = 'Contact Airline Baggage Desk →';
+      linkElem.href = '/flights/airlines';
+    } else if (loc === 'tsa') {
+      titleElem.innerText = 'Items Left at TSA Security Checkpoint';
+      descElem.innerText = 'Jackets, belts, laptops, wallets, or IDs left behind during security screening are secured in the TSA checkpoint vault.';
+      linkElem.innerText = 'File Official TSA Claim Online ↗';
+      linkElem.href = 'https://www.tsa.gov/form/inquiry-form';
+    } else if (loc === 'terminal') {
+      titleElem.innerText = 'Items Left in Main Terminal or Parking Lots';
+      descElem.innerText = 'Items found in baggage claim, restrooms, concourse dining areas, or parking lots are logged by NRAA Public Safety officers.';
+      linkElem.innerText = 'File Terminal Lost Property Report Below ↓';
+      linkElem.href = '#claimForm';
+    } else if (loc === 'rental') {
+      titleElem.innerText = 'Items Left in Rental Cars or BATA Transit';
+      descElem.innerText = 'Items left inside rental cars or public buses are held at the local rental car agency desk in Baggage Claim.';
+      linkElem.innerText = 'View Rental Agency Contacts →';
+      linkElem.href = '/parking-transportation#ground';
+    }
   };
 </script>
 

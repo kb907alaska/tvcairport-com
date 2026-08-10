@@ -21,6 +21,19 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure').slice(0, 5);
         </div>
         <h1 class="hero-title">Your Gateway to Northern Michigan</h1>
         <p class="hero-subtitle">Simple travel. Remarkable destination.</p>
+
+        <!-- Traveler Quick Action Mode Bar -->
+        <div class="traveler-mode-bar flex justify-center gap-3 mt-4 flex-wrap">
+          <button type="button" class="btn btn-navy btn-sm" onclick="window.activateTravelerMode('flying')">
+            ✈️ I’m Flying Today Mode
+          </button>
+          <button type="button" class="btn btn-teal btn-sm" onclick="window.activateTravelerMode('pickup')">
+            🚗 I’m Picking Someone Up Mode
+          </button>
+          <a href="/status" class="btn btn-outline-white btn-sm">
+            📊 Airport Status Center
+          </a>
+        </div>
       </div>
 
       <!-- Live Flight Module Card -->
@@ -1090,14 +1103,94 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure').slice(0, 5);
   (window as any).filterHomeFlights = function() {
     const query = (document.getElementById('home-flight-filter') as HTMLInputElement)?.value.toLowerCase();
     const rows = document.querySelectorAll('.flight-row');
-
-    rows.forEach(row => {
-      const code = row.getAttribute('data-code')?.toLowerCase() || '';
-      if (code.includes(query)) {
-        (row as HTMLElement).style.display = '';
-      } else {
-        (row as HTMLElement).style.display = 'none';
-      }
+    rows.forEach((row) => {
+      const text = row.textContent?.toLowerCase() || '';
+      (row as HTMLElement).style.display = text.includes(query) ? 'grid' : 'none';
     });
   };
+
+  (window as any).activateTravelerMode = function(mode: 'flying' | 'pickup') {
+    const modalId = mode === 'flying' ? 'flying-today-modal' : 'pickup-mode-modal';
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.style.display = 'flex';
+    }
+  };
+
+  (window as any).closeTravelerModal = function(modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  };
 </script>
+
+<!-- Flying Today Mode Overlay -->
+<div id="flying-today-modal" class="tvc-modal-overlay" style="display: none;">
+  <div class="tvc-modal-card p-6 max-w-xl w-full bg-white rounded-xl shadow-2xl border border-slate-200">
+    <div class="flex justify-between items-center mb-4 pb-2 border-b">
+      <h3 class="text-xl font-bold text-navy-dark">✈️ "I'm Flying Today" Traveler Dashboard</h3>
+      <button onclick="window.closeTravelerModal('flying-today-modal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg">✕</button>
+    </div>
+    <div class="space-y-4">
+      <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+        <span class="text-xs font-bold text-blue-800 uppercase">Pre-Flight Departure Countdown</span>
+        <div class="text-2xl font-black text-navy-dark mt-1">Flight UA 1892 to Chicago (ORD)</div>
+        <p class="text-sm text-slate-600 mt-1">Scheduled Departure: <strong>2:55 PM EST</strong> · Gate 3 · Group 2 Boarding</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 text-center">
+        <div class="p-3 bg-slate-50 rounded-lg border">
+          <span class="text-xs text-slate-500 uppercase font-bold">Security Wait</span>
+          <div class="text-lg font-bold text-emerald-600">&lt; 8 Mins</div>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-lg border">
+          <span class="text-xs text-slate-500 uppercase font-bold">Long Term Parking</span>
+          <div class="text-lg font-bold text-blue-600">68% Full</div>
+        </div>
+      </div>
+      <div class="flex gap-2">
+        <a href="/parking-transportation" class="btn btn-navy btn-sm flex-1 text-center">View Parking Rates</a>
+        <a href="/airport-guide" class="btn btn-outline btn-sm flex-1 text-center">Terminal Map</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pickup Someone Up Mode Overlay -->
+<div id="pickup-mode-modal" class="tvc-modal-overlay" style="display: none;">
+  <div class="tvc-modal-card p-6 max-w-xl w-full bg-white rounded-xl shadow-2xl border border-slate-200">
+    <div class="flex justify-between items-center mb-4 pb-2 border-b">
+      <h3 class="text-xl font-bold text-navy-dark">🚗 "I'm Picking Someone Up" Mode</h3>
+      <button onclick="window.closeTravelerModal('pickup-mode-modal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg">✕</button>
+    </div>
+    <div class="space-y-4">
+      <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+        <span class="text-xs font-bold text-amber-800 uppercase">Incoming Flight Arrival Status</span>
+        <div class="text-2xl font-black text-navy-dark mt-1">DL 2841 from Detroit (DTW)</div>
+        <p class="text-sm text-slate-600 mt-1">Status: <strong class="text-amber-700">Delayed (Expected 3:05 PM)</strong> · Baggage Carousel 1</p>
+      </div>
+      <div class="p-4 bg-slate-50 rounded-lg border">
+        <h4 class="font-bold text-navy-dark text-sm mb-1">Cell Phone Waiting Lot Instructions</h4>
+        <p class="text-xs text-slate-600 line-clamp-3">Park free in the designated Cell Phone Lot off South Airport Rd. Stay in your vehicle until your passenger collects their bags and calls you from Door 2 Baggage Claim curb.</p>
+      </div>
+      <div class="flex gap-2">
+        <a href="/parking-transportation" class="btn btn-teal btn-sm flex-1 text-center">Cell Phone Lot Map</a>
+        <button type="button" class="btn btn-outline btn-sm flex-1 text-center" onclick="alert('Pickup directions copied to clipboard!')">Text Pickup Link</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tvc-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.75);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    backdrop-filter: blur(4px);
+  }
+</style>

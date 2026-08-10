@@ -1,0 +1,194 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FLIGHTS_DATA } from '../data/flights';
+
+const now = new Date();
+const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+---
+
+<Layout
+  title="Airport Operational Status Center · TVC Cherry Capital Airport"
+  description="Real-time operational status center for Cherry Capital Airport (TVC). Check airfield conditions, parking lot capacity, weather advisories, construction impacts, and system health."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Airport Status Center</span>
+      </div>
+      <div class="header-flex">
+        <div>
+          <h1 class="page-title">Airport Operational Status Center</h1>
+          <p class="page-intro">Centralized system status, airfield conditions, parking availability, weather, and construction notices.</p>
+        </div>
+        <div class="last-updated-badge">
+          <span class="pulse-green"></span>
+          Updated Today at {timeString} EST
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="status-section">
+    <div class="container">
+      <!-- Status Dashboard Grid -->
+      <div class="status-grid mb-12">
+        <!-- Airfield & Flight System Status -->
+        <div class="status-card tvc-card">
+          <div class="status-card-header">
+            <span class="status-icon green">✈️</span>
+            <div>
+              <h3>Airfield & Flight Operations</h3>
+              <span class="status-badge green">NORMAL OPERATIONS</span>
+            </div>
+          </div>
+          <p class="status-desc">Runways 10/28 and 18/36 open and clear. No FAA ground delays or weather holds currently reported at TVC.</p>
+          <div class="status-meta">
+            <span>• Active Flights: {FLIGHTS_DATA.length} scheduled</span>
+            <span>• Security Checkpoint Wait: &lt; 8 mins</span>
+          </div>
+        </div>
+
+        <!-- Parking Lot Capacity Status -->
+        <div class="status-card tvc-card">
+          <div class="status-card-header">
+            <span class="status-icon blue">🅿️</span>
+            <div>
+              <h3>Parking Lot Capacity</h3>
+              <span class="status-badge blue">SPACES AVAILABLE</span>
+            </div>
+          </div>
+          <div class="capacity-bars">
+            <div class="cap-item">
+              <div class="cap-label"><span>Short Term Lot</span><strong>42% Full</strong></div>
+              <div class="cap-bar-track"><div class="cap-bar-fill" style="width: 42%; background: #10B981;"></div></div>
+            </div>
+            <div class="cap-item">
+              <div class="cap-label"><span>Long Term Lot</span><strong>68% Full</strong></div>
+              <div class="cap-bar-track"><div class="cap-bar-fill" style="width: 68%; background: #3B82F6;"></div></div>
+            </div>
+            <div class="cap-item">
+              <div class="cap-label"><span>Economy Lot</span><strong>35% Full</strong></div>
+              <div class="cap-bar-track"><div class="cap-bar-fill" style="width: 35%; background: #10B981;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weather & Environmental Conditions -->
+        <div class="status-card tvc-card">
+          <div class="status-card-header">
+            <span class="status-icon yellow">🌤️</span>
+            <div>
+              <h3>Airport Weather & Visibility</h3>
+              <span class="status-badge green">VFR CONDITIONS</span>
+            </div>
+          </div>
+          <div class="weather-metrics">
+            <div class="w-metric"><span class="w-val">68°F</span><span class="w-lbl">Temperature</span></div>
+            <div class="w-metric"><span class="w-val">10 Mi</span><span class="w-lbl">Visibility</span></div>
+            <div class="w-metric"><span class="w-val">8 kts</span><span class="w-lbl">Wind (NW)</span></div>
+          </div>
+          <p class="status-desc mt-2">Partly cloudy sky. Ideal flying conditions for commercial and general aviation.</p>
+        </div>
+
+        <!-- Construction & Passenger Detours -->
+        <div class="status-card tvc-card">
+          <div class="status-card-header">
+            <span class="status-icon orange">🚧</span>
+            <div>
+              <h3>Gates Expansion Construction</h3>
+              <span class="status-badge yellow">ACTIVE ADVISORY</span>
+            </div>
+          </div>
+          <p class="status-desc">Construction active near Gate 4 for concourse expansion. Temporary covered walkway in place. Follow overhead signage.</p>
+          <a href="/gates-to-the-future" class="status-link">View Expansion Project Details →</a>
+        </div>
+      </div>
+
+      <!-- Public Digital Services Health -->
+      <div class="tvc-card services-health-card">
+        <h2 class="section-title text-navy-dark">Public Digital Systems & Communications Status</h2>
+        <p class="text-muted text-sm mb-6">Monitoring public website, NRAA document repository, and flight board integrations.</p>
+
+        <div class="health-grid">
+          <div class="health-item">
+            <span class="pulse-green-sm"></span>
+            <div>
+              <strong>tvcairport.com Public Site</strong>
+              <span class="text-xs text-muted block">Operational (99.98% Uptime)</span>
+            </div>
+          </div>
+
+          <div class="health-item">
+            <span class="pulse-green-sm"></span>
+            <div>
+              <strong>NRAA Document Search Engine</strong>
+              <span class="text-xs text-muted block">Operational (PDF Index Active)</span>
+            </div>
+          </div>
+
+          <div class="health-item">
+            <span class="pulse-green-sm"></span>
+            <div>
+              <strong>Public Board Meeting Portal</strong>
+              <span class="text-xs text-muted block">Operational</span>
+            </div>
+          </div>
+
+          <div class="health-item">
+            <span class="pulse-green-sm"></span>
+            <div>
+              <strong>Flight Board Integration Feed</strong>
+              <span class="text-xs text-muted block">Prototype Data Stream</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 44px 0; }
+  .header-flex { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-top: 10px; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 8px; }
+  .breadcrumb a { color: #CBD5E1; text-decoration: none; }
+  .page-title { font-size: 2.3rem; color: white; font-weight: 800; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; max-width: 680px; }
+
+  .last-updated-badge { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 700; color: #6EE7B7; display: flex; align-items: center; gap: 8px; }
+  .pulse-green { width: 10px; height: 10px; background: #10B981; border-radius: 50%; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25); }
+  .pulse-green-sm { width: 8px; height: 8px; background: #10B981; border-radius: 50%; display: inline-block; margin-top: 4px; }
+
+  .status-section { padding: 48px 0 80px; background: #F8FAFC; }
+  .status-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+  @media (min-width: 768px) { .status-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .status-card { background: white; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0; }
+  .status-card-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+  .status-icon { font-size: 1.8rem; background: #F1F5F9; padding: 10px; border-radius: 10px; }
+  .status-card-header h3 { font-size: 1.25rem; color: var(--color-navy-dark); font-weight: 800; }
+  
+  .status-badge { display: inline-block; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-top: 4px; }
+  .status-badge.green { background: #DCFCE7; color: #15803D; }
+  .status-badge.blue { background: #E0F2FE; color: #0369A1; }
+  .status-badge.yellow { background: #FEF3C7; color: #B45309; }
+
+  .status-desc { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; }
+  .status-meta { display: flex; gap: 16px; font-size: 0.82rem; font-weight: 700; color: var(--color-navy); margin-top: 12px; flex-wrap: wrap; }
+
+  .capacity-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .cap-label { display: flex; justify-content: space-between; font-size: 0.84rem; color: var(--color-navy-dark); font-weight: 600; margin-bottom: 4px; }
+  .cap-bar-track { background: #E2E8F0; height: 8px; border-radius: 4px; overflow: hidden; }
+  .cap-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+
+  .weather-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; background: #F1F5F9; padding: 12px; border-radius: 8px; text-align: center; }
+  .w-val { font-size: 1.3rem; font-weight: 900; color: var(--color-navy-dark); display: block; }
+  .w-lbl { font-size: 0.72rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700; }
+
+  .status-link { display: inline-block; margin-top: 12px; font-size: 0.85rem; font-weight: 700; color: var(--color-cherry); text-decoration: none; }
+  .status-link:hover { text-decoration: underline; }
+
+  .health-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; }
+  @media (min-width: 640px) { .health-grid { grid-template-columns: repeat(2, 1fr); } }
+  .health-item { display: flex; items-center; gap: 12px; background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0; }
+</style>

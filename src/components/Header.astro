@@ -12,6 +12,12 @@ const currentPath = Astro.url.pathname;
         </span>
       </div>
       <div class="utility-right">
+        <a href="/status" class={`utility-link ${currentPath === '/status' ? 'active' : ''}`}>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Status Center
+        </a>
         <a href="/flights" class={`utility-link ${currentPath.startsWith('/flights') ? 'active' : ''}`}>
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
