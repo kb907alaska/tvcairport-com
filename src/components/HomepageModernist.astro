@@ -1,0 +1,668 @@
+---
+import WayfindingIcon from './WayfindingIcon.astro';
+import { FLIGHTS_DATA } from '../data/flights';
+
+const arrivals = FLIGHTS_DATA.filter(f => f.type === 'arrival').slice(0, 5);
+const departures = FLIGHTS_DATA.filter(f => f.type === 'departure').slice(0, 5);
+---
+
+<div class="modernist-homepage">
+  <!-- Operational Status Bar Strip -->
+  <div class="ops-strip-banner">
+    <div class="container flex justify-between items-center flex-wrap gap-2 text-xs font-mono">
+      <div class="flex items-center gap-3">
+        <span class="status-indicator-dot"></span>
+        <strong class="text-slate-100 uppercase tracking-widest">SYSTEM STATUS / ALL OPERATIONAL</strong>
+        <span class="hidden md:inline text-slate-400">· AIRFIELD VFR CLEAR · TSA WAIT &lt; 6 MIN</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-300">
+        <span>TVC 45.7775° N / 85.5822° W</span>
+        <span class="tabular-nums font-bold text-amber-400">03:42 PM EST</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editorial Split Hero Composition -->
+  <section class="modernist-hero">
+    <div class="container">
+      <div class="hero-split-grid">
+        <!-- Left Column: Typography & Gateway Statement -->
+        <div class="hero-left-content">
+          <div class="brand-watermark-tvc">TVC</div>
+          <span class="hero-sub-label">00 / CHERRY CAPITAL AIRPORT · TRAVERSE CITY, MI</span>
+          <h1 class="hero-display-title">
+            YOUR GATEWAY<br />
+            TO NORTHERN<br />
+            MICHIGAN.
+          </h1>
+          <p class="hero-editorial-lead">
+            Direct, stress-free passenger connections linking Traverse City and the Grand Traverse region to major United States aviation hubs.
+          </p>
+
+          <!-- Direct Transportation Action Strip -->
+          <div class="directional-action-strip">
+            <a href="/flights" class="dir-chip">
+              <WayfindingIcon name="departures" size={16} />
+              <span>FLY</span>
+              <span class="dir-symbol">↑</span>
+            </a>
+            <a href="/parking-transportation" class="dir-chip">
+              <WayfindingIcon name="parking" size={16} />
+              <span>PARK</span>
+              <span class="dir-symbol">P</span>
+            </a>
+            <a href="/parking-transportation#ground" class="dir-chip">
+              <WayfindingIcon name="ground" size={16} />
+              <span>PICK UP</span>
+              <span class="dir-symbol">→</span>
+            </a>
+            <a href="/airport-guide" class="dir-chip">
+              <WayfindingIcon name="terminal" size={16} />
+              <span>TERMINAL</span>
+              <span class="dir-symbol">T</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Asymmetrical Editorial Photo Crop -->
+        <div class="hero-right-photo">
+          <div class="editorial-crop-wrapper">
+            <img src="/media/terminal/tvc-terminal-night.webp" alt="Cherry Capital Airport Terminal Building" class="editorial-img" />
+            <div class="crop-annotation">
+              <span class="ann-code">FACILITY 01</span>
+              <span class="ann-title">Main Concourse Terminal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrated Transportation FIDS Display Board -->
+  <section class="fids-board-section">
+    <div class="container">
+      <div class="fids-card-container">
+        <div class="fids-header-bar">
+          <div class="fids-title-group">
+            <span class="sec-code">01 / FLIGHT DISPLAY</span>
+            <h2 class="fids-headline">Commercial Flight Information Display (FIDS)</h2>
+          </div>
+          
+          <div class="fids-tabs">
+            <button type="button" class="fids-tab-btn active" id="fids-arr-btn" onclick="window.switchFidsTab('arr')">
+              🛬 ARRIVALS ({arrivals.length})
+            </button>
+            <button type="button" class="fids-tab-btn" id="fids-dep-btn" onclick="window.switchFidsTab('dep')">
+              🛫 DEPARTURES ({departures.length})
+            </button>
+          </div>
+        </div>
+
+        <!-- FIDS Arrivals Panel -->
+        <div id="fids-arr-panel" class="fids-panel">
+          <div class="fids-table-wrapper">
+            <table class="fids-table">
+              <thead>
+                <tr>
+                  <th>TIME</th>
+                  <th>ORIGIN</th>
+                  <th>CARRIER</th>
+                  <th>FLIGHT</th>
+                  <th>GATE</th>
+                  <th>CAROUSEL</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {arrivals.map((flight) => (
+                  <tr class="fids-row" onclick={`window.openFlightModal('${flight.flightNumber}', '${flight.airline}', '${flight.city}', '${flight.scheduledTime}', '${flight.status}', '${flight.gate}', 'Carousel 2')`}>
+                    <td class="tabular-nums font-bold text-navy-dark">{flight.scheduledTime}</td>
+                    <td><strong class="text-navy-dark">{flight.city.toUpperCase()}</strong> ({flight.cityCode})</td>
+                    <td class="font-semibold text-slate-700">{flight.airline}</td>
+                    <td class="font-mono font-bold">{flight.flightNumber}</td>
+                    <td><span class="fids-gate-pill">{flight.gate}</span></td>
+                    <td>Carousel 2</td>
+                    <td>
+                      <span class={`fids-status-marker ${flight.status === 'ON TIME' ? 'st-ontime' : 'st-delayed'}`}>
+                        {flight.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FIDS Departures Panel -->
+        <div id="fids-dep-panel" class="fids-panel" style="display: none;">
+          <div class="fids-table-wrapper">
+            <table class="fids-table">
+              <thead>
+                <tr>
+                  <th>TIME</th>
+                  <th>DESTINATION</th>
+                  <th>CARRIER</th>
+                  <th>FLIGHT</th>
+                  <th>GATE</th>
+                  <th>SECURITY</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {departures.map((flight) => (
+                  <tr class="fids-row" onclick={`window.openFlightModal('${flight.flightNumber}', '${flight.airline}', '${flight.city}', '${flight.scheduledTime}', '${flight.status}', '${flight.gate}', 'N/A')`}>
+                    <td class="tabular-nums font-bold text-navy-dark">{flight.scheduledTime}</td>
+                    <td><strong class="text-navy-dark">{flight.city.toUpperCase()}</strong> ({flight.cityCode})</td>
+                    <td class="font-semibold text-slate-700">{flight.airline}</td>
+                    <td class="font-mono font-bold">{flight.flightNumber}</td>
+                    <td><span class="fids-gate-pill">{flight.gate}</span></td>
+                    <td>Checkpoint 1</td>
+                    <td>
+                      <span class={`fids-status-marker ${flight.status === 'ON TIME' ? 'st-ontime' : 'st-delayed'}`}>
+                        {flight.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="fids-footer-bar">
+          <span class="fids-disclaimer">* Prototype live-flight experience. Production implementation connects to NRAA’s authorized flight-data feed.</span>
+          <a href="/flights" class="fids-link-btn">ALL FLIGHT SCHEDULES →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 02 / Parking Composition -->
+  <section class="modernist-parking-section">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-code">02 / PARKING & ARRIVAL</span>
+        <h2 class="sec-title">Terminal Parking Rates & Guidance</h2>
+      </div>
+
+      <div class="parking-asymmetric-grid">
+        <!-- Featured Short Term Rate Box -->
+        <div class="p-rate-featured">
+          <div class="p-rate-tag">CLOSEST TO TERMINAL</div>
+          <h3 class="p-rate-title">Short Term Parking</h3>
+          <div class="p-big-price">$18.50<span class="p-unit"> / day max</span></div>
+          <div class="p-rate-sub">$2.75 per 30 minutes · First 15 Minutes FREE</div>
+          <p class="p-rate-desc">Located 100 feet in front of main entrance doors. Ideal for passenger pick-up or stays under 4 hours.</p>
+          <a href="/parking-transportation" class="p-action-btn">SEE PARKING MAP & RATES →</a>
+        </div>
+
+        <!-- Long Term & Economy Stack -->
+        <div class="p-rate-stack">
+          <div class="p-rate-item">
+            <div>
+              <span class="p-item-badge">MOST POPULAR</span>
+              <h4>Long Term Parking</h4>
+              <p>Adjacent to covered walkway. 2–3 min walk.</p>
+            </div>
+            <div class="p-item-price">$15<span class="text-xs text-slate-500">/day</span></div>
+          </div>
+
+          <div class="p-rate-item">
+            <div>
+              <span class="p-item-badge">BEST VALUE</span>
+              <h4>Economy Parking</h4>
+              <p>Lowest daily rate for long vacation trips.</p>
+            </div>
+            <div class="p-item-price">$11<span class="text-xs text-slate-500">/day</span></div>
+          </div>
+
+          <!-- Cell Phone Waiting Lot Rule Box -->
+          <div class="p-rule-box">
+            <strong>📱 Cell Phone Lot:</strong> 100% Free waiting while passenger retrieves luggage. Driver must remain inside vehicle.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 03 / Your Journey Runway Route Line -->
+  <section class="journey-runway-section">
+    <div class="container">
+      <div class="sec-header text-center">
+        <span class="sec-code">03 / YOUR JOURNEY</span>
+        <h2 class="sec-title">Step-by-Step Passenger Flow</h2>
+      </div>
+
+      <div class="runway-track-line">
+        <div class="runway-node">
+          <span class="node-step">01</span>
+          <span class="node-title">ARRIVE & PARK</span>
+          <span class="node-desc">Terminal Curb / Lots</span>
+        </div>
+        <div class="runway-connector">────</div>
+        <div class="runway-node">
+          <span class="node-step">02</span>
+          <span class="node-title">CHECK IN</span>
+          <span class="node-desc">Airlines Counter</span>
+        </div>
+        <div class="runway-connector">────</div>
+        <div class="runway-node">
+          <span class="node-step">03</span>
+          <span class="node-title">TSA SECURITY</span>
+          <span class="node-desc">&lt; 8 Min Wait</span>
+        </div>
+        <div class="runway-connector">────</div>
+        <div class="runway-node">
+          <span class="node-step">04</span>
+          <span class="node-title">GATE BOARDING</span>
+          <span class="node-desc">Concourse Gates 1–5</span>
+        </div>
+        <div class="runway-connector">────</div>
+        <div class="runway-node active-node">
+          <span class="node-step">05</span>
+          <span class="node-title">TAKEOFF</span>
+          <span class="node-desc">Nonstop Flight</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 04 / Northern Michigan Editorial Magazine -->
+  <section class="modernist-editorial-section">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-code">04 / NORTHERN MICHIGAN</span>
+        <h2 class="sec-title">The Region Begins at TVC</h2>
+      </div>
+
+      <div class="editorial-magazine-grid">
+        <div class="mag-main-photo">
+          <img src="/media/northern-michigan/tvc-northern-michigan.jpg" alt="Northern Michigan Coastline" class="mag-img" />
+          <div class="mag-overlay-caption">
+            <span class="mag-tag">GREAT LAKES DESTINATION</span>
+            <h3>Traverse City, Sleeping Bear Dunes & Leelanau Peninsula</h3>
+          </div>
+        </div>
+
+        <div class="mag-side-content">
+          <div class="mag-quote-box">
+            <p class="mag-quote">"Cherry Capital Airport offers direct access to America’s most remarkable freshwater coastline, wineries, and year-round recreation."</p>
+          </div>
+          <a href="/visit-northern-michigan" class="mag-link-btn">EXPLORE REGIONAL DESTINATIONS →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 05 / Gates to the Future Dark Infrastructure -->
+  <section class="cinematic-gates-section">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-code text-cyan-400">05 / INFRASTRUCTURE EXPANSION</span>
+        <h2 class="sec-title text-white">Gates to the Future (2024–2027)</h2>
+      </div>
+
+      <div class="cinematic-grid">
+        <div class="cinematic-photo">
+          <img src="/media/gates-to-the-future/tvc-expansion-rendering.webp" alt="Gates to the Future Terminal Expansion Rendering" class="cinematic-img" />
+        </div>
+        <div class="cinematic-info">
+          <span class="big-year-badge">2026</span>
+          <h3 class="text-2xl font-bold text-white mb-2">Concourse Structural Construction Phase</h3>
+          <p class="text-sm text-slate-300 mb-4">Expanding passenger gate capacity, modernizing TSA security lanes, and adding floor-to-ceiling concourse views.</p>
+          <a href="/gates-to-the-future" class="btn btn-teal btn-sm">VIEW EXPANSION TIMELINE →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 06 / Civic & NRAA Public Records -->
+  <section class="civic-nraa-section">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-code">06 / CIVIC INFORMATION</span>
+        <h2 class="sec-title">Airport Authority Public Records</h2>
+      </div>
+
+      <div class="civic-rows-wrapper">
+        <div class="civic-row">
+          <div class="civic-date-block">
+            <span class="c-month">AUG</span>
+            <span class="c-day">19</span>
+          </div>
+          <div class="civic-body">
+            <span class="c-tag">PUBLIC MEETING</span>
+            <h4>Joint Zoning Board Meeting @ 4:00 PM</h4>
+            <p>Airfield height overlay restrictions & Grand Traverse County zoning compliance.</p>
+          </div>
+          <a href="/nraa/meetings" class="civic-action">AGENDA & PACKET →</a>
+        </div>
+
+        <div class="civic-row">
+          <div class="civic-date-block">
+            <span class="c-month">AUG</span>
+            <span class="c-day">25</span>
+          </div>
+          <div class="civic-body">
+            <span class="c-tag">REGULAR BOARD</span>
+            <h4>NRAA Regular Board Meeting @ 3:00 PM</h4>
+            <p>Website redesign proposal reviews, terminal expansion budget, passenger counts.</p>
+          </div>
+          <a href="/nraa/meetings" class="civic-action">MEETING PACKET →</a>
+        </div>
+
+        <div class="civic-row">
+          <div class="civic-date-block">
+            <span class="c-month">JUL</span>
+            <span class="c-day">28</span>
+          </div>
+          <div class="civic-body">
+            <span class="c-tag">PROCUREMENT</span>
+            <h4>Website Redesign, Development & Support Services RFP</h4>
+            <p>Official procurement specification. Addendum & Q&A release date: August 13, 2026.</p>
+          </div>
+          <a href="/business-opportunities" class="civic-action">OPEN RFP PDF →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  /* Base Modernist Styling */
+  .modernist-homepage {
+    font-family: var(--font-body);
+    background-color: #FAFAFA;
+    color: var(--color-navy-dark);
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Ops Banner */
+  .ops-strip-banner {
+    background-color: #0F172A;
+    color: white;
+    padding: 8px 0;
+    border-bottom: 1px solid #1E293B;
+  }
+
+  .status-indicator-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10B981;
+  }
+
+  /* Editorial Hero */
+  .modernist-hero {
+    position: relative;
+    padding: 50px 0 60px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+    border-bottom: 1px solid #E2E8F0;
+  }
+
+  .hero-split-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .hero-split-grid {
+      grid-template-columns: 55% 45%;
+    }
+  }
+
+  .brand-watermark-tvc {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(15, 23, 42, 0.05);
+    line-height: 0.8;
+    margin-bottom: -15px;
+    letter-spacing: -2px;
+  }
+
+  .hero-sub-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--color-cherry);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .hero-display-title {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--color-navy-dark);
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .hero-display-title {
+      font-size: 3.8rem;
+    }
+  }
+
+  .hero-editorial-lead {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    max-width: 540px;
+    margin-bottom: 24px;
+  }
+
+  /* Directional Action Strip */
+  .directional-action-strip {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .dir-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border: 1px solid #CBD5E1;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--color-navy-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .dir-chip:hover {
+    background: var(--color-navy-dark);
+    color: white;
+    border-color: var(--color-navy-dark);
+  }
+
+  .dir-symbol {
+    color: var(--color-cherry);
+    font-weight: 900;
+  }
+
+  /* Editorial Photo Crop */
+  .editorial-crop-wrapper {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .editorial-img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+  }
+
+  .crop-annotation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.9) 100%);
+    color: white;
+    padding: 16px;
+  }
+
+  .ann-code { font-size: 0.68rem; font-weight: 800; color: #38BDF8; display: block; letter-spacing: 1px; }
+  .ann-title { font-size: 0.95rem; font-weight: 700; }
+
+  /* FIDS Board Section */
+  .fids-board-section {
+    padding: 50px 0;
+    background-color: #FAFAFA;
+  }
+
+  .fids-card-container {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+  }
+
+  .fids-header-bar {
+    background: #0F172A;
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .sec-code { font-size: 0.72rem; font-weight: 800; color: #38BDF8; letter-spacing: 1.5px; display: block; }
+  .fids-headline { font-size: 1.35rem; font-weight: 800; color: white; margin-top: 2px; }
+
+  .fids-tabs { display: flex; gap: 4px; }
+  .fids-tab-btn { background: #1E293B; color: #94A3B8; border: 1px solid #334155; padding: 8px 16px; font-weight: 800; font-size: 0.8rem; border-radius: 4px; cursor: pointer; }
+  .fids-tab-btn.active { background: var(--color-cherry); color: white; border-color: var(--color-cherry); }
+
+  .fids-table-wrapper { overflow-x: auto; }
+  .fids-table { width: 100%; border-collapse: collapse; text-align: left; }
+  .fids-table th { background: #F8FAFC; color: #64748B; font-size: 0.72rem; font-weight: 800; padding: 12px 20px; border-bottom: 1px solid #E2E8F0; letter-spacing: 1px; }
+  .fids-table td { padding: 14px 20px; border-bottom: 1px solid #F1F5F9; font-size: 0.9rem; }
+
+  .fids-row { cursor: pointer; transition: background 0.15s ease; }
+  .fids-row:hover { background: #F0F9FF; }
+
+  .fids-gate-pill { background: #F1F5F9; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; border: 1px solid #CBD5E1; }
+  .fids-status-marker { font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 3px; letter-spacing: 0.5px; }
+  .st-ontime { background: #DCFCE7; color: #166534; }
+  .st-delayed { background: #FEE2E2; color: #991B1B; }
+
+  .fids-footer-bar { background: #F8FAFC; padding: 12px 24px; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .fids-disclaimer { font-size: 0.78rem; color: #64748B; font-style: italic; }
+  .fids-link-btn { font-size: 0.82rem; font-weight: 800; color: var(--color-navy-dark); text-decoration: none; }
+
+  /* Parking Section */
+  .modernist-parking-section { padding: 50px 0; background: white; border-top: 1px solid #E2E8F0; }
+  .sec-header { margin-bottom: 24px; }
+  .sec-title { font-size: 1.8rem; font-weight: 800; color: var(--color-navy-dark); margin-top: 2px; }
+
+  .parking-asymmetric-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .parking-asymmetric-grid { grid-template-columns: 5fr 7fr; align-items: flex-start; } }
+
+  .p-rate-featured { background: #F8FAFC; border: 2px solid var(--color-navy); padding: 28px; border-radius: 8px; }
+  .p-rate-tag { font-size: 0.7rem; font-weight: 800; color: var(--color-cherry); letter-spacing: 1px; }
+  .p-rate-title { font-size: 1.4rem; font-weight: 800; color: var(--color-navy-dark); margin-top: 4px; }
+  .p-big-price { font-size: 2.8rem; font-weight: 900; color: var(--color-navy-dark); line-height: 1; margin: 8px 0 4px; }
+  .p-unit { font-size: 1rem; color: #64748B; font-weight: 700; }
+  .p-rate-sub { font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 12px; }
+  .p-rate-desc { font-size: 0.88rem; color: #64748B; line-height: 1.5; margin-bottom: 20px; }
+  .p-action-btn { display: inline-block; background: var(--color-navy-dark); color: white; font-weight: 800; font-size: 0.82rem; padding: 10px 18px; border-radius: 4px; text-decoration: none; }
+
+  .p-rate-stack { display: flex; flex-direction: column; gap: 12px; }
+  .p-rate-item { background: #F8FAFC; border: 1px solid #E2E8F0; padding: 18px 22px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+  .p-item-badge { font-size: 0.68rem; font-weight: 800; color: #0284C7; letter-spacing: 1px; }
+  .p-rate-item h4 { font-size: 1.1rem; font-weight: 800; color: var(--color-navy-dark); margin-top: 2px; }
+  .p-rate-item p { font-size: 0.82rem; color: #64748B; }
+  .p-item-price { font-size: 1.8rem; font-weight: 900; color: var(--color-navy-dark); }
+
+  .p-rule-box { background: #EFF6FF; border: 1px solid #BFDBFE; padding: 14px; border-radius: 6px; font-size: 0.82rem; color: #1E40AF; }
+
+  /* Runway Track Journey Section */
+  .journey-runway-section { padding: 50px 0; background: #F1F5F9; border-top: 1px solid #E2E8F0; }
+  .runway-track-line { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; background: white; padding: 24px; border-radius: 8px; border: 1px solid #CBD5E1; }
+  .runway-node { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .node-step { font-size: 0.72rem; font-weight: 900; color: white; background: #0F172A; padding: 2px 8px; border-radius: 3px; }
+  .active-node .node-step { background: var(--color-cherry); }
+  .node-title { font-size: 0.9rem; font-weight: 800; color: var(--color-navy-dark); margin-top: 6px; }
+  .node-desc { font-size: 0.75rem; color: #64748B; }
+  .runway-connector { color: #CBD5E1; font-weight: 900; }
+
+  /* Northern Michigan Editorial Magazine */
+  .modernist-editorial-section { padding: 60px 0; background: white; }
+  .editorial-magazine-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .editorial-magazine-grid { grid-template-columns: 7fr 5fr; align-items: center; } }
+
+  .mag-main-photo { position: relative; border-radius: 8px; overflow: hidden; }
+  .mag-img { width: 100%; height: 360px; object-fit: cover; }
+  .mag-overlay-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.9) 100%); color: white; padding: 20px; }
+  .mag-tag { font-size: 0.7rem; font-weight: 800; color: #38BDF8; letter-spacing: 1px; }
+  .mag-overlay-caption h3 { font-size: 1.3rem; font-weight: 800; margin-top: 4px; }
+
+  .mag-side-content { display: flex; flex-direction: column; gap: 20px; }
+  .mag-quote { font-size: 1.25rem; font-weight: 700; color: var(--color-navy-dark); line-height: 1.5; font-style: italic; border-left: 4px solid var(--color-cherry); padding-left: 16px; }
+  .mag-link-btn { font-size: 0.85rem; font-weight: 800; color: white; background: var(--color-navy-dark); padding: 12px 20px; border-radius: 4px; text-decoration: none; text-align: center; }
+
+  /* Cinematic Gates Section */
+  .cinematic-gates-section { padding: 60px 0; background: #0B192C; color: white; }
+  .cinematic-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+  @media (min-width: 768px) { .cinematic-grid { grid-template-columns: 7fr 5fr; } }
+  .cinematic-photo { border-radius: 8px; overflow: hidden; border: 1px solid #1E293B; }
+  .cinematic-img { width: 100%; height: 300px; object-fit: cover; }
+  .big-year-badge { font-family: var(--font-heading); font-size: 3.5rem; font-weight: 900; color: #38BDF8; line-height: 1; display: block; margin-bottom: 4px; }
+
+  /* Civic NRAA Section */
+  .civic-nraa-section { padding: 50px 0; background: #F8FAFC; border-top: 1px solid #E2E8F0; }
+  .civic-rows-wrapper { display: flex; flex-direction: column; gap: 12px; }
+  .civic-row { background: white; border: 1px solid #E2E8F0; padding: 18px 24px; border-radius: 6px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .civic-date-block { background: #0F172A; color: white; padding: 8px 14px; border-radius: 6px; text-align: center; min-width: 60px; }
+  .c-month { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #94A3B8; display: block; }
+  .c-day { font-size: 1.4rem; font-weight: 900; line-height: 1; }
+
+  .civic-body { flex: 1; min-width: 240px; }
+  .c-tag { font-size: 0.68rem; font-weight: 800; color: var(--color-cherry); letter-spacing: 1px; }
+  .civic-body h4 { font-size: 1.05rem; font-weight: 800; color: var(--color-navy-dark); margin-top: 2px; }
+  .civic-body p { font-size: 0.82rem; color: #64748B; }
+
+  .civic-action { font-size: 0.8rem; font-weight: 800; color: var(--color-navy-dark); text-decoration: none; border: 1px solid #CBD5E1; padding: 8px 14px; border-radius: 4px; }
+  .civic-action:hover { background: #0F172A; color: white; border-color: #0F172A; }
+</style>
+
+<script>
+  (window as any).switchFidsTab = function(type: 'arr' | 'dep') {
+    const arrBtn = document.getElementById('fids-arr-btn');
+    const depBtn = document.getElementById('fids-dep-btn');
+    const arrPanel = document.getElementById('fids-arr-panel');
+    const depPanel = document.getElementById('fids-dep-panel');
+
+    if (type === 'arr') {
+      arrBtn?.classList.add('active');
+      depBtn?.classList.remove('active');
+      if (arrPanel) arrPanel.style.display = 'block';
+      if (depPanel) depPanel.style.display = 'none';
+    } else {
+      depBtn?.classList.add('active');
+      arrBtn?.classList.remove('active');
+      if (depPanel) depPanel.style.display = 'block';
+      if (arrPanel) arrPanel.style.display = 'none';
+    }
+  };
+</script>
