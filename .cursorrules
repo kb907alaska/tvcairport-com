@@ -1,0 +1,28 @@
+# TVC Cherry Capital Airport — Project Cursor & Agent Rules
+
+## 1. ABSOLUTE MEDIA INTEGRITY RULE (NO AI / NO FAKE IMAGES)
+- **ZERO AI-GENERATED OR GENERIC STOCK IMAGES**: Never generate, synthesize, or import AI artwork or generic stock photos (e.g. Unsplash, Getty, Shutterstock) for Cherry Capital Airport (TVC) or the Northwest Regional Airport Authority (NRAA).
+- **AUTHENTIC FIRST-PARTY MEDIA ONLY**: All visual assets MUST be authentic first-party media harvested directly from official TVC disclosures (`tvcairport.com`, `/wp-content/uploads/`) or official NRAA project communications.
+- **MEDIA PROVENANCE REQUIREMENT**: Every media asset used in the application MUST be registered in `src/data/media.json` with its original source URL, original filename, SHA-256 hash, and intended usage.
+
+## 2. OPERATIONAL DATA & PROTOTYPE TRANSPARENCY
+- **NO FABRICATED LIVE OPERATIONAL CLAIMS**: Never state or imply that static/sample flight boards, parking rate estimators, or weather widgets are live active operational streams unless directly connected to an authoritative API feed.
+- **PROTOTYPE DEMARCATION**: All flight board headers and sample modules must clearly display:
+  `AIRPORT PROTOTYPE · SAMPLE FLIGHT DISPLAY · NOT LIVE OPERATIONAL DATA`
+
+## 3. ASSET DIRECTORY STRUCTURE
+- **Original Downloads**: `public/media/originals/` and `public/brand/originals/`
+- **Categorized Production Assets**:
+  - Brand Assets: `public/brand/web/`
+  - Airport & Terminal: `public/media/airport/`, `public/media/terminal/`
+  - Aircraft & Ramp: `public/media/aircraft/`
+  - Expansion & Renderings: `public/media/gates-to-the-future/`
+  - Maps & Schedules: `public/media/maps/`
+  - Northern Michigan Regional Scenery: `public/media/northern-michigan/`
+  - Airline Carrier Logos: `public/images/airlines/`
+
+## 4. ASTRO IMPLEMENTATION & ACCESSIBILITY
+- **Prevent Cumulative Layout Shift (CLS)**: Always define explicit `width` and `height` attributes on all `<img>` tags.
+- **Lazy Loading**: Use `loading="lazy"` for all below-the-fold media.
+- **Alt Text Integrity**: Use descriptive, factual alt text reflecting what is visibly shown. Never fabricate names of people, locations, or aircraft. Use `alt=""` for decorative assets.
+- **WCAG 2.1 AA Compliance**: Maintain 4.5:1 text contrast ratios across all dark and light themes.

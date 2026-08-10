@@ -43,6 +43,22 @@ import Layout from '../layouts/Layout.astro';
   <!-- Business Features Section -->
   <section class="biz-features">
     <div class="container">
+      <!-- Authentic Business Traveler Photo Showcase -->
+      <div class="biz-hero-photo-card tvc-card mb-8">
+        <div class="biz-photo-grid">
+          <img src="/media/aircraft/business-traveler-on-plane-with-laptop.webp" alt="Business Traveler Working On Laptop During TVC Flight" class="biz-traveler-img" width="800" height="450" />
+          <div class="biz-photo-text p-6">
+            <span class="badge-tag">EXECUTIVE CONNECTIVITY</span>
+            <h3 class="text-2xl font-bold text-navy-dark mt-2">Productivity at 30,000 Feet and Gate-side</h3>
+            <p class="text-muted text-sm mt-2">Whether flying direct to Chicago, Detroit, or Atlanta, TVC passenger amenities keep corporate leaders connected with gigabit fiber Wi-Fi and power at every seat.</p>
+            <div class="mt-4 flex items-center gap-4">
+              <img src="/brand/web/Traverse-Connect-Logo-2023.png" alt="Traverse Connect Regional Economic Partner" class="h-8 w-auto" />
+              <span class="text-xs text-muted font-bold">Official Regional Business Gateway Partner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="section-title-wrap text-center">
         <span class="badge-tag">Corporate Perks</span>
         <h2>Work Productively On the Go</h2>
@@ -178,6 +194,11 @@ import Layout from '../layouts/Layout.astro';
 
   /* Features */
   .biz-features { padding: 60px 0; background: #F8FAFC; }
+  .biz-hero-photo-card { padding: 0; overflow: hidden; background: white; border: 1px solid #E2E8F0; }
+  .biz-photo-grid { display: grid; grid-template-columns: 1fr; }
+  @media (min-width: 768px) { .biz-photo-grid { grid-template-columns: 1fr 1fr; align-items: center; } }
+  .biz-traveler-img { width: 100%; height: 100%; object-fit: cover; max-height: 320px; }
+
   .section-title-wrap { margin-bottom: 36px; text-align: center; }
   .badge-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-teal); letter-spacing: 1px; }
   .badge-tag.yellow { color: #F59E0B; }
