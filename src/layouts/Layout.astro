@@ -1,0 +1,109 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AirportAlert from '../components/AirportAlert.astro';
+import GlobalSearchModal from '../components/GlobalSearchModal.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  showAlert?: boolean;
+}
+
+const {
+  title = 'TVC · Cherry Capital Airport · Traverse City, Michigan',
+  description = 'Official Cherry Capital Airport (TVC) website. Check live arrivals & departures, parking rates, terminal guide, nonstop flights, and Northwest Regional Airport Authority (NRAA) records.',
+  image = 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=80',
+  showAlert = true
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tvcairport-com.pages.dev');
+
+// JSON-LD Airport Schema
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Airport",
+  "name": "Cherry Capital Airport",
+  "iataCode": "TVC",
+  "icaoCode": "KTVC",
+  "url": "https://tvcairport-com.pages.dev",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "727 Fly Don't Drive",
+    "addressLocality": "Traverse City",
+    "addressRegion": "MI",
+    "postalCode": "49686",
+    "addressCountry": "US"
+  },
+  "telephone": "+1-231-947-2250",
+  "operator": {
+    "@type": "GovernmentOrganization",
+    "name": "Northwest Regional Airport Authority"
+  }
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </head>
+  <body>
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="skip-to-content">Skip to main airport content</a>
+
+    <!-- RFP Proposal Demo Top Banner -->
+    <div class="top-proposal-banner" role="banner" aria-label="RFP Prototype Notice">
+      <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <span>
+          <strong>INTERACTIVE DESIGN PROTOTYPE</strong> · Prepared by <strong>FOURAK</strong> for the Northwest Regional Airport Authority (NRAA) Website Redesign RFP
+        </span>
+        <a href="/proposal" class="banner-link">View Architecture & RFP Strategy →</a>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <Header />
+
+    <!-- Emergency / Operational Alert Layer -->
+    {showAlert && <AirportAlert />}
+
+    <!-- Main Content Area -->
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <!-- Site Footer -->
+    <Footer />
+
+    <!-- Global Search Modal -->
+    <GlobalSearchModal />
+  </body>
+</html>

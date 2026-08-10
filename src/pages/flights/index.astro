@@ -1,0 +1,506 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { FLIGHTS_DATA } from '../../data/flights';
+
+const arrivals = FLIGHTS_DATA.filter(f => f.type === 'arrival');
+const departures = FLIGHTS_DATA.filter(f => f.type === 'departure');
+---
+
+<Layout
+  title="Live Arrivals & Departures · TVC Cherry Capital Airport"
+  description="Real-time TVC flight tracker, arrival and departure status updates, gates, baggage carousels, and airline details."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Live Flights</span>
+      </div>
+      <h1 class="page-title">Live Arrivals & Departures</h1>
+      <p class="page-intro">Track real-time commercial passenger flights operating at Cherry Capital Airport (TVC).</p>
+    </div>
+  </div>
+
+  <section class="flights-app-section">
+    <div class="container">
+      <!-- Master Navigation Bar -->
+      <div class="app-subnav">
+        <a href="/flights" class="subnav-btn active">🛬 Flight Status Board</a>
+        <a href="/flights/airlines" class="subnav-btn">✈️ Airlines Directory</a>
+        <a href="/flights/nonstop-destinations" class="subnav-btn">🗺️ Nonstop Route Map</a>
+      </div>
+
+      <!-- Controls & Filters Container -->
+      <div class="filter-toolbar tvc-card">
+        <div class="toolbar-left">
+          <div class="tab-toggle-group" role="tablist">
+            <button 
+              type="button" 
+              class="tab-btn active" 
+              id="app-arrivals-btn"
+              onclick="window.switchAppTab('arrivals')"
+            >
+              Arrivals ({arrivals.length})
+            </button>
+            <button 
+              type="button" 
+              class="tab-btn" 
+              id="app-departures-btn"
+              onclick="window.switchAppTab('departures')"
+            >
+              Departures ({departures.length})
+            </button>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <!-- Live Search Input -->
+          <div class="search-box">
+            <input 
+              type="text" 
+              id="app-flight-search" 
+              placeholder="Filter by flight # or city (e.g. ORD)..." 
+              oninput="window.applyAppFilters()"
+            />
+          </div>
+
+          <!-- Airline Filter Dropdown -->
+          <select id="airline-filter" class="filter-select" onchange="window.applyAppFilters()">
+            <option value="ALL">All Airlines</option>
+            <option value="United Airlines">United Airlines</option>
+            <option value="Delta Air Lines">Delta Air Lines</option>
+            <option value="American Airlines">American Airlines</option>
+            <option value="Allegiant Air">Allegiant Air</option>
+            <option value="Sun Country Airlines">Sun Country Airlines</option>
+          </select>
+
+          <!-- Status Filter Dropdown -->
+          <select id="status-filter" class="filter-select" onchange="window.applyAppFilters()">
+            <option value="ALL">All Statuses</option>
+            <option value="ON TIME">On Time</option>
+            <option value="DELAYED">Delayed</option>
+            <option value="BOARDING">Boarding</option>
+            <option value="ARRIVED">Arrived</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Arrivals Panel -->
+      <div id="app-arrivals-panel" class="tvc-card app-panel">
+        <div class="table-responsive">
+          <table class="flight-table">
+            <thead>
+              <tr>
+                <th>Airline</th>
+                <th>Flight #</th>
+                <th>Origin</th>
+                <th>Scheduled</th>
+                <th>Updated</th>
+                <th>Status</th>
+                <th>Gate</th>
+                <th>Baggage</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {arrivals.map((flight) => (
+                <tr 
+                  class="flight-app-row" 
+                  data-code={flight.flightNumber}
+                  data-city={flight.city}
+                  data-airline={flight.airline}
+                  data-status={flight.status}
+                >
+                  <td><strong>{flight.airline}</strong></td>
+                  <td class="tabular-code">{flight.flightNumber}</td>
+                  <td>{flight.city} (<strong>{flight.cityCode}</strong>)</td>
+                  <td class="tabular">{flight.scheduledTime}</td>
+                  <td class="tabular">{flight.updatedTime}</td>
+                  <td>
+                    <span class="status-badge" data-status={flight.status}>
+                      {flight.status}
+                    </span>
+                  </td>
+                  <td><span class="gate-pill">{flight.gate}</span></td>
+                  <td>{flight.baggageCarousel || 'TBD'}</td>
+                  <td>
+                    <button 
+                      type="button" 
+                      class="btn btn-outline btn-sm"
+                      onclick={`window.openFlightModal('${flight.flightNumber}', '${flight.airline}', '${flight.city}', '${flight.scheduledTime}', '${flight.status}', '${flight.gate}', '${flight.baggageCarousel || 'Carousel 1'}')`}
+                    >
+                      Details
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Departures Panel -->
+      <div id="app-departures-panel" class="tvc-card app-panel" style="display: none;">
+        <div class="table-responsive">
+          <table class="flight-table">
+            <thead>
+              <tr>
+                <th>Airline</th>
+                <th>Flight #</th>
+                <th>Destination</th>
+                <th>Scheduled</th>
+                <th>Updated</th>
+                <th>Status</th>
+                <th>Gate</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {departures.map((flight) => (
+                <tr 
+                  class="flight-app-row"
+                  data-code={flight.flightNumber}
+                  data-city={flight.city}
+                  data-airline={flight.airline}
+                  data-status={flight.status}
+                >
+                  <td><strong>{flight.airline}</strong></td>
+                  <td class="tabular-code">{flight.flightNumber}</td>
+                  <td>{flight.city} (<strong>{flight.cityCode}</strong>)</td>
+                  <td class="tabular">{flight.scheduledTime}</td>
+                  <td class="tabular">{flight.updatedTime}</td>
+                  <td>
+                    <span class="status-badge" data-status={flight.status}>
+                      {flight.status}
+                    </span>
+                  </td>
+                  <td><span class="gate-pill">{flight.gate}</span></td>
+                  <td>
+                    <button 
+                      type="button" 
+                      class="btn btn-outline btn-sm"
+                      onclick={`window.openFlightModal('${flight.flightNumber}', '${flight.airline}', '${flight.city}', '${flight.scheduledTime}', '${flight.status}', '${flight.gate}', 'N/A Departure')`}
+                    >
+                      Details
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flight Detail Modal Overlay -->
+  <div id="flight-modal" class="flight-modal-overlay" aria-hidden="true" style="display: none;">
+    <div class="flight-modal-card tvc-card">
+      <div class="modal-header-flex">
+        <div>
+          <span class="modal-airline-badge" id="modal-airline">United Airlines</span>
+          <h2 class="modal-flight-code" id="modal-code">UA 1234</h2>
+        </div>
+        <button type="button" class="close-modal-btn" onclick="window.closeFlightModal()">✕</button>
+      </div>
+
+      <div class="modal-status-strip">
+        <span class="status-badge" id="modal-status-badge" data-status="ON TIME">ON TIME</span>
+        <span id="modal-city-text">Chicago (ORD) → TVC</span>
+      </div>
+
+      <div class="modal-detail-grid">
+        <div class="detail-box">
+          <span class="detail-label">Scheduled Time</span>
+          <span class="detail-val" id="modal-scheduled">2:14 PM</span>
+        </div>
+        <div class="detail-box">
+          <span class="detail-label">Terminal Gate</span>
+          <span class="detail-val" id="modal-gate">Gate 3</span>
+        </div>
+        <div class="detail-box">
+          <span class="detail-label">Baggage Carousel</span>
+          <span class="detail-val" id="modal-baggage">Carousel 2</span>
+        </div>
+      </div>
+
+      <div class="modal-actions-flex">
+        <a href="/parking-transportation" class="btn btn-navy btn-sm">Terminal Parking Directions</a>
+        <button type="button" class="btn btn-outline btn-sm" onclick="alert('Flight status subscription saved! You will receive SMS alerts for UA1234.')">📱 SMS Status Updates</button>
+      </div>
+      <p class="modal-disclaimer">* Flight information updated via official airline operational data feed.</p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-header-bg {
+    background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%);
+    color: white;
+    padding: 40px 0;
+  }
+
+  .breadcrumb {
+    font-size: 0.85rem;
+    color: #94A3B8;
+    margin-bottom: 10px;
+  }
+
+  .breadcrumb a { color: #CBD5E1; }
+
+  .page-title {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .page-intro {
+    color: #CBD5E1;
+    font-size: 1.05rem;
+  }
+
+  .flights-app-section {
+    padding: 40px 0 80px;
+  }
+
+  .app-subnav {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .subnav-btn {
+    background-color: white;
+    border: 1px solid var(--color-border);
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    color: var(--color-navy-dark);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .subnav-btn:hover, .subnav-btn.active {
+    background-color: var(--color-navy);
+    color: white;
+    border-color: var(--color-navy);
+  }
+
+  .filter-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .search-box input {
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    width: 220px;
+    outline: none;
+  }
+
+  .filter-select {
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    background-color: white;
+    outline: none;
+  }
+
+  .tab-toggle-group {
+    display: flex;
+    gap: 6px;
+    background: var(--color-sand);
+    padding: 4px;
+    border-radius: var(--radius-md);
+  }
+
+  .tab-btn {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  .tab-btn.active {
+    background: var(--color-navy);
+    color: white;
+  }
+
+  .app-panel {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* Flight Modal Styling */
+  .flight-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(11, 25, 44, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .flight-modal-card {
+    width: 100%;
+    max-width: 520px;
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .modal-header-flex {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .modal-airline-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-cherry);
+    text-transform: uppercase;
+  }
+
+  .modal-flight-code {
+    font-size: 2rem;
+    color: var(--color-navy-dark);
+  }
+
+  .modal-status-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--color-sand);
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .modal-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .detail-box {
+    background: #F8FAFC;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .detail-label { display: block; font-size: 0.72rem; color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; }
+  .detail-val { font-size: 1.05rem; font-weight: 800; color: var(--color-navy-dark); }
+
+  .modal-actions-flex {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .modal-disclaimer { font-size: 0.75rem; color: var(--color-text-light); font-style: italic; }
+</style>
+
+<script>
+  (window as any).switchAppTab = function(type: 'arrivals' | 'departures') {
+    const arrBtn = document.getElementById('app-arrivals-btn');
+    const depBtn = document.getElementById('app-departures-btn');
+    const arrPanel = document.getElementById('app-arrivals-panel');
+    const depPanel = document.getElementById('app-departures-panel');
+
+    if (type === 'arrivals') {
+      arrBtn?.classList.add('active');
+      depBtn?.classList.remove('active');
+      if (arrPanel) arrPanel.style.display = 'block';
+      if (depPanel) depPanel.style.display = 'none';
+    } else {
+      depBtn?.classList.add('active');
+      arrBtn?.classList.remove('active');
+      if (depPanel) depPanel.style.display = 'block';
+      if (arrPanel) arrPanel.style.display = 'none';
+    }
+  };
+
+  (window as any).applyAppFilters = function() {
+    const query = (document.getElementById('app-flight-search') as HTMLInputElement)?.value.toLowerCase();
+    const selectedAirline = (document.getElementById('airline-filter') as HTMLSelectElement)?.value;
+    const selectedStatus = (document.getElementById('status-filter') as HTMLSelectElement)?.value;
+
+    const rows = document.querySelectorAll('.flight-app-row');
+
+    rows.forEach(row => {
+      const code = (row.getAttribute('data-code') || '').toLowerCase();
+      const city = (row.getAttribute('data-city') || '').toLowerCase();
+      const airline = row.getAttribute('data-airline') || '';
+      const status = row.getAttribute('data-status') || '';
+
+      const matchesSearch = code.includes(query) || city.includes(query);
+      const matchesAirline = selectedAirline === 'ALL' || airline === selectedAirline;
+      const matchesStatus = selectedStatus === 'ALL' || status === selectedStatus;
+
+      if (matchesSearch && matchesAirline && matchesStatus) {
+        (row as HTMLElement).style.display = '';
+      } else {
+        (row as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+
+  (window as any).openFlightModal = function(code: string, airline: string, city: string, scheduled: string, status: string, gate: string, baggage: string) {
+    const modal = document.getElementById('flight-modal');
+    if (!modal) return;
+
+    document.getElementById('modal-code')!.innerText = code;
+    document.getElementById('modal-airline')!.innerText = airline;
+    document.getElementById('modal-city-text')!.innerText = `${city} → TVC`;
+    document.getElementById('modal-scheduled')!.innerText = scheduled;
+    document.getElementById('modal-gate')!.innerText = gate;
+    document.getElementById('modal-baggage')!.innerText = baggage;
+
+    const statusBadge = document.getElementById('modal-status-badge');
+    if (statusBadge) {
+      statusBadge.innerText = status;
+      statusBadge.setAttribute('data-status', status);
+    }
+
+    modal.style.display = 'flex';
+  };
+
+  (window as any).closeFlightModal = function() {
+    const modal = document.getElementById('flight-modal');
+    if (modal) modal.style.display = 'none';
+  };
+</script>

@@ -1,0 +1,380 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Parking Rates & Ground Transportation · TVC Cherry Capital Airport"
+  description="TVC parking rates, interactive parking cost calculator, parking map, rental car center, rideshare (Uber/Lyft) pickup points, and ground transportation."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Parking & Transportation</span>
+      </div>
+      <h1 class="page-title">Parking & Ground Transportation</h1>
+      <p class="page-intro">Convenient parking steps from the main terminal, plus rental cars, taxis, rideshares, and public transit.</p>
+    </div>
+  </div>
+
+  <section class="parking-page-section">
+    <div class="container">
+      <!-- Interactive Parking Calculator Widget -->
+      <div class="calculator-card tvc-card">
+        <div class="calc-header">
+          <div>
+            <span class="eyebrow">ESTIMATE YOUR PARKING COST</span>
+            <h2 class="calc-title">TVC Parking Rate Estimator</h2>
+          </div>
+          <span class="calc-tag">Instant Comparison</span>
+        </div>
+
+        <div class="calc-inputs-grid">
+          <div class="calc-input-group">
+            <label for="entry-date" class="input-label">Entry Date & Time:</label>
+            <input type="datetime-local" id="entry-date" class="calc-input" onchange="window.calculateParkingCost()" />
+          </div>
+
+          <div class="calc-input-group">
+            <label for="exit-date" class="input-label">Exit Date & Time:</label>
+            <input type="datetime-local" id="exit-date" class="calc-input" onchange="window.calculateParkingCost()" />
+          </div>
+        </div>
+
+        <!-- Calculated Estimates Output -->
+        <div class="calc-results-grid" id="calc-results" style="display: none;">
+          <div class="calc-res-box">
+            <span class="res-lot-name">Short Term</span>
+            <div class="res-price" id="price-short">$0</div>
+            <span class="res-sub">Closest to Doors</span>
+          </div>
+
+          <div class="calc-res-box featured-res">
+            <span class="res-lot-name">Long Term</span>
+            <div class="res-price" id="price-long">$0</div>
+            <span class="res-sub">Best Choice for Trips</span>
+          </div>
+
+          <div class="calc-res-box">
+            <span class="res-lot-name">Economy</span>
+            <div class="res-price" id="price-econ">$0</div>
+            <span class="res-sub">Lowest Daily Rate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rate Cards Summary -->
+      <div class="rate-cards-grid">
+        <div class="parking-rate-card tvc-card">
+          <span class="lot-badge">Short Stay & Pickup</span>
+          <h3>Short Term Parking</h3>
+          <div class="price-hero">$2<span class="unit"> / 30m</span></div>
+          <div class="price-daily-max">$19 daily max</div>
+          <p>Located directly in front of the main terminal. Ideal for picking up passengers or stays under 4 hours.</p>
+          <ul class="lot-perks">
+            <li>✓ First 15 Minutes FREE</li>
+            <li>✓ Accessible parking spaces</li>
+            <li>✓ Pay by credit card at exit</li>
+          </ul>
+        </div>
+
+        <div class="parking-rate-card tvc-card featured-card">
+          <span class="lot-badge badge-cherry">Most Popular</span>
+          <h3>Long Term Parking</h3>
+          <div class="price-hero">$14<span class="unit"> / day</span></div>
+          <div class="price-daily-max">$14 flat rate / 24 hrs</div>
+          <p>Main parking lot adjacent to covered terminal walkways. Great for multi-day business or leisure trips.</p>
+          <ul class="lot-perks">
+            <li>✓ 2 to 3 minute walk to doors</li>
+            <li>✓ EV Charging Stations</li>
+            <li>✓ 24/7 Monitored lot</li>
+          </ul>
+        </div>
+
+        <div class="parking-rate-card tvc-card">
+          <span class="lot-badge">Best Value</span>
+          <h3>Economy Parking</h3>
+          <div class="price-hero">$10<span class="unit"> / day</span></div>
+          <div class="price-daily-max">$10 flat rate / 24 hrs</div>
+          <p>Located slightly west of the main terminal entrance. Lowest daily rate for long trips.</p>
+          <ul class="lot-perks">
+            <li>✓ Best rate for 5+ day trips</li>
+            <li>✓ Automated pay stations</li>
+            <li>✓ Well-lit paved walkways</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Interactive Parking & Terminal Web Map -->
+      <div class="map-section-wrapper tvc-card mt-12">
+        <div class="map-header-flex">
+          <div>
+            <span class="eyebrow">TERMINAL LAYOUT</span>
+            <h2>Interactive Parking & Ground Transport Map</h2>
+          </div>
+          <div class="layer-toggle-buttons">
+            <button type="button" class="layer-btn active" onclick="window.toggleMapLayer('all')">Show All</button>
+            <button type="button" class="layer-btn" onclick="window.toggleMapLayer('parking')">Parking Lots</button>
+            <button type="button" class="layer-btn" onclick="window.toggleMapLayer('ground')">Ground Transport</button>
+          </div>
+        </div>
+
+        <div class="web-map-canvas" id="map-canvas">
+          <svg viewBox="0 0 1000 500" class="airport-svg-map">
+            <!-- Background Ramp & Roadways -->
+            <rect x="0" y="0" width="1000" height="500" fill="#F1F5F9" />
+            <path d="M 50 450 L 950 450" stroke="#94A3B8" stroke-width="20" stroke-dasharray="10 5" />
+            <text x="500" y="475" fill="#475569" font-weight="700" font-size="14" text-anchor="middle">AIRPORT ACCESS ROAD (SOUTH AIRPORT RD / FLY DON'T DRIVE)</text>
+
+            <!-- Main Terminal Building -->
+            <rect x="300" y="100" width="400" height="120" rx="16" fill="#0B192C" />
+            <text x="500" y="165" fill="#FFFFFF" font-size="20" font-weight="800" text-anchor="middle">TVC MAIN TERMINAL BUILDING</text>
+
+            <!-- Short Term Lot -->
+            <g class="map-layer layer-parking">
+              <rect x="350" y="240" width="300" height="90" rx="10" fill="#D90429" opacity="0.85" />
+              <text x="500" y="285" fill="#FFFFFF" font-weight="800" font-size="16" text-anchor="middle">SHORT TERM PARKING ($19/day)</text>
+              <text x="500" y="305" fill="#FFFFFF" font-size="12" text-anchor="middle">100 ft from doors · 15m Free</text>
+            </g>
+
+            <!-- Long Term Lot -->
+            <g class="map-layer layer-parking">
+              <rect x="100" y="240" width="220" height="160" rx="10" fill="#1E3E62" opacity="0.85" />
+              <text x="210" y="315" fill="#FFFFFF" font-weight="800" font-size="15" text-anchor="middle">LONG TERM LOT</text>
+              <text x="210" y="335" fill="#FFFFFF" font-size="12" text-anchor="middle">$14/day · Covered Walk</text>
+            </g>
+
+            <!-- Economy Lot -->
+            <g class="map-layer layer-parking">
+              <rect x="680" y="240" width="220" height="160" rx="10" fill="#0284C7" opacity="0.85" />
+              <text x="790" y="315" fill="#FFFFFF" font-weight="800" font-size="15" text-anchor="middle">ECONOMY LOT</text>
+              <text x="790" y="335" fill="#FFFFFF" font-size="12" text-anchor="middle">$10/day · 3m Walk</text>
+            </g>
+
+            <!-- Ground Transport & Rental Cars -->
+            <g class="map-layer layer-ground">
+              <rect x="100" y="100" width="170" height="100" rx="10" fill="#059669" opacity="0.85" />
+              <text x="185" y="150" fill="#FFFFFF" font-weight="800" font-size="14" text-anchor="middle">RENTAL CAR CENTER</text>
+              <text x="185" y="170" fill="#FFFFFF" font-size="11" text-anchor="middle">Hertz, Avis, Enterprise...</text>
+
+              <rect x="730" y="100" width="170" height="100" rx="10" fill="#D97706" opacity="0.85" />
+              <text x="815" y="150" fill="#FFFFFF" font-weight="800" font-size="14" text-anchor="middle">UBER / LYFT / TAXI</text>
+              <text x="815" y="170" fill="#FFFFFF" font-size="11" text-anchor="middle">Pickup Zone Door 2</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Accessible Text Map Alternative Table -->
+        <div class="accessible-map-table mt-6">
+          <h4 class="font-bold mb-2">Accessible Map Key & Details Table</h4>
+          <table class="flight-table">
+            <thead>
+              <tr>
+                <th>Zone Name</th>
+                <th>Distance to Terminal</th>
+                <th>Daily Rate</th>
+                <th>Features</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Short Term Lot</strong></td>
+                <td>100 Feet (Directly in front)</td>
+                <td>$2 / 30m ($19 max)</td>
+                <td>First 15m free, ADA spaces</td>
+              </tr>
+              <tr>
+                <td><strong>Long Term Lot</strong></td>
+                <td>2-3 Minute Walk</td>
+                <td>$14 / Day</td>
+                <td>Covered walkway, EV charging</td>
+              </tr>
+              <tr>
+                <td><strong>Economy Lot</strong></td>
+                <td>3-4 Minute Walk</td>
+                <td>$10 / Day</td>
+                <td>Best long-stay value</td>
+              </tr>
+              <tr>
+                <td><strong>Rental Car Counters</strong></td>
+                <td>Inside Baggage Claim</td>
+                <td>Varies by vendor</td>
+                <td>On-site vehicle pick-up lot</td>
+              </tr>
+              <tr>
+                <td><strong>Uber / Lyft Pickup</strong></td>
+                <td>Outside Baggage Door 2</td>
+                <td>N/A</td>
+                <td>Designated rideshare zone</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Ground Transportation Directory Section -->
+      <div class="ground-transport-section mt-16" id="ground">
+        <span class="eyebrow">ON-SITE VENDORS & RIDESHARE</span>
+        <h2 class="section-title">Ground Transportation Directory</h2>
+
+        <div class="transport-grid">
+          <!-- Rental Cars -->
+          <div class="transport-card tvc-card">
+            <h3>🚗 On-Site Rental Car Center</h3>
+            <p>Rental car counters are conveniently located inside the Baggage Claim hall. Vehicles are parked steps outside.</p>
+            <div class="vendor-list">
+              <div class="vendor-item"><strong>Avis:</strong> (231) 946-4970</div>
+              <div class="vendor-item"><strong>Hertz:</strong> (231) 946-7025</div>
+              <div class="vendor-item"><strong>Enterprise:</strong> (231) 933-7000</div>
+              <div class="vendor-item"><strong>Budget:</strong> (231) 947-3883</div>
+              <div class="vendor-item"><strong>National:</strong> (231) 947-1310</div>
+              <div class="vendor-item"><strong>Alamo:</strong> (231) 947-1310</div>
+            </div>
+          </div>
+
+          <!-- Taxi & Rideshare -->
+          <div class="transport-card tvc-card">
+            <h3>🚕 Rideshare & Local Taxis</h3>
+            <p>Uber and Lyft drivers serve TVC continuously. Request your ride after retrieving baggage. Pickup zone is located outside Door 2.</p>
+            <div class="vendor-list">
+              <div class="vendor-item"><strong>Uber & Lyft:</strong> Door 2 Pickup Zone</div>
+              <div class="vendor-item"><strong>Cherry Capital Cab:</strong> (231) 941-8294</div>
+              <div class="vendor-item"><strong>Up North Taxi:</strong> (231) 499-1300</div>
+            </div>
+          </div>
+
+          <!-- Public Transit BATA -->
+          <div class="transport-card tvc-card">
+            <h3>🚌 BATA Public Bus Transit</h3>
+            <p>Bay Area Transportation Authority (BATA) Route 14 connects TVC directly to downtown Traverse City transfers.</p>
+            <div class="vendor-list">
+              <div class="vendor-item"><strong>Route:</strong> Route 14 (Airport Express)</div>
+              <div class="vendor-item"><strong>Fare:</strong> $1.50 per rider</div>
+              <div class="vendor-item"><strong>Info:</strong> <a href="https://bata.net" target="_blank" rel="noopener noreferrer">bata.net ↗</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .parking-page-section { padding: 40px 0 80px; }
+
+  /* Calculator */
+  .calculator-card { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; margin-bottom: 40px; }
+  .calc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; }
+  .calc-title { color: white; font-size: 1.8rem; }
+  .calc-tag { background: var(--color-cherry); color: white; font-weight: 700; padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.78rem; }
+
+  .calc-inputs-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; margin-bottom: 24px; }
+  @media (min-width: 640px) { .calc-inputs-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .input-label { display: block; font-size: 0.85rem; font-weight: 700; color: #CBD5E1; margin-bottom: 6px; }
+  .calc-input { width: 100%; padding: 12px; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; outline: none; font-family: var(--font-body); }
+
+  .calc-results-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px; }
+  @media (min-width: 640px) { .calc-results-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .calc-res-box { background: rgba(255,255,255,0.08); padding: 16px; border-radius: var(--radius-md); text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+  .featured-res { background: rgba(217, 4, 41, 0.2); border-color: var(--color-cherry); }
+  .res-lot-name { font-size: 0.85rem; font-weight: 700; color: #CBD5E1; text-transform: uppercase; }
+  .res-price { font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; color: white; margin: 4px 0; }
+  .res-sub { font-size: 0.75rem; color: #94A3B8; }
+
+  /* Rate Cards Grid */
+  .rate-cards-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+  @media (min-width: 768px) { .rate-cards-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .parking-rate-card { position: relative; }
+  .featured-card { border: 2px solid var(--color-navy); }
+  .lot-badge { position: absolute; top: 16px; right: 16px; font-size: 0.72rem; font-weight: 700; background: var(--color-sand); padding: 2px 8px; border-radius: var(--radius-full); }
+  .badge-cherry { background: var(--color-cherry); color: white; }
+  .price-hero { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: var(--color-navy-dark); }
+  .unit { font-size: 1rem; color: var(--color-text-muted); }
+  .price-daily-max { font-size: 0.85rem; font-weight: 700; color: var(--color-cherry-dark); margin-bottom: 12px; }
+  .lot-perks { list-style: none; font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+
+  /* Map Canvas */
+  .mt-12 { margin-top: 48px; }
+  .mt-16 { margin-top: 64px; }
+  .map-header-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 16px; }
+  .layer-toggle-buttons { display: flex; gap: 6px; }
+  .layer-btn { padding: 6px 14px; border: 1px solid var(--color-border); background: white; border-radius: var(--radius-md); font-weight: 700; font-size: 0.82rem; cursor: pointer; }
+  .layer-btn.active { background: var(--color-navy); color: white; border-color: var(--color-navy); }
+
+  .web-map-canvas { background: #F1F5F9; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); }
+  .airport-svg-map { width: 100%; height: auto; display: block; }
+
+  /* Directory Grid */
+  .transport-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; margin-top: 24px; }
+  @media (min-width: 768px) { .transport-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .transport-card h3 { font-size: 1.2rem; color: var(--color-navy-dark); margin-bottom: 10px; }
+  .transport-card p { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 16px; }
+  .vendor-list { background: var(--color-sand); padding: 12px; border-radius: var(--radius-md); display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; }
+</style>
+
+<script>
+  (window as any).calculateParkingCost = function() {
+    const entryVal = (document.getElementById('entry-date') as HTMLInputElement)?.value;
+    const exitVal = (document.getElementById('exit-date') as HTMLInputElement)?.value;
+    const resultsContainer = document.getElementById('calc-results');
+
+    if (!entryVal || !exitVal) return;
+
+    const entry = new Date(entryVal);
+    const exit = new Date(exitVal);
+
+    if (exit <= entry) {
+      alert('Exit time must be after entry time.');
+      return;
+    }
+
+    const diffHours = Math.ceil((exit.getTime() - entry.getTime()) / (1000 * 60 * 60));
+    const diffDays = Math.ceil(diffHours / 24);
+
+    // Calculate rates
+    const shortCost = Math.min(diffHours * 4, diffDays * 19);
+    const longCost = diffDays * 14;
+    const econCost = diffDays * 10;
+
+    document.getElementById('price-short')!.innerText = `$${shortCost}`;
+    document.getElementById('price-long')!.innerText = `$${longCost}`;
+    document.getElementById('price-econ')!.innerText = `$${econCost}`;
+
+    if (resultsContainer) resultsContainer.style.display = 'grid';
+  };
+
+  (window as any).toggleMapLayer = function(layer: string) {
+    const layers = document.querySelectorAll('.map-layer');
+    layers.forEach(l => {
+      if (layer === 'all') {
+        (l as HTMLElement).style.display = 'block';
+      } else if (l.classList.contains(`layer-${layer}`)) {
+        (l as HTMLElement).style.display = 'block';
+      } else {
+        (l as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+
+  // Set default dates for calculator (Today -> 3 days later)
+  const now = new Date();
+  const later = new Date(now.getTime() + (3 * 24 * 60 * 60 * 1000));
+  
+  const entryElem = document.getElementById('entry-date') as HTMLInputElement;
+  const exitElem = document.getElementById('exit-date') as HTMLInputElement;
+
+  if (entryElem && exitElem) {
+    entryElem.value = now.toISOString().slice(0, 16);
+    exitElem.value = later.toISOString().slice(0, 16);
+    (window as any).calculateParkingCost();
+  }
+</script>

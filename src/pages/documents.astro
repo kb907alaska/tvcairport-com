@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { DOCUMENTS_DATA } from '../data/documents';
+---
+
+<Layout
+  title="Public Document Library · TVC Airport Authority (NRAA)"
+  description="Searchable public document repository for NRAA board agendas, meeting packets, financial audits, RFPs, environmental assessments, and airport policies."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/nraa">NRAA</a> / <span>Document Portal</span>
+      </div>
+      <h1 class="page-title">Public Document Library</h1>
+      <p class="page-intro">Official repository of Northwest Regional Airport Authority public records, board packets, financial audits, and solicitations.</p>
+    </div>
+  </div>
+
+  <section class="docs-section">
+    <div class="container">
+      <div class="app-subnav">
+        <a href="/nraa" class="subnav-btn">🏛️ Authority Overview</a>
+        <a href="/nraa/meetings" class="subnav-btn">📅 Board Meetings</a>
+        <a href="/documents" class="subnav-btn active">📄 Public Documents Library</a>
+        <a href="/business-opportunities" class="subnav-btn">💼 Bids & RFPs Portal</a>
+      </div>
+
+      <!-- Live Search & Filter Bar -->
+      <div class="filter-toolbar tvc-card mb-8">
+        <div class="search-filter-box">
+          <input 
+            type="search" 
+            id="doc-search-input" 
+            placeholder="Search documents by title, keyword, or document ID (e.g. RFP 2026-01)..." 
+            oninput="window.filterDocuments()"
+          />
+        </div>
+
+        <div class="filter-selects-flex">
+          <select id="doc-cat-select" class="filter-select" onchange="window.filterDocuments()">
+            <option value="ALL">All Categories</option>
+            <option value="RFP / Bid">RFPs & Bids</option>
+            <option value="Packet">Board Packets</option>
+            <option value="Minutes">Board Minutes</option>
+            <option value="Financial Report">Financial Audits</option>
+            <option value="Master Plan">Master Plan</option>
+            <option value="Environmental">Environmental Studies</option>
+            <option value="Policy">Operating Policies</option>
+          </select>
+
+          <select id="doc-year-select" class="filter-select" onchange="window.filterDocuments()">
+            <option value="ALL">All Years</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Document Results List -->
+      <div class="documents-list" id="documents-list">
+        {DOCUMENTS_DATA.map((doc) => (
+          <div 
+            class="doc-item-card tvc-card mb-4" 
+            data-category={doc.category}
+            data-year={doc.year}
+            data-search={`${doc.title} ${doc.description} ${doc.id} ${doc.category}`.toLowerCase()}
+          >
+            <div class="doc-main-flex">
+              <div class="doc-icon-box">📄</div>
+              <div class="doc-details">
+                <div class="doc-tags">
+                  <span class="doc-cat-tag">{doc.category}</span>
+                  <span class="doc-dept-tag">{doc.department}</span>
+                  <span class="doc-year-tag">{doc.year}</span>
+                </div>
+                <h2 class="doc-title">{doc.title}</h2>
+                <p class="doc-desc">{doc.description}</p>
+                <div class="doc-meta-strip">
+                  <span>📅 Published: {doc.date}</span>
+                  <span>📦 File: PDF ({doc.fileSize})</span>
+                  <span>⬇️ Downloads: {doc.downloadCount}</span>
+                </div>
+              </div>
+
+              <div class="doc-actions-col">
+                <a 
+                  href={doc.url} 
+                  target="_blank" 
+                  class="btn btn-navy btn-sm"
+                  onclick={`window.trackDocDownload('${doc.id}', '${doc.title}')`}
+                >
+                  View Document
+                </a>
+                <a 
+                  href={doc.url} 
+                  download 
+                  class="btn btn-outline btn-sm"
+                  onclick={`window.trackDocDownload('${doc.id}', '${doc.title}')`}
+                >
+                  Download PDF ({doc.fileSize})
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .docs-section { padding: 40px 0 80px; }
+
+  .app-subnav { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .subnav-btn { background-color: white; border: 1px solid var(--color-border); padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; color: var(--color-navy-dark); font-size: 0.9rem; text-decoration: none; }
+  .subnav-btn.active { background-color: var(--color-navy); color: white; }
+
+  .mb-8 { margin-bottom: 32px; }
+  .mb-4 { margin-bottom: 16px; }
+
+  .filter-toolbar { display: flex; flex-direction: column; gap: 16px; }
+  .search-filter-box input { width: 100%; padding: 12px 16px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 0.95rem; outline: none; font-family: var(--font-body); }
+  .filter-selects-flex { display: flex; gap: 12px; flex-wrap: wrap; }
+  .filter-select { padding: 8px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 0.88rem; background: white; outline: none; }
+
+  .doc-main-flex { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+  .doc-icon-box { font-size: 2rem; background: var(--color-sand); width: 50px; height: 50px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  .doc-details { flex: 1; min-width: 280px; }
+  .doc-tags { display: flex; gap: 6px; margin-bottom: 6px; }
+  .doc-cat-tag { background: var(--color-cherry); color: white; font-weight: 800; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; }
+  .doc-dept-tag { background: #E0F2FE; color: #0369A1; font-weight: 700; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; }
+  .doc-year-tag { background: #E2E8F0; color: #475569; font-weight: 700; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; }
+
+  .doc-title { font-size: 1.25rem; color: var(--color-navy-dark); margin-bottom: 6px; }
+  .doc-desc { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 12px; }
+
+  .doc-meta-strip { font-size: 0.78rem; color: var(--color-text-light); display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .doc-actions-col { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; min-width: 160px; }
+</style>
+
+<script>
+  (window as any).filterDocuments = function() {
+    const query = (document.getElementById('doc-search-input') as HTMLInputElement)?.value.toLowerCase();
+    const catVal = (document.getElementById('doc-cat-select') as HTMLSelectElement)?.value;
+    const yearVal = (document.getElementById('doc-year-select') as HTMLSelectElement)?.value;
+
+    const items = document.querySelectorAll('.doc-item-card');
+
+    items.forEach(item => {
+      const searchData = item.getAttribute('data-search') || '';
+      const category = item.getAttribute('data-category') || '';
+      const year = item.getAttribute('data-year') || '';
+
+      const matchesSearch = searchData.includes(query);
+      const matchesCat = catVal === 'ALL' || category === catVal;
+      const matchesYear = yearVal === 'ALL' || year === yearVal;
+
+      if (matchesSearch && matchesCat && matchesYear) {
+        (item as HTMLElement).style.display = 'block';
+      } else {
+        (item as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+
+  (window as any).trackDocDownload = function(docId: string, title: string) {
+    console.log(`[GA4 Simulated Event] document_download: id=${docId}, title=${title}`);
+  };
+</script>

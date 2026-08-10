@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Northwest Regional Airport Authority (NRAA) · Governance & Public Portal"
+  description="Official public governance portal of the Northwest Regional Airport Authority (NRAA), governing body of Cherry Capital Airport (TVC)."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Airport Authority (NRAA)</span>
+      </div>
+      <h1 class="page-title">Northwest Regional Airport Authority</h1>
+      <p class="page-intro">The public regional body created to govern, operate, and develop Cherry Capital Airport (TVC).</p>
+    </div>
+  </div>
+
+  <section class="nraa-section">
+    <div class="container">
+      <div class="app-subnav">
+        <a href="/nraa" class="subnav-btn active">🏛️ Authority Overview</a>
+        <a href="/nraa/meetings" class="subnav-btn">📅 Board Meetings & Agendas</a>
+        <a href="/documents" class="subnav-btn">📄 Public Documents Library</a>
+        <a href="/business-opportunities" class="subnav-btn">💼 Bids & RFPs Portal</a>
+      </div>
+
+      <div class="nraa-grid">
+        <div class="nraa-main-content">
+          <div class="tvc-card mb-8">
+            <h2>About the Authority</h2>
+            <p>
+              The Northwest Regional Airport Authority (NRAA) is an independent regional municipal entity established by Grand Traverse County and Leelanau County under Michigan Law (Public Act 73 of 1970).
+            </p>
+            <p class="mt-4">
+              NRAA is responsible for oversight, policy, capital expansion, safety compliance, financial management, and air service development for Cherry Capital Airport (TVC).
+            </p>
+          </div>
+
+          <div class="tvc-card mb-8">
+            <h2>Board of Directors Governance</h2>
+            <p class="mb-4">The NRAA Board consists of appointed representatives serving staggered terms representing Grand Traverse and Leelanau counties.</p>
+            
+            <div class="board-members-grid">
+              <div class="member-box">
+                <span class="member-role">CHAIR</span>
+                <span class="member-name">Steve L.</span>
+                <span class="member-rep">Grand Traverse County</span>
+              </div>
+              <div class="member-box">
+                <span class="member-role">VICE CHAIR</span>
+                <span class="member-name">Patricia C.</span>
+                <span class="member-rep">Leelanau County</span>
+              </div>
+              <div class="member-box">
+                <span class="member-role">TREASURER</span>
+                <span class="member-name">Michael H.</span>
+                <span class="member-rep">Grand Traverse County</span>
+              </div>
+              <div class="member-box">
+                <span class="member-role">SECRETARY</span>
+                <span class="member-name">Deborah N.</span>
+                <span class="member-rep">Leelanau County</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tvc-card">
+            <h2>Airport Administration Leadership</h2>
+            <p><strong>Chief Executive Officer / Airport Director:</strong> Kevin Klein</p>
+            <p><strong>Deputy Director of Operations:</strong> Frank Simkins</p>
+            <p><strong>Director of Finance & Administration:</strong> Autumn MacClaren</p>
+          </div>
+        </div>
+
+        <div class="nraa-sidebar">
+          <div class="tvc-card sidebar-box">
+            <h3>Quick Links & Portal</h3>
+            <ul class="sidebar-links">
+              <li><a href="/nraa/meetings">📅 Next Board Meeting Agenda</a></li>
+              <li><a href="/documents">📄 Audited Financial Statements</a></li>
+              <li><a href="/business-opportunities">💼 RFP 2026-01 Website Redesign</a></li>
+              <li><a href="/gates-to-the-future">🚧 Gates to the Future Project</a></li>
+              <li><a href="/board-portal">🔐 Secure Board Member Portal</a></li>
+            </ul>
+          </div>
+
+          <div class="tvc-card sidebar-box mt-6">
+            <h3>Public Records Request</h3>
+            <p class="text-sm">Requests for public records under the Michigan Freedom of Information Act (FOIA) may be submitted to the Authority Secretary.</p>
+            <a href="/documents" class="btn btn-navy btn-sm mt-4">FOIA Procedures & Forms →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .nraa-section { padding: 40px 0 80px; }
+
+  .app-subnav { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+  .subnav-btn { background-color: white; border: 1px solid var(--color-border); padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; color: var(--color-navy-dark); font-size: 0.9rem; text-decoration: none; }
+  .subnav-btn.active { background-color: var(--color-navy); color: white; }
+
+  .nraa-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
+  @media (min-width: 1024px) { .nraa-grid { grid-template-columns: 2.5fr 1fr; } }
+
+  .mb-8 { margin-bottom: 32px; }
+  .mb-4 { margin-bottom: 16px; }
+  .mt-4 { margin-top: 16px; }
+  .mt-6 { margin-top: 24px; }
+
+  .nraa-main-content h2 { font-size: 1.5rem; color: var(--color-navy-dark); margin-bottom: 12px; }
+  .nraa-main-content p { color: var(--color-text-muted); line-height: 1.6; }
+
+  .board-members-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; }
+  @media (min-width: 640px) { .board-members-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .member-box { background: var(--color-sand); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+  .member-role { font-size: 0.72rem; font-weight: 800; color: var(--color-cherry); display: block; }
+  .member-name { font-size: 1.1rem; font-weight: 800; color: var(--color-navy-dark); display: block; margin: 2px 0; }
+  .member-rep { font-size: 0.8rem; color: var(--color-text-muted); }
+
+  .sidebar-box h3 { font-size: 1.15rem; color: var(--color-navy-dark); margin-bottom: 16px; }
+  .sidebar-links { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+  .sidebar-links a { color: var(--color-navy); font-weight: 600; }
+  .sidebar-links a:hover { color: var(--color-cherry); }
+  .text-sm { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; }
+</style>

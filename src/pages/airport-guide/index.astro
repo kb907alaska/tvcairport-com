@@ -1,0 +1,128 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { AMENITIES_DATA } from '../../data/amenities';
+---
+
+<Layout
+  title="Airport Guide & Terminal Amenities · TVC Cherry Capital Airport"
+  description="Explore TVC terminal amenities: dining, newsstands, lactation suites, pet relief areas, TSA PreCheck, Wi-Fi, and terminal layout maps."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Airport Guide</span>
+      </div>
+      <h1 class="page-title">Terminal Guide & Amenities</h1>
+      <p class="page-intro">Find passenger dining, shopping, family lactation suites, pet relief, and airport services.</p>
+    </div>
+  </div>
+
+  <section class="guide-section">
+    <div class="container">
+      <div class="app-subnav">
+        <a href="/airport-guide" class="subnav-btn active">☕ Terminal Amenities</a>
+        <a href="/airport-guide/accessibility" class="subnav-btn">♿ Accessibility & TSA Cares</a>
+      </div>
+
+      <!-- Amenity Categories Filter -->
+      <div class="filter-toolbar tvc-card">
+        <div class="category-buttons">
+          <button type="button" class="cat-btn active" onclick="window.filterAmenities('ALL')">All Amenities</button>
+          <button type="button" class="cat-btn" onclick="window.filterAmenities('Dining & Drinks')">Dining & Drinks</button>
+          <button type="button" class="cat-btn" onclick="window.filterAmenities('Shopping & Gifts')">Shopping & Gifts</button>
+          <button type="button" class="cat-btn" onclick="window.filterAmenities('Accessibility & Family')">Family & Pets</button>
+          <button type="button" class="cat-btn" onclick="window.filterAmenities('Services & Comfort')">Services & TSA</button>
+        </div>
+      </div>
+
+      <!-- Amenity Cards Grid -->
+      <div class="amenities-grid">
+        {AMENITIES_DATA.map((item) => (
+          <div class="amenity-card tvc-card" data-category={item.category}>
+            <div class="amenity-img-box">
+              <img src={item.image} alt={item.name} loading="lazy" />
+              <span class="security-badge">{item.securityState}</span>
+            </div>
+
+            <div class="amenity-body">
+              <div class="amenity-head">
+                <span class="amenity-cat">{item.category}</span>
+                <h3 class="amenity-title">{item.name}</h3>
+                <span class="amenity-loc">📍 {item.location}</span>
+              </div>
+
+              <p class="amenity-desc">{item.description}</p>
+              <div class="amenity-hours">⏱️ <strong>Hours:</strong> {item.hours}</div>
+
+              <div class="feature-pills">
+                {item.features.map((feat) => (
+                  <span class="feature-pill">✓ {feat}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .guide-section { padding: 40px 0 80px; }
+
+  .app-subnav { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .subnav-btn { background-color: white; border: 1px solid var(--color-border); padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; color: var(--color-navy-dark); font-size: 0.9rem; text-decoration: none; }
+  .subnav-btn.active { background-color: var(--color-navy); color: white; }
+
+  .filter-toolbar { margin-bottom: 32px; }
+  .category-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cat-btn { padding: 8px 16px; border: 1px solid var(--color-border); background: white; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--color-navy-dark); cursor: pointer; }
+  .cat-btn.active { background: var(--color-navy); color: white; border-color: var(--color-navy); }
+
+  .amenities-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+  @media (min-width: 640px) { .amenities-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .amenities-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .amenity-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .amenity-img-box { position: relative; height: 180px; }
+  .amenity-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+  .security-badge { position: absolute; top: 12px; right: 12px; background: var(--color-navy-dark); color: white; padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
+
+  .amenity-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+  .amenity-cat { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-cherry); }
+  .amenity-title { font-size: 1.3rem; color: var(--color-navy-dark); margin: 4px 0; }
+  .amenity-loc { font-size: 0.82rem; color: var(--color-text-muted); font-weight: 600; display: block; margin-bottom: 12px; }
+
+  .amenity-desc { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 12px; }
+  .amenity-hours { font-size: 0.82rem; color: var(--color-navy-dark); margin-bottom: 16px; }
+
+  .feature-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+  .feature-pill { background: var(--color-sand); border: 1px solid var(--color-border); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; color: var(--color-navy); font-weight: 600; }
+</style>
+
+<script>
+  (window as any).filterAmenities = function(cat: string) {
+    const btns = document.querySelectorAll('.cat-btn');
+    btns.forEach(b => b.classList.remove('active'));
+
+    const activeBtn = Array.from(btns).find(b => b.textContent?.trim().includes(cat) || (cat === 'ALL' && b.textContent?.includes('All')));
+    activeBtn?.classList.add('active');
+
+    const cards = document.querySelectorAll('.amenity-card');
+    cards.forEach(card => {
+      const category = card.getAttribute('data-category');
+      if (cat === 'ALL' || category === cat) {
+        (card as HTMLElement).style.display = 'flex';
+      } else {
+        (card as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+</script>

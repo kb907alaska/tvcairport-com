@@ -1,0 +1,227 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { DESTINATIONS_DATA } from '../../data/destinations';
+---
+
+<Layout
+  title="Nonstop Destinations Map · TVC Cherry Capital Airport"
+  description="Interactive nonstop route map and city guide for flights departing Cherry Capital Airport (TVC) to Chicago, Atlanta, Dallas, Denver, NYC, Florida and more."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/flights">Flights</a> / <span>Nonstop Destinations</span>
+      </div>
+      <h1 class="page-title">Nonstop Destinations</h1>
+      <p class="page-intro">Fly direct from TVC to major US hubs and popular vacation destinations year-round and seasonally.</p>
+    </div>
+  </div>
+
+  <section class="destinations-section">
+    <div class="container">
+      <div class="app-subnav">
+        <a href="/flights" class="subnav-btn">🛬 Flight Status Board</a>
+        <a href="/flights/airlines" class="subnav-btn">✈️ Airlines Directory</a>
+        <a href="/flights/nonstop-destinations" class="subnav-btn active">🗺️ Nonstop Route Map</a>
+      </div>
+
+      <!-- Interactive Filter Controls -->
+      <div class="filter-toolbar tvc-card">
+        <div class="filter-group">
+          <label for="type-filter" class="filter-label">Seasonality:</label>
+          <select id="type-filter" class="filter-select" onchange="window.filterDestinations()">
+            <option value="ALL">All Seasons</option>
+            <option value="Year-Round">Year-Round Nonstops</option>
+            <option value="Seasonal Summer">Seasonal Summer</option>
+            <option value="Seasonal Winter">Seasonal Winter</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="region-filter" class="filter-label">Region:</label>
+          <select id="region-filter" class="filter-select" onchange="window.filterDestinations()">
+            <option value="ALL">All Regions</option>
+            <option value="Midwest">Midwest</option>
+            <option value="East Coast">East Coast</option>
+            <option value="South">South</option>
+            <option value="Florida">Florida</option>
+            <option value="West">West</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Route Cards Grid -->
+      <div class="destinations-grid" id="destinations-grid">
+        {DESTINATIONS_DATA.map((dest) => (
+          <div 
+            class="dest-item-card tvc-card" 
+            data-type={dest.type}
+            data-region={dest.region}
+          >
+            <div class="dest-img-wrapper">
+              <img src={dest.image} alt={dest.city} loading="lazy" />
+              <span class={`season-badge ${dest.type === 'Year-Round' ? 'badge-yr' : 'badge-season'}`}>
+                {dest.type}
+              </span>
+            </div>
+
+            <div class="dest-card-body">
+              <div class="dest-header">
+                <div>
+                  <h3 class="dest-city">{dest.city}, {dest.state}</h3>
+                  <span class="dest-code">{dest.airportCode} · {dest.airportName}</span>
+                </div>
+                <span class="duration-badge">⏱️ {dest.flightDuration}</span>
+              </div>
+
+              <p class="dest-desc">{dest.description}</p>
+
+              <div class="served-airlines">
+                <span class="served-label">Serving Airlines:</span>
+                <div class="airline-pills">
+                  {dest.airlines.map((air) => (
+                    <span class="airline-pill">{air}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg {
+    background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%);
+    color: white;
+    padding: 40px 0;
+  }
+
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .destinations-section { padding: 40px 0 80px; }
+
+  .app-subnav {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .subnav-btn {
+    background-color: white;
+    border: 1px solid var(--color-border);
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    color: var(--color-navy-dark);
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .subnav-btn.active {
+    background-color: var(--color-navy);
+    color: white;
+  }
+
+  .filter-toolbar {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .filter-group { display: flex; align-items: center; gap: 8px; }
+  .filter-label { font-size: 0.88rem; font-weight: 700; color: var(--color-navy-dark); }
+  .filter-select { padding: 8px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 0.88rem; background: white; outline: none; }
+
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+  }
+
+  @media (min-width: 640px) {
+    .destinations-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .destinations-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .dest-item-card {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dest-img-wrapper {
+    position: relative;
+    height: 180px;
+    width: 100%;
+  }
+
+  .dest-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .season-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .badge-yr { background: var(--color-navy-dark); color: white; }
+  .badge-season { background: var(--color-cherry); color: white; }
+
+  .dest-card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+
+  .dest-header { margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .dest-city { font-size: 1.3rem; color: var(--color-navy-dark); }
+  .dest-code { font-size: 0.75rem; color: var(--color-text-muted); display: block; }
+  .duration-badge { font-size: 0.78rem; font-weight: 700; background: var(--color-sand); padding: 2px 8px; border-radius: 4px; }
+
+  .dest-desc { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 16px; }
+
+  .served-airlines { margin-top: auto; }
+  .served-label { display: block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 6px; }
+
+  .airline-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+  .airline-pill { background: var(--color-sand); border: 1px solid var(--color-border); padding: 2px 8px; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; color: var(--color-navy-dark); }
+</style>
+
+<script>
+  (window as any).filterDestinations = function() {
+    const typeVal = (document.getElementById('type-filter') as HTMLSelectElement)?.value;
+    const regionVal = (document.getElementById('region-filter') as HTMLSelectElement)?.value;
+
+    const items = document.querySelectorAll('.dest-item-card');
+
+    items.forEach(item => {
+      const type = item.getAttribute('data-type');
+      const region = item.getAttribute('data-region');
+
+      const matchesType = typeVal === 'ALL' || type === typeVal;
+      const matchesRegion = regionVal === 'ALL' || region === regionVal;
+
+      if (matchesType && matchesRegion) {
+        (item as HTMLElement).style.display = 'flex';
+      } else {
+        (item as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+</script>

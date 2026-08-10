@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Accessibility & Passenger Assistance · TVC Cherry Capital Airport"
+  description="TVC accessibility services, WCAG 2.2 AA standards, TSA Cares guidance, wheelchair assistance, service animal relief areas, and accessible parking."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/airport-guide">Airport Guide</a> / <span>Accessibility</span>
+      </div>
+      <h1 class="page-title">Accessibility & Passenger Assistance</h1>
+      <p class="page-intro">Committed to providing an accessible, dignified travel experience for all passengers and visitors.</p>
+    </div>
+  </div>
+
+  <section class="a11y-section">
+    <div class="container">
+      <div class="app-subnav">
+        <a href="/airport-guide" class="subnav-btn">☕ Terminal Amenities</a>
+        <a href="/airport-guide/accessibility" class="subnav-btn active">♿ Accessibility & TSA Cares</a>
+      </div>
+
+      <!-- WCAG Declaration Banner -->
+      <div class="declaration-card tvc-card mb-8">
+        <div class="dec-flex">
+          <div class="dec-icon">♿</div>
+          <div>
+            <span class="dec-badge">WCAG 2.2 LEVEL AA CONFORMANCE TARGET</span>
+            <h2>Digital & Physical Accessibility Commitment</h2>
+            <p>
+              The Northwest Regional Airport Authority (NRAA) ensures both physical airport facilities and web communications comply with ADA Standards for Accessible Design and WCAG 2.2 AA specifications.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="a11y-grid">
+        <!-- Wheelchair Assistance -->
+        <div class="a11y-card tvc-card">
+          <h3>👩‍🦽 Wheelchair & Airline Assistance</h3>
+          <p>Wheelchair assistance from curbside drop-off to boarding gate is provided free of charge by your departing airline.</p>
+          <ul class="a11y-list">
+            <li>✓ Request assistance when booking your ticket or at check-in</li>
+            <li>✓ Skycap assistance available at main entrance curb</li>
+            <li>✓ Accessible jet bridges and ramp loading equipment</li>
+          </ul>
+        </div>
+
+        <!-- TSA Cares -->
+        <div class="a11y-card tvc-card">
+          <h3>🛡️ TSA Cares Security Assistance</h3>
+          <p>TSA Cares provides dedicated security screening support for travelers with disabilities, medical conditions, or special circumstances.</p>
+          <ul class="a11y-list">
+            <li>✓ Call TSA Cares at <strong>(855) 787-2227</strong> 72 hrs prior</li>
+            <li>✓ Dedicated screening room available upon request</li>
+            <li>✓ Passenger Support Specialists on site</li>
+          </ul>
+        </div>
+
+        <!-- Service Animals -->
+        <div class="a11y-card tvc-card">
+          <h3>🐕 Service Animal Relief Areas</h3>
+          <p>TVC provides designated relief areas equipped with artificial turf, waste disposal bags, and freshwater sinks.</p>
+          <ul class="a11y-list">
+            <li>✓ Pre-Security: Outdoor lawn adjacent to Baggage Claim</li>
+            <li>✓ Post-Security: Secure indoor pet relief room near Gate 4</li>
+            <li>✓ Fully ADA compliant & wheelchair accessible</li>
+          </ul>
+        </div>
+
+        <!-- Accessible Parking -->
+        <div class="a11y-card tvc-card">
+          <h3>🅿️ Accessible Parking & Curb Access</h3>
+          <p>Designated accessible parking spaces are available in Short Term, Long Term, and Economy lots closest to walkways.</p>
+          <ul class="a11y-list">
+            <li>✓ Van-accessible spaces with side access aisles</li>
+            <li>✓ Curbside drop-off ramp zones at main terminal</li>
+            <li>✓ Automated pay stations with audio prompts</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Alternative Format Contact Form -->
+      <div class="contact-form-card tvc-card mt-12">
+        <h2>Request Alternative Format or Accessibility Feedback</h2>
+        <p>If you encounter any accessibility barrier at TVC or require public documents in large print, braille, or audio format, please contact our ADA Coordinator.</p>
+
+        <form class="a11y-form" onsubmit="event.preventDefault(); alert('Thank you. Your accessibility request has been received by NRAA ADA Compliance.');">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" required class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" required class="form-input" />
+            </div>
+          </div>
+          <div class="form-group mt-4">
+            <label for="details">Describe Accessibility Need or Document Request *</label>
+            <textarea id="details" rows="4" required class="form-input"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mt-4">Submit Request →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .a11y-section { padding: 40px 0 80px; }
+
+  .app-subnav { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .subnav-btn { background-color: white; border: 1px solid var(--color-border); padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; color: var(--color-navy-dark); font-size: 0.9rem; text-decoration: none; }
+  .subnav-btn.active { background-color: var(--color-navy); color: white; }
+
+  .declaration-card { background: #E0F2FE; border-color: #0284C7; }
+  .dec-flex { display: flex; gap: 20px; align-items: flex-start; }
+  .dec-icon { font-size: 2.5rem; }
+  .dec-badge { background: #0284C7; color: white; font-weight: 800; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; }
+  .declaration-card h2 { color: var(--color-navy-dark); margin: 6px 0; font-size: 1.5rem; }
+
+  .a11y-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; margin-top: 24px; }
+  @media (min-width: 768px) { .a11y-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .a11y-card h3 { font-size: 1.25rem; color: var(--color-navy-dark); margin-bottom: 10px; }
+  .a11y-card p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 14px; }
+  .a11y-list { list-style: none; font-size: 0.88rem; display: flex; flex-direction: column; gap: 6px; color: var(--color-text-main); }
+
+  .mt-12 { margin-top: 48px; }
+  .contact-form-card h2 { font-size: 1.5rem; color: var(--color-navy-dark); margin-bottom: 8px; }
+  .contact-form-card p { font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 20px; }
+  
+  .form-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; }
+  @media (min-width: 640px) { .form-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-navy-dark); margin-bottom: 6px; }
+  .form-input { width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.9rem; }
+  .mt-4 { margin-top: 16px; }
+</style>

@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { AIRLINES_DATA } from '../../data/flights';
+---
+
+<Layout
+  title="Airlines Serving TVC · Cherry Capital Airport"
+  description="Directory of passenger airlines serving Traverse City TVC including American Airlines, Delta Air Lines, United Airlines, Sun Country, and Allegiant Air."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/flights">Flights</a> / <span>Airlines</span>
+      </div>
+      <h1 class="page-title">Airlines Serving TVC</h1>
+      <p class="page-intro">Direct nonstops and major hub connections provided by five major carrier partners.</p>
+    </div>
+  </div>
+
+  <section class="airlines-section">
+    <div class="container">
+      <div class="app-subnav">
+        <a href="/flights" class="subnav-btn">🛬 Flight Status Board</a>
+        <a href="/flights/airlines" class="subnav-btn active">✈️ Airlines Directory</a>
+        <a href="/flights/nonstop-destinations" class="subnav-btn">🗺️ Nonstop Route Map</a>
+      </div>
+
+      <div class="airlines-grid">
+        {AIRLINES_DATA.map((airline) => (
+          <div class="airline-card tvc-card">
+            <div class="airline-card-header">
+              <div>
+                <span class="airline-code-badge">{airline.code}</span>
+                <h2 class="airline-name">{airline.name}</h2>
+              </div>
+              <span class="gate-tag">{airline.gates}</span>
+            </div>
+
+            <p class="airline-desc">{airline.description}</p>
+
+            <div class="airline-meta-block">
+              <div class="meta-item">
+                <span class="meta-label">Customer Service Phone:</span>
+                <a href={`tel:${airline.phone}`} class="meta-val">{airline.phone}</a>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Terminal Gate Location:</span>
+                <span class="meta-val">{airline.gates}</span>
+              </div>
+            </div>
+
+            <div class="routes-block">
+              <span class="routes-title">Nonstops Served from TVC:</span>
+              <div class="route-chips">
+                {airline.destinations.map((dest) => (
+                  <span class="route-chip">{dest}</span>
+                ))}
+              </div>
+            </div>
+
+            <div class="airline-actions">
+              <a href={airline.website} target="_blank" rel="noopener noreferrer" class="btn btn-navy btn-sm">Official Airline Website ↗</a>
+              <a href={airline.baggageUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Baggage Policy ↗</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg {
+    background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%);
+    color: white;
+    padding: 40px 0;
+  }
+
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .airlines-section { padding: 40px 0 80px; }
+
+  .app-subnav {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .subnav-btn {
+    background-color: white;
+    border: 1px solid var(--color-border);
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    color: var(--color-navy-dark);
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .subnav-btn.active {
+    background-color: var(--color-navy);
+    color: white;
+  }
+
+  .airlines-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .airlines-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .airline-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .airline-code-badge {
+    background: var(--color-cherry);
+    color: white;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+
+  .airline-name { font-size: 1.4rem; color: var(--color-navy-dark); margin-top: 4px; }
+  .gate-tag { background: #E0F2FE; color: #0369A1; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.8rem; }
+
+  .airline-desc { font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 16px; line-height: 1.5; }
+
+  .airline-meta-block {
+    background: var(--color-sand);
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .meta-item { display: flex; justify-content: space-between; font-size: 0.85rem; }
+  .meta-label { color: var(--color-text-muted); }
+  .meta-val { font-weight: 700; color: var(--color-navy-dark); }
+
+  .routes-block { margin-bottom: 20px; }
+  .routes-title { display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+
+  .route-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .route-chip { background: white; border: 1px solid var(--color-border); padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; color: var(--color-navy); }
+
+  .airline-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+</style>

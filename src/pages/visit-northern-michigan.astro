@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Explore Northern Michigan · TVC Cherry Capital Airport Gateway"
+  description="TVC is your gateway to Traverse City, Sleeping Bear Dunes National Lakeshore, Grand Traverse Bay, regional wineries, championship golf, and winter sports."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Explore Northern Michigan</span>
+      </div>
+      <h1 class="page-title">Land Closer to What Matters</h1>
+      <p class="page-intro">Step off your flight and arrive straight into the heart of Northern Michigan's lakes, dunes, wineries, and vibrant towns.</p>
+    </div>
+  </div>
+
+  <section class="visit-section">
+    <div class="container">
+      <!-- Disclaimer Banner -->
+      <div class="disclaimer-banner tvc-card mb-8">
+        ℹ️ <strong>Brand & Creative Coordination Note:</strong> This prototype showcases existing public imagery and regional assets to demonstrate information architecture. Final brand identity, photography, and destination storytelling will be produced in coordination with NRAA's creative agency partner.
+      </div>
+
+      <!-- Regional Destinations Grid -->
+      <div class="dest-gallery-grid">
+        <div class="gallery-card tvc-card">
+          <div class="g-img">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Sleeping Bear Dunes" loading="lazy" />
+          </div>
+          <div class="g-content">
+            <span class="g-dist">35 Miles from TVC</span>
+            <h3>Sleeping Bear Dunes National Lakeshore</h3>
+            <p>Voted 'Most Beautiful Place in America'. Miles of freshwater sand dunes towering 450 feet over Lake Michigan, hiking trails, and historic maritime villages.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card tvc-card">
+          <div class="g-img">
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80" alt="Old Mission Wineries" loading="lazy" />
+          </div>
+          <div class="g-content">
+            <span class="g-dist">12 Miles from TVC</span>
+            <h3>Old Mission & Leelanau Wine Regions</h3>
+            <p>Over 40 award-winning wineries, craft breweries, and cideries along the 45th parallel, offering panoramic bay views and wine tasting tours.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card tvc-card">
+          <div class="g-img">
+            <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=600&q=80" alt="Championship Golf" loading="lazy" />
+          </div>
+          <div class="g-content">
+            <span class="g-dist">5 to 25 Miles from TVC</span>
+            <h3>Championship Golf Courses</h3>
+            <p>Home to premier golf resorts designed by Jack Nicklaus, Arnold Palmer, and Tom Weiskopf nestled among hardwoods and freshwater lakes.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card tvc-card">
+          <div class="g-img">
+            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=600&q=80" alt="Downtown Traverse City" loading="lazy" />
+          </div>
+          <div class="g-content">
+            <span class="g-dist">4 Miles from TVC</span>
+            <h3>Downtown Traverse City Dining & Culture</h3>
+            <p>Independent boutiques, farm-to-table culinary spots, Front Street shopping, the historic State Theatre, and vibrant waterfront festivals.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Partner Tourism Resources Bar -->
+      <div class="partner-bar tvc-card mt-12">
+        <div class="partner-text">
+          <h3>Plan Your Northern Michigan Itinerary</h3>
+          <p>Cherry Capital Airport works closely with regional tourism organizations to connect travelers with hotels, events, and seasonal activities.</p>
+        </div>
+        <div class="partner-links">
+          <a href="https://www.traversecity.com" target="_blank" rel="noopener noreferrer" class="btn btn-navy">Traverse City Tourism ↗</a>
+          <a href="https://www.michigan.org" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Pure Michigan ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .visit-section { padding: 40px 0 80px; }
+
+  .disclaimer-banner { background: #FFFBEB; border-color: #F59E0B; color: #92400E; font-size: 0.85rem; padding: 12px 16px; margin-bottom: 32px; }
+
+  .dest-gallery-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+  @media (min-width: 768px) { .dest-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .gallery-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .g-img { height: 220px; width: 100%; }
+  .g-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .g-content { padding: 20px; }
+  .g-dist { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-cherry); display: block; margin-bottom: 4px; }
+  .g-content h3 { font-size: 1.3rem; color: var(--color-navy-dark); margin-bottom: 8px; }
+  .g-content p { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; }
+
+  .mt-12 { margin-top: 48px; }
+  .partner-bar { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; background: var(--color-sand); }
+  .partner-text h3 { font-size: 1.3rem; color: var(--color-navy-dark); margin-bottom: 4px; }
+  .partner-text p { font-size: 0.88rem; color: var(--color-text-muted); }
+  .partner-links { display: flex; gap: 10px; flex-wrap: wrap; }
+</style>

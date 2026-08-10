@@ -1,0 +1,1103 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FLIGHTS_DATA } from '../data/flights';
+
+const arrivals = FLIGHTS_DATA.filter(f => f.type === 'arrival').slice(0, 5);
+const departures = FLIGHTS_DATA.filter(f => f.type === 'departure').slice(0, 5);
+---
+
+<Layout 
+  title="TVC · Cherry Capital Airport · Traverse City, Michigan"
+  description="Official Cherry Capital Airport (TVC) passenger portal. Check live flight arrivals and departures, parking rates, terminal amenities, nonstop routes, and NRAA public records."
+>
+  <!-- Hero Section with Flight Application Interface -->
+  <section class="hero-section">
+    <div class="hero-backdrop-glow"></div>
+    <div class="container hero-container">
+      <div class="hero-header">
+        <div class="hero-tag">
+          <span class="pulse-dot"></span>
+          AIRPORT OPERATIONAL STATUS: NORMAL · TRAVERSE CITY 68°F PARTLY CLOUDY
+        </div>
+        <h1 class="hero-title">Your Gateway to Northern Michigan</h1>
+        <p class="hero-subtitle">Simple travel. Remarkable destination.</p>
+      </div>
+
+      <!-- Live Flight Module Card -->
+      <div class="flight-dashboard-card tvc-card">
+        <div class="flight-dashboard-header">
+          <div class="tab-toggle-group" role="tablist" aria-label="Flight Type Selection">
+            <button 
+              type="button" 
+              class="tab-btn active" 
+              id="tab-arrivals-btn"
+              role="tab" 
+              aria-selected="true" 
+              aria-controls="arrivals-panel"
+              onclick="window.switchFlightTab('arrivals')"
+            >
+              🛬 Live Arrivals
+            </button>
+            <button 
+              type="button" 
+              class="tab-btn" 
+              id="tab-departures-btn"
+              role="tab" 
+              aria-selected="false" 
+              aria-controls="departures-panel"
+              onclick="window.switchFlightTab('departures')"
+            >
+              🛫 Live Departures
+            </button>
+          </div>
+
+          <div class="flight-search-quick">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input 
+              type="text" 
+              id="home-flight-filter" 
+              placeholder="Search flight code (UA1234) or city..." 
+              onkeyup="window.filterHomeFlights()"
+            />
+          </div>
+        </div>
+
+        <!-- Arrivals Table / Card Grid -->
+        <div id="arrivals-panel" role="tabpanel" aria-labelledby="tab-arrivals-btn">
+          <div class="table-responsive">
+            <table class="flight-table">
+              <thead>
+                <tr>
+                  <th>Airline</th>
+                  <th>Flight</th>
+                  <th>Origin</th>
+                  <th>Scheduled</th>
+                  <th>Updated</th>
+                  <th>Status</th>
+                  <th>Gate</th>
+                </tr>
+              </thead>
+              <tbody id="arrivals-tbody">
+                {arrivals.map((flight) => (
+                  <tr class="flight-row" data-code={`${flight.flightNumber} ${flight.city}`}>
+                    <td>
+                      <div class="airline-cell">
+                        <span class="airline-name">{flight.airline}</span>
+                      </div>
+                    </td>
+                    <td class="tabular-code"><strong>{flight.flightNumber}</strong></td>
+                    <td>{flight.city} (<strong>{flight.cityCode}</strong>)</td>
+                    <td class="tabular">{flight.scheduledTime}</td>
+                    <td class="tabular">{flight.updatedTime}</td>
+                    <td>
+                      <span class="status-badge" data-status={flight.status}>
+                        {flight.status}
+                      </span>
+                    </td>
+                    <td><span class="gate-pill">{flight.gate}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div class="flight-footer-action">
+            <a href="/flights" class="btn btn-navy btn-sm">View All Live Arrivals →</a>
+            <span class="data-disclaimer">Operational Data Preview · Information updated continuously</span>
+          </div>
+        </div>
+
+        <!-- Departures Table -->
+        <div id="departures-panel" role="tabpanel" aria-labelledby="tab-departures-btn" style="display: none;">
+          <div class="table-responsive">
+            <table class="flight-table">
+              <thead>
+                <tr>
+                  <th>Airline</th>
+                  <th>Flight</th>
+                  <th>Destination</th>
+                  <th>Scheduled</th>
+                  <th>Updated</th>
+                  <th>Status</th>
+                  <th>Gate</th>
+                </tr>
+              </thead>
+              <tbody id="departures-tbody">
+                {departures.map((flight) => (
+                  <tr class="flight-row" data-code={`${flight.flightNumber} ${flight.city}`}>
+                    <td>
+                      <div class="airline-cell">
+                        <span class="airline-name">{flight.airline}</span>
+                      </div>
+                    </td>
+                    <td class="tabular-code"><strong>{flight.flightNumber}</strong></td>
+                    <td>{flight.city} (<strong>{flight.cityCode}</strong>)</td>
+                    <td class="tabular">{flight.scheduledTime}</td>
+                    <td class="tabular">{flight.updatedTime}</td>
+                    <td>
+                      <span class="status-badge" data-status={flight.status}>
+                        {flight.status}
+                      </span>
+                    </td>
+                    <td><span class="gate-pill">{flight.gate}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div class="flight-footer-action">
+            <a href="/flights" class="btn btn-navy btn-sm">View All Live Departures →</a>
+            <span class="data-disclaimer">Operational Data Preview · Information updated continuously</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: "I'm Here To..." Task Navigation -->
+  <section class="im-here-to-section">
+    <div class="container">
+      <h2 class="section-title text-center route-line-accent">I'm here to...</h2>
+      <p class="section-subtitle text-center">Fast-track your airport experience based on your journey</p>
+
+      <div class="ia-cards-grid">
+        <a href="/flights" class="ia-card">
+          <div class="ia-icon-bg">✈️</div>
+          <h3>Catch a flight</h3>
+          <p>Check security wait times, baggage rules, airline gates & TSA PreCheck.</p>
+          <span class="ia-arrow">Fly Guide →</span>
+        </a>
+
+        <a href="/parking-transportation#pickup" class="ia-card">
+          <div class="ia-icon-bg">🚗</div>
+          <h3>Pick someone up</h3>
+          <p>Short-term parking rates, cell phone lot & arrival baggage timing.</p>
+          <span class="ia-arrow">Pickup Info →</span>
+        </a>
+
+        <a href="/parking-transportation" class="ia-card">
+          <div class="ia-icon-bg">🅿️</div>
+          <h3>Park my vehicle</h3>
+          <p>Short Term, Long Term, Economy parking rates & online calculator.</p>
+          <span class="ia-arrow">Parking Rates →</span>
+        </a>
+
+        <a href="/parking-transportation#ground" class="ia-card">
+          <div class="ia-icon-bg">🚕</div>
+          <h3>Get to Traverse City</h3>
+          <p>Rental car center, Uber/Lyft pickup point & BATA public transit.</p>
+          <span class="ia-arrow">Ground Transport →</span>
+        </a>
+
+        <a href="/airport-guide" class="ia-card">
+          <div class="ia-icon-bg">☕</div>
+          <h3>Find food & services</h3>
+          <p>Cherry Capital Grill, newsstand, lactation suite & Wi-Fi details.</p>
+          <span class="ia-arrow">Terminal Guide →</span>
+        </a>
+
+        <a href="/visit-northern-michigan" class="ia-card">
+          <div class="ia-icon-bg">🌲</div>
+          <h3>Explore N. Michigan</h3>
+          <p>Sleeping Bear Dunes, lakes, golf, wine tours & visitor resources.</p>
+          <span class="ia-arrow">Destination Guide →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Parking Status Module -->
+  <section class="parking-module-section">
+    <div class="container">
+      <div class="parking-header-flex">
+        <div>
+          <span class="eyebrow">PARKING AT TVC</span>
+          <h2 class="section-title">Convenient Parking Steps from the Terminal</h2>
+        </div>
+        <a href="/parking-transportation" class="btn btn-outline">Full Rates & Interactive Map →</a>
+      </div>
+
+      <div class="parking-cards-grid">
+        <div class="parking-card tvc-card">
+          <div class="parking-badge">Best for Pickups</div>
+          <h3 class="parking-name">Short Term Parking</h3>
+          <div class="parking-rate">$2<span class="rate-unit"> / 30 mins</span></div>
+          <div class="parking-max">$19 max / day</div>
+          <p class="parking-desc">Closest to the main terminal entrance. First 15 minutes free for quick drop-offs.</p>
+          <ul class="parking-features">
+            <li>✓ 100 feet to main doors</li>
+            <li>✓ Accessible parking available</li>
+            <li>✓ First 15 minutes FREE</li>
+          </ul>
+          <a href="/parking-transportation" class="btn btn-navy btn-sm mt-auto">View Details →</a>
+        </div>
+
+        <div class="parking-card tvc-card featured-parking">
+          <div class="parking-badge badge-popular">Most Popular</div>
+          <h3 class="parking-name">Long Term Parking</h3>
+          <div class="parking-rate">$14<span class="rate-unit"> / day</span></div>
+          <div class="parking-max">$14 flat rate / 24 hrs</div>
+          <p class="parking-desc">Paved lot directly adjacent to terminal walkways. Ideal for trips 2 to 7 days.</p>
+          <ul class="parking-features">
+            <li>✓ Covered pedestrian walkway</li>
+            <li>✓ EV Charging stations</li>
+            <li>✓ Well-lit 24/7 security</li>
+          </ul>
+          <a href="/parking-transportation" class="btn btn-primary btn-sm mt-auto">Estimate Cost →</a>
+        </div>
+
+        <div class="parking-card tvc-card">
+          <div class="parking-badge">Best Value</div>
+          <h3 class="parking-name">Economy Parking</h3>
+          <div class="parking-rate">$10<span class="rate-unit"> / day</span></div>
+          <div class="parking-max">$10 flat rate / 24 hrs</div>
+          <p class="parking-desc">Lowest daily rate for extended travel. Short 3-minute walking distance.</p>
+          <ul class="parking-features">
+            <li>✓ Budget-friendly extended stays</li>
+            <li>✓ Automated pay-station checkout</li>
+            <li>✓ Overflow protection</li>
+          </ul>
+          <a href="/parking-transportation" class="btn btn-navy btn-sm mt-auto">View Details →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Journey Timeline -->
+  <section class="journey-section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <span class="eyebrow">SMOOTH TRAVEL EXPERIENCE</span>
+        <h2 class="section-title">Flying Out of TVC? Step-by-Step</h2>
+      </div>
+
+      <div class="timeline-wrapper">
+        <div class="timeline-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Arrive & Park</h4>
+            <p>Arrive 90 minutes prior to departure. Park in Short Term, Long Term or Economy.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Check In</h4>
+            <p>Print baggage tags or proceed to American, Delta, United, Sun Country or Allegiant counters.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Security Checkpoint</h4>
+            <p>Pass through TSA screening. Dedicated TSA PreCheck lane open for all flights.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>Terminal Concourse</h4>
+            <p>Relax at Cherry Capital Grill, use free high-speed Wi-Fi, charging ports and family suites.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h4>Board & Fly</h4>
+            <p>Board at Gates 1-5 with direct views of Grand Traverse aircraft ramps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Northern Michigan Destination Showcase -->
+  <section class="destination-showcase-section">
+    <div class="container">
+      <div class="destination-grid-flex">
+        <div class="destination-hero-text">
+          <span class="eyebrow-light">NORTHERN MICHIGAN GATEWAY</span>
+          <h2>The trip begins at TVC.</h2>
+          <p>
+            Surrounded by freshwater coastlines, Sleeping Bear Dunes, world-class wineries, and vibrant downtown Traverse City, Cherry Capital Airport is your effortless door to the region.
+          </p>
+          <a href="/visit-northern-michigan" class="btn btn-primary">Explore Regional Attractions →</a>
+          <div class="creative-disclaimer">
+            * Brand assets and photography shown represent existing public assets. Final creative strategy will be developed in collaboration with NRAA's agency partner.
+          </div>
+        </div>
+
+        <div class="destination-cards-container">
+          <div class="dest-card-photo">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Grand Traverse Bay Beaches" loading="lazy" />
+            <div class="dest-card-label">
+              <h4>Sleeping Bear Dunes</h4>
+              <span>35 miles from TVC</span>
+            </div>
+          </div>
+
+          <div class="dest-card-photo">
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80" alt="Traverse City Wine Region" loading="lazy" />
+            <div class="dest-card-label">
+              <h4>Old Mission Wineries</h4>
+              <span>12 miles from TVC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Gates to the Future Terminal Expansion -->
+  <section class="expansion-highlight-section">
+    <div class="container">
+      <div class="expansion-banner-card">
+        <div class="expansion-text-col">
+          <span class="expansion-badge">NRAA CAPITAL PROJECT</span>
+          <h2>TVC is Growing: Gates to the Future</h2>
+          <p>
+            To accommodate growing passenger demand, the Northwest Regional Airport Authority is expanding terminal concourses, adding new jet bridges, and enhancing passenger security lanes.
+          </p>
+          <div class="expansion-cta-group">
+            <a href="/gates-to-the-future" class="btn btn-primary">Explore Expansion Timeline →</a>
+            <a href="/business-opportunities" class="btn btn-outline">Procurement & Bids →</a>
+          </div>
+        </div>
+        <div class="expansion-stats">
+          <div class="stat-box">
+            <span class="stat-num">+$45M</span>
+            <span class="stat-lbl">Terminal Investment</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">+3</span>
+            <span class="stat-lbl">New Jet Gates</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">2027</span>
+            <span class="stat-lbl">Phase 1 Launch</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: News & NRAA Advisories Grid -->
+  <section class="news-section">
+    <div class="container">
+      <div class="parking-header-flex">
+        <div>
+          <span class="eyebrow">PUBLIC NOTICES & NEWS</span>
+          <h2 class="section-title">Latest Airport Updates</h2>
+        </div>
+        <a href="/documents" class="btn btn-outline">NRAA Document Portal →</a>
+      </div>
+
+      <div class="news-grid">
+        <article class="news-card tvc-card">
+          <div class="news-meta">
+            <span class="news-cat">AIR SERVICE</span>
+            <span class="news-date">AUG 7, 2026</span>
+          </div>
+          <h3 class="news-title">Allegiant Air Announces Expanded Winter Nonstops to Florida</h3>
+          <p class="news-excerpt">Direct seasonal flights to St. Petersburg / Tampa (PIE) and Punta Gorda (PGD) extended through spring 2027.</p>
+          <a href="/documents" class="news-link">Read Release →</a>
+        </article>
+
+        <article class="news-card tvc-card">
+          <div class="news-meta">
+            <span class="news-cat news-cat-procurement">PROCUREMENT</span>
+            <span class="news-date">JUL 28, 2026</span>
+          </div>
+          <h3 class="news-title">NRAA RFP 2026-01 Website Redesign Proposals Due Aug 21</h3>
+          <p class="news-excerpt">The Northwest Regional Airport Authority is soliciting proposals for a modern, decoupled digital experience and Craft CMS platform.</p>
+          <a href="/business-opportunities" class="news-link">View RFP Documents →</a>
+        </article>
+
+        <article class="news-card tvc-card">
+          <div class="news-meta">
+            <span class="news-cat news-cat-board">NRAA BOARD</span>
+            <span class="news-date">AUG 18, 2026</span>
+          </div>
+          <h3 class="news-title">Regular Board Meeting Scheduled for August 18, 2026</h3>
+          <p class="news-excerpt">The NRAA Board of Directors will convene at 9:00 AM in the Terminal Board Room. Public attendance and Zoom options available.</p>
+          <a href="/nraa/meetings" class="news-link">View Agenda & Packet →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    background: linear-gradient(180deg, var(--color-navy-dark) 0%, var(--color-navy) 100%);
+    color: white;
+    padding: 60px 0 80px;
+    overflow: hidden;
+  }
+
+  .hero-backdrop-glow {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(217, 4, 41, 0.15) 0%, rgba(30, 62, 98, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #6EE7B7;
+    margin-bottom: 20px;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10B981;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: 3.5rem;
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: #CBD5E1;
+    font-weight: 400;
+  }
+
+  /* Flight Dashboard Card */
+  .flight-dashboard-card {
+    background-color: white;
+    color: var(--color-text-main);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .flight-dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 16px;
+  }
+
+  .tab-toggle-group {
+    display: flex;
+    gap: 8px;
+    background-color: #F1F5F9;
+    padding: 4px;
+    border-radius: var(--radius-md);
+  }
+
+  .tab-btn {
+    border: none;
+    background: transparent;
+    padding: 10px 20px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .tab-btn.active {
+    background-color: var(--color-navy);
+    color: white;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .flight-search-quick {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #F8FAFC;
+    border: 1px solid var(--color-border);
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .flight-search-quick input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.88rem;
+    width: 100%;
+  }
+
+  /* Table styling */
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .flight-table th {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-border);
+    letter-spacing: 0.05em;
+  }
+
+  .flight-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.92rem;
+  }
+
+  .flight-row:hover {
+    background-color: #F8FAFC;
+  }
+
+  .tabular-code {
+    font-family: var(--font-tabular);
+    color: var(--color-navy-dark);
+  }
+
+  .tabular {
+    font-family: var(--font-tabular);
+  }
+
+  .gate-pill {
+    background: #E0F2FE;
+    color: #0369A1;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+  }
+
+  .flight-footer-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .data-disclaimer {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+  }
+
+  /* IA Navigation Section */
+  .im-here-to-section {
+    padding: 80px 0;
+    background-color: var(--color-sand);
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+    color: var(--color-navy-dark);
+    margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+  }
+
+  .text-center { text-align: center; }
+
+  .ia-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .ia-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .ia-cards-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .ia-card {
+    background-color: white;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .ia-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-navy);
+  }
+
+  .ia-icon-bg {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .ia-card h3 {
+    font-size: 1.2rem;
+    color: var(--color-navy-dark);
+    margin-bottom: 8px;
+  }
+
+  .ia-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .ia-arrow {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-cherry);
+    margin-top: auto;
+  }
+
+  /* Parking Section */
+  .parking-module-section {
+    padding: 80px 0;
+    background-color: white;
+  }
+
+  .parking-header-flex {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--color-cherry);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .parking-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .parking-cards-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .parking-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .featured-parking {
+    border: 2px solid var(--color-navy);
+    box-shadow: var(--shadow-md);
+  }
+
+  .parking-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: #E2E8F0;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+  }
+
+  .badge-popular {
+    background: var(--color-cherry);
+    color: white;
+  }
+
+  .parking-name {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+
+  .parking-rate {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--color-navy-dark);
+  }
+
+  .rate-unit { font-size: 1rem; color: var(--color-text-muted); font-weight: 500; }
+
+  .parking-max {
+    font-size: 0.85rem;
+    color: var(--color-cherry-dark);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .parking-desc {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+  }
+
+  .parking-features {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--color-text-main);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .mt-auto { margin-top: auto; }
+
+  /* Journey Step Timeline */
+  .journey-section {
+    padding: 80px 0;
+    background-color: var(--color-navy-dark);
+    color: white;
+  }
+
+  .journey-section .eyebrow { color: #6EE7B7; }
+  .journey-section .section-title { color: white; }
+
+  .timeline-wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-wrapper { grid-template-columns: repeat(5, 1fr); }
+  }
+
+  .timeline-step {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    position: relative;
+  }
+
+  .step-number {
+    width: 36px;
+    height: 36px;
+    background: var(--color-cherry);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .step-content h4 {
+    color: white;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .step-content p {
+    color: #CBD5E1;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  /* Northern Michigan Showcase */
+  .destination-showcase-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #1E3E62 0%, #0B192C 100%);
+    color: white;
+  }
+
+  .destination-grid-flex {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .destination-grid-flex { grid-template-columns: 1.2fr 1fr; }
+  }
+
+  .eyebrow-light {
+    color: #6EE7B7;
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .destination-hero-text h2 {
+    color: white;
+    font-size: 2.8rem;
+    margin-bottom: 16px;
+  }
+
+  .destination-hero-text p {
+    color: #CBD5E1;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .creative-disclaimer {
+    margin-top: 16px;
+    font-size: 0.75rem;
+    color: #94A3B8;
+    font-style: italic;
+  }
+
+  .destination-cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .dest-card-photo {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    height: 240px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .dest-card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .dest-card-photo:hover img {
+    transform: scale(1.05);
+  }
+
+  .dest-card-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    padding: 16px;
+    color: white;
+  }
+
+  .dest-card-label h4 { color: white; font-size: 1rem; }
+  .dest-card-label span { font-size: 0.75rem; color: #CBD5E1; }
+
+  /* Expansion Banner */
+  .expansion-highlight-section {
+    padding: 60px 0;
+    background-color: var(--color-sand);
+  }
+
+  .expansion-banner-card {
+    background-color: white;
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    .expansion-banner-card { grid-template-columns: 2fr 1fr; }
+  }
+
+  .expansion-badge {
+    background: #E0F2FE;
+    color: #0369A1;
+    font-weight: 800;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .expansion-text-col h2 {
+    font-size: 2rem;
+    margin: 12px 0;
+  }
+
+  .expansion-text-col p {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .expansion-cta-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .expansion-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    background: var(--color-sand);
+    padding: 24px;
+    border-radius: var(--radius-lg);
+  }
+
+  .stat-box { text-align: center; }
+  .stat-num { font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; color: var(--color-navy-dark); display: block; }
+  .stat-lbl { font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; }
+
+  /* News Grid */
+  .news-section {
+    padding: 80px 0;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .news-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .news-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .news-cat { color: var(--color-cherry); }
+  .news-cat-procurement { color: #D97706; }
+  .news-cat-board { color: var(--color-navy); }
+  .news-date { color: var(--color-text-light); }
+
+  .news-title {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .news-excerpt {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .news-link {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-navy);
+  }
+
+  .news-link:hover { color: var(--color-cherry); }
+</style>
+
+<script>
+  // Tab controller for Homepage Live Flight Board
+  (window as any).switchFlightTab = function(type: 'arrivals' | 'departures') {
+    const arrivalsBtn = document.getElementById('tab-arrivals-btn');
+    const departuresBtn = document.getElementById('tab-departures-btn');
+    const arrivalsPanel = document.getElementById('arrivals-panel');
+    const departuresPanel = document.getElementById('departures-panel');
+
+    if (type === 'arrivals') {
+      arrivalsBtn?.classList.add('active');
+      arrivalsBtn?.setAttribute('aria-selected', 'true');
+      departuresBtn?.classList.remove('active');
+      departuresBtn?.setAttribute('aria-selected', 'false');
+
+      if (arrivalsPanel) arrivalsPanel.style.display = 'block';
+      if (departuresPanel) departuresPanel.style.display = 'none';
+    } else {
+      departuresBtn?.classList.add('active');
+      departuresBtn?.setAttribute('aria-selected', 'true');
+      arrivalsBtn?.classList.remove('active');
+      arrivalsBtn?.setAttribute('aria-selected', 'false');
+
+      if (departuresPanel) departuresPanel.style.display = 'block';
+      if (arrivalsPanel) arrivalsPanel.style.display = 'none';
+    }
+  };
+
+  (window as any).filterHomeFlights = function() {
+    const query = (document.getElementById('home-flight-filter') as HTMLInputElement)?.value.toLowerCase();
+    const rows = document.querySelectorAll('.flight-row');
+
+    rows.forEach(row => {
+      const code = row.getAttribute('data-code')?.toLowerCase() || '';
+      if (code.includes(query)) {
+        (row as HTMLElement).style.display = '';
+      } else {
+        (row as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+</script>

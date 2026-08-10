@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="NRAA Board Member Portal · Secure Document Vault"
+  description="Secure authenticated document portal for Northwest Regional Airport Authority (NRAA) Board Members and Executive Leadership."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/nraa">NRAA</a> / <span>Board Portal</span>
+      </div>
+      <h1 class="page-title">Secure Board Member Portal</h1>
+      <p class="page-intro">Protected repository for confidential board packets, executive session materials, and audit logs.</p>
+    </div>
+  </div>
+
+  <section class="portal-section">
+    <div class="container">
+      <!-- Authenticated Demo Dashboard Card -->
+      <div class="portal-card tvc-card">
+        <div class="portal-user-strip">
+          <div class="user-info">
+            <span class="mfa-badge">MFA AUTHENTICATED · ENCRYPTED SESSION</span>
+            <h2>Welcome, Director Steve L. (Board Chair)</h2>
+            <span class="user-role">Role: Board Administrator | Authority: Grand Traverse County</span>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" onclick="alert('Session ended.')">Log Out</button>
+        </div>
+
+        <div class="portal-grid mt-8">
+          <div class="portal-vault-box">
+            <h3>🔒 Confidential Executive Packets</h3>
+            <ul class="vault-list">
+              <li>
+                <div class="v-item">
+                  <span><strong>Aug 2026 Executive Session Briefing — RFP 2026-01 Proposals</strong></span>
+                  <a href="/documents" class="btn btn-navy btn-sm">Download Secure PDF</a>
+                </div>
+              </li>
+              <li>
+                <div class="v-item">
+                  <span><strong>FY2027 Airport Operating Budget Draft & PFC Forecast</strong></span>
+                  <a href="/documents" class="btn btn-navy btn-sm">Download Secure PDF</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="portal-audit-box">
+            <h3>📋 Security Audit & Access History</h3>
+            <div class="audit-log-list">
+              <div class="audit-item">
+                <span class="a-time">Aug 10, 2026 @ 18:42:10 ET</span>
+                <span class="a-desc">User [Board Chair] accessed RFP 2026-01 Addendum Draft. IP: 198.108.x.x</span>
+              </div>
+              <div class="audit-item">
+                <span class="a-time">Aug 09, 2026 @ 09:14:02 ET</span>
+                <span class="a-desc">MFA login success via YubiKey. Role: Board Administrator.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .portal-section { padding: 40px 0 80px; }
+
+  .portal-user-strip { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--color-border); padding-bottom: 20px; flex-wrap: wrap; gap: 16px; }
+  .mfa-badge { background: #059669; color: white; font-weight: 800; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
+  .portal-user-strip h2 { font-size: 1.6rem; color: var(--color-navy-dark); }
+  .user-role { font-size: 0.85rem; color: var(--color-text-muted); font-weight: 600; }
+
+  .mt-8 { margin-top: 32px; }
+  .portal-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 1024px) { .portal-grid { grid-template-columns: 1.5fr 1fr; } }
+
+  .portal-vault-box h3, .portal-audit-box h3 { font-size: 1.25rem; color: var(--color-navy-dark); margin-bottom: 16px; }
+  .vault-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .v-item { background: var(--color-sand); padding: 14px; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border: 1px solid var(--color-border); }
+
+  .audit-log-list { background: #070F1B; color: #6EE7B7; font-family: var(--font-tabular); padding: 16px; border-radius: var(--radius-md); font-size: 0.78rem; display: flex; flex-direction: column; gap: 10px; max-height: 240px; overflow-y: auto; }
+  .audit-item { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; }
+  .a-time { color: #94A3B8; display: block; font-size: 0.7rem; }
+</style>

@@ -1,0 +1,211 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="FOURAK Proposal Strategy & Technical Architecture · TVC Airport RFP 2026-01"
+  description="FOURAK proposal strategy, decoupled Craft CMS + Astro + Cloudflare architecture, pricing breakdown, and evaluation alignment for the NRAA TVC Website Redesign."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Proposal & Technical Architecture</span>
+      </div>
+      <h1 class="page-title">FOURAK Proposal & Technical Strategy</h1>
+      <p class="page-intro">NRAA RFP 2026-01 · Cherry Capital Airport Digital Experience Modernization</p>
+    </div>
+  </div>
+
+  <section class="proposal-page-section">
+    <div class="container">
+      <!-- High Level Vision Summary -->
+      <div class="vision-card tvc-card mb-8">
+        <span class="eyebrow">PROPOSAL CORE STRATEGY</span>
+        <h2>"Don't build them another airport brochure. Build a passenger utility that happens to be a beautiful gateway to Northern Michigan."</h2>
+        <p class="mt-4">
+          Rather than asking the Northwest Regional Airport Authority (NRAA) to imagine our methodology, FOURAK engineered this working prototype to demonstrate how the future TVC digital platform will perform on mobile devices, airport screens, and desktop browsers.
+        </p>
+      </div>
+
+      <!-- Decoupled Architecture Summary Card -->
+      <div class="arch-card tvc-card mb-8">
+        <span class="eyebrow">RECOMMENDED TECHNICAL ARCHITECTURE</span>
+        <h2>Decoupled Architecture: Craft CMS + Astro + Cloudflare Edge</h2>
+        <p class="mb-6">
+          Separating NRAA administrative content management from public delivery guarantees 99.99%+ resilience, immune to backend CMS outages or traffic spikes during severe weather alerts.
+        </p>
+
+        <div class="diagram-box">
+          <pre class="arch-ascii">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            PASSENGERS & PUBLIC                              │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          CLOUDFLARE GLOBAL EDGE                             │
+│                    CDN · TLS · WAF · DDoS Protection                        │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        ASTRO STATIC / SSR FRONTEND                          │
+│                      https://www.tvcairport.com                              │
+└───────────────────┬─────────────────────────────────────┬───────────────────┘
+                    │                                     │
+                    ▼                                     ▼
+┌───────────────────────────────────────┐  ┌──────────────────────────────────┐
+│             CRAFT CMS                 │  │       LIVE FLIGHT DATA FEED      │
+│   (Protected Headless Admin)          │  │   (FlightView / Airline Feeds)   │
+│   https://cms.tvcairport.com          │  └──────────────────────────────────┘
+└───────────────────┬───────────────────┘
+                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│    NRAA Meetings · Public Documents · News · Alerts · Parking Rates · RFPs  │
+└─────────────────────────────────────────────────────────────────────────────┘
+          </pre>
+        </div>
+      </div>
+
+      <!-- RFP Scoring Matrix & Pursuit Band -->
+      <div class="scoring-grid mb-8">
+        <div class="tvc-card">
+          <h3>RFP Evaluation Scoring Alignment</h3>
+          <table class="flight-table mt-4">
+            <thead>
+              <tr>
+                <th>Criteria</th>
+                <th>Points</th>
+                <th>FOURAK Prototype Proof</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Technical Approach</strong></td>
+                <td>20 pts</td>
+                <td>Decoupled Craft + Astro + Cloudflare architecture</td>
+              </tr>
+              <tr>
+                <td><strong>Relevant Experience</strong></td>
+                <td>20 pts</td>
+                <td>Working functional prototype built around real RFP</td>
+              </tr>
+              <tr>
+                <td><strong>Design Capability</strong></td>
+                <td>15 pts</td>
+                <td>375px mobile-first Great Lakes & aviation UI</td>
+              </tr>
+              <tr>
+                <td><strong>Price / Value</strong></td>
+                <td>15 pts</td>
+                <td>$113,500 target implementation model</td>
+              </tr>
+              <tr>
+                <td><strong>Accessibility (WCAG 2.2)</strong></td>
+                <td>10 pts</td>
+                <td>Accessible key tables, high contrast, focus states</td>
+              </tr>
+              <tr>
+                <td><strong>Support & Maintenance</strong></td>
+                <td>10 pts</td>
+                <td>Defined SLAs, emergency publishing protocol</td>
+              </tr>
+              <tr>
+                <td><strong>Project Team</strong></td>
+                <td>10 pts</td>
+                <td>Senior specialized public sector engineers</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pricing Strategy Table -->
+      <div class="tvc-card mb-8">
+        <h3>Proposed Implementation Pricing Strategy ($113,500 Target)</h3>
+        <p class="text-sm color-muted mb-4">Pricing structure tailored for public-sector transparency as requested by NRAA procurement.</p>
+
+        <div class="table-responsive">
+          <table class="flight-table">
+            <thead>
+              <tr>
+                <th>Project Phase</th>
+                <th>Description</th>
+                <th style="text-align: right;">Target Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Phase 1: Discovery & Research</strong></td>
+                <td>Stakeholder interviews, current site audit, audience mapping, flight feed technical discovery.</td>
+                <td style="text-align: right;"><strong>$12,500</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Phase 2: Information Architecture</strong></td>
+                <td>Sitemap, user journeys, content modeling, document taxonomy, search dictionary.</td>
+                <td style="text-align: right;"><strong>$7,500</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Phase 3: Visual & UI Design</strong></td>
+                <td>Component design system, two concept directions, prototype testing, brand agency coordination.</td>
+                <td style="text-align: right;"><strong>$17,500</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Phase 4: Astro + Craft CMS Engineering</strong></td>
+                <td>Decoupled frontend development, Craft CMS setup, structured models, search integration.</td>
+                <td style="text-align: right;"><strong>$39,500</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Phase 5: Airport System Integrations</strong></td>
+                <td>Live flight data feeds, parking rate logic, document download tracking.</td>
+                <td style="text-align: right;"><strong>$12,500</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Phase 6: Content & PDF Document Migration</strong></td>
+                <td>Audited migration of historical records, meeting packets, image optimization, 301 redirects.</td>
+                <td style="text-align: right;"><strong>$11,500</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Phase 7: Accessibility & QA Testing</strong></td>
+                <td>WCAG 2.2 AA audit, screen reader testing, cross-browser verification, load testing.</td>
+                <td style="text-align: right;"><strong>$7,500</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Phase 8: Staff Training & Production Launch</strong></td>
+                <td>Admin & editor training, emergency publishing card, DNS cutover by March 1, 2027.</td>
+                <td style="text-align: right;"><strong>$5,000</strong></td>
+              </tr>
+              <tr style="background: var(--color-sand);">
+                <td colspan="2"><strong>TOTAL PROPOSED IMPLEMENTATION FEE</strong></td>
+                <td style="text-align: right;"><strong style="font-size: 1.2rem; color: var(--color-cherry);">$113,500</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .proposal-page-section { padding: 40px 0 80px; }
+  .mb-8 { margin-bottom: 32px; }
+  .mb-6 { margin-bottom: 24px; }
+  .mt-4 { margin-top: 16px; }
+
+  .vision-card h2 { font-size: 1.6rem; color: var(--color-navy-dark); font-style: italic; line-height: 1.3; }
+  .vision-card p { font-size: 1.05rem; color: var(--color-text-muted); line-height: 1.6; }
+
+  .diagram-box { background: #070F1B; color: #6EE7B7; padding: 20px; border-radius: var(--radius-md); overflow-x: auto; font-family: var(--font-tabular); font-size: 0.8rem; line-height: 1.3; }
+
+  .scoring-grid h3 { font-size: 1.4rem; color: var(--color-navy-dark); }
+  .color-muted { color: var(--color-text-muted); }
+  .text-sm { font-size: 0.88rem; }
+</style>

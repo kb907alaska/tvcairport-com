@@ -1,0 +1,107 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { MEETINGS_DATA } from '../../data/meetings';
+---
+
+<Layout
+  title="NRAA Board Meetings & Agendas · TVC Airport Authority"
+  description="Official meeting schedule, agendas, packet downloads, approved minutes, and live webcast links for the Northwest Regional Airport Authority (NRAA) Board of Directors."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/nraa">NRAA</a> / <span>Board Meetings</span>
+      </div>
+      <h1 class="page-title">NRAA Board Meetings & Packets</h1>
+      <p class="page-intro">Access public board agendas, comprehensive meeting packets, approved minutes, and live video stream recordings.</p>
+    </div>
+  </div>
+
+  <section class="meetings-section">
+    <div class="container">
+      <div class="app-subnav">
+        <a href="/nraa" class="subnav-btn">🏛️ Authority Overview</a>
+        <a href="/nraa/meetings" class="subnav-btn active">📅 Board Meetings & Agendas</a>
+        <a href="/documents" class="subnav-btn">📄 Public Documents Library</a>
+        <a href="/business-opportunities" class="subnav-btn">💼 Bids & RFPs Portal</a>
+      </div>
+
+      <div class="meetings-list">
+        {MEETINGS_DATA.map((mtg) => (
+          <div class="meeting-card tvc-card mb-6">
+            <div class="mtg-header-flex">
+              <div>
+                <span class={`status-tag ${mtg.status === 'Upcoming' ? 'tag-upcoming' : 'tag-completed'}`}>
+                  {mtg.status}
+                </span>
+                <span class="committee-name">{mtg.committee}</span>
+                <h2 class="mtg-title">{mtg.title}</h2>
+              </div>
+              <div class="mtg-date-badge">
+                <span class="d-day">{new Date(mtg.date).getDate() + 1}</span>
+                <span class="d-month">{new Date(mtg.date).toLocaleString('default', { month: 'short' })}</span>
+                <span class="d-year">{new Date(mtg.date).getFullYear()}</span>
+              </div>
+            </div>
+
+            <div class="mtg-details-bar">
+              <span>📍 <strong>Location:</strong> {mtg.location}</span>
+              <span>⏰ <strong>Time:</strong> {mtg.time}</span>
+            </div>
+
+            <p class="mtg-desc">{mtg.description}</p>
+
+            <div class="mtg-actions-flex">
+              {mtg.agendaUrl && (
+                <a href={mtg.agendaUrl} target="_blank" class="btn btn-navy btn-sm">📄 View Agenda PDF</a>
+              )}
+              {mtg.packetUrl && (
+                <a href={mtg.packetUrl} target="_blank" class="btn btn-primary btn-sm">📦 Board Packet PDF</a>
+              )}
+              {mtg.minutesUrl && (
+                <a href={mtg.minutesUrl} target="_blank" class="btn btn-outline btn-sm">Approved Minutes PDF</a>
+              )}
+              {mtg.videoUrl && (
+                <a href={mtg.videoUrl} target="_blank" class="btn btn-outline btn-sm">🎥 Webcast Recording</a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .meetings-section { padding: 40px 0 80px; }
+
+  .app-subnav { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+  .subnav-btn { background-color: white; border: 1px solid var(--color-border); padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; color: var(--color-navy-dark); font-size: 0.9rem; text-decoration: none; }
+  .subnav-btn.active { background-color: var(--color-navy); color: white; }
+
+  .mb-6 { margin-bottom: 24px; }
+  .mtg-header-flex { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
+
+  .status-tag { font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: var(--radius-full); text-transform: uppercase; }
+  .tag-upcoming { background: #E0F2FE; color: #0369A1; }
+  .tag-completed { background: #E2E8F0; color: #475569; }
+
+  .committee-name { font-size: 0.75rem; font-weight: 800; color: var(--color-cherry); text-transform: uppercase; margin-left: 8px; }
+  .mtg-title { font-size: 1.4rem; color: var(--color-navy-dark); margin-top: 4px; }
+
+  .mtg-date-badge { background: var(--color-navy-dark); color: white; border-radius: var(--radius-md); padding: 8px 14px; text-align: center; display: flex; flex-direction: column; min-width: 70px; }
+  .d-day { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+  .d-month { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+  .d-year { font-size: 0.65rem; color: #94A3B8; }
+
+  .mtg-details-bar { background: var(--color-sand); padding: 10px 14px; border-radius: var(--radius-md); font-size: 0.85rem; display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 14px; color: var(--color-navy-dark); }
+
+  .mtg-desc { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 20px; }
+  .mtg-actions-flex { display: flex; gap: 10px; flex-wrap: wrap; }
+</style>

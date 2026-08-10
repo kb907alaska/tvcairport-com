@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Gates to the Future Terminal Expansion · TVC Airport Growth"
+  description="Learn about the $45M+ Gates to the Future terminal expansion project at Cherry Capital Airport (TVC) adding new concourses, gates, and passenger security space."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Gates to the Future</span>
+      </div>
+      <h1 class="page-title">Gates to the Future Expansion</h1>
+      <p class="page-intro">Expanding terminal concourses, jet bridges, security lanes, and passenger amenities to serve Northern Michigan's growing travel needs.</p>
+    </div>
+  </div>
+
+  <section class="expansion-page-section">
+    <div class="container">
+      <!-- Passenger Advisory Banner -->
+      <div class="passenger-advisory tvc-card mb-8">
+        <div class="adv-flex">
+          <div class="adv-icon">🚧</div>
+          <div>
+            <h3>Current Passenger Impact & Detours</h3>
+            <p>Construction is active near Gate 4. Please follow temporary signage. All security checkpoints and parking facilities remain fully operational.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expansion Overview Cards -->
+      <div class="overview-grid mb-12">
+        <div class="tvc-card">
+          <span class="exp-badge">CAPACITY & JET BRIDGES</span>
+          <h3>+3 New Passenger Jet Gates</h3>
+          <p>Adding modern glass jet bridges to accommodate larger dual-class commercial jets (Boeing 737 / Airbus A320) year-round.</p>
+        </div>
+
+        <div class="tvc-card">
+          <span class="exp-badge">SECURITY & CHECKPOINT</span>
+          <h3>Expanded Security Lanes</h3>
+          <p>Doubling checkpoint capacity and dedicated TSA PreCheck screening lanes to reduce peak morning security wait times.</p>
+        </div>
+
+        <div class="tvc-card">
+          <span class="exp-badge">CONCOURSE & COMFORT</span>
+          <h3>Enhanced Concourse Dining & Amenities</h3>
+          <p>Expanding post-security dining seating, modern lactation suites, charging hubs, and floor-to-ceiling airfield views.</p>
+        </div>
+      </div>
+
+      <!-- Project Timeline Component -->
+      <div class="timeline-card tvc-card mb-12">
+        <h2 class="section-title text-center mb-8">Project Timeline & Milestones</h2>
+
+        <div class="project-timeline">
+          <div class="p-milestone completed">
+            <span class="p-year">2024</span>
+            <h4>Planning & Environmental</h4>
+            <p>FAA Environmental Assessment and FONSI clearance completed.</p>
+          </div>
+
+          <div class="p-milestone completed">
+            <span class="p-year">2025</span>
+            <h4>Architectural Design</h4>
+            <p>Final concourse engineering and construction bid package release.</p>
+          </div>
+
+          <div class="p-milestone active">
+            <span class="p-year">2026</span>
+            <h4>Concourse Construction</h4>
+            <p>Foundation work, jet bridge procurement, and structural steel erection.</p>
+          </div>
+
+          <div class="p-milestone">
+            <span class="p-year">2027</span>
+            <h4>Phase 1 Opening</h4>
+            <p>Commissioning new gates and opening expanded passenger concourse.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expansion FAQs -->
+      <div class="faq-card tvc-card">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list mt-4">
+          <details class="faq-item">
+            <summary>Will flight operations or schedules be impacted during construction?</summary>
+            <p>No. All flight arrivals and departures operate on standard schedules. Construction zones are fully isolated from passenger gates.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How is the expansion project being funded?</summary>
+            <p>Funding is provided through FAA Bipartisan Infrastructure Law (BIL) airport terminal grants, Passenger Facility Charges (PFC), and NRAA capital reserves—with zero local property tax contribution.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .expansion-page-section { padding: 40px 0 80px; }
+
+  .mb-8 { margin-bottom: 32px; }
+  .mb-12 { margin-bottom: 48px; }
+  .mt-4 { margin-top: 16px; }
+
+  .passenger-advisory { background: #FFFBEB; border: 1px solid #F59E0B; }
+  .adv-flex { display: flex; gap: 16px; align-items: flex-start; }
+  .adv-icon { font-size: 2rem; }
+  .passenger-advisory h3 { font-size: 1.15rem; color: #92400E; margin-bottom: 4px; }
+  .passenger-advisory p { font-size: 0.88rem; color: #78350F; }
+
+  .overview-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+  @media (min-width: 768px) { .overview-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .exp-badge { background: #E0F2FE; color: #0369A1; font-weight: 800; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+  .overview-grid h3 { font-size: 1.25rem; color: var(--color-navy-dark); margin-bottom: 8px; }
+  .overview-grid p { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; }
+
+  .project-timeline { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; }
+  @media (min-width: 768px) { .project-timeline { grid-template-columns: repeat(4, 1fr); } }
+
+  .p-milestone { background: var(--color-sand); border: 1px solid var(--color-border); padding: 20px; border-radius: var(--radius-lg); position: relative; }
+  .p-milestone.active { border: 2px solid var(--color-cherry); background: white; box-shadow: var(--shadow-md); }
+  .p-milestone.completed { opacity: 0.85; }
+
+  .p-year { font-family: var(--font-heading); font-weight: 800; font-size: 1.8rem; color: var(--color-navy-dark); display: block; margin-bottom: 4px; }
+  .active .p-year { color: var(--color-cherry); }
+
+  .p-milestone h4 { font-size: 1.05rem; color: var(--color-navy-dark); margin-bottom: 6px; }
+  .p-milestone p { font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.4; }
+
+  .faq-card h2 { font-size: 1.5rem; color: var(--color-navy-dark); margin-bottom: 16px; }
+  .faq-item { background: var(--color-sand); padding: 14px 18px; border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer; }
+  .faq-item summary { font-weight: 700; color: var(--color-navy-dark); font-size: 0.95rem; }
+  .faq-item p { margin-top: 8px; font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; }
+</style>

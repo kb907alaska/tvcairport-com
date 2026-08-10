@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Business Opportunities & RFPs · TVC Airport Procurement"
+  description="Official procurement portal for Northwest Regional Airport Authority (NRAA) solicitations, RFPs, bids, addenda notices, and vendor registration."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/nraa">NRAA</a> / <span>Business Opportunities</span>
+      </div>
+      <h1 class="page-title">Solicitations, RFPs & Procurement</h1>
+      <p class="page-intro">Bidding opportunities, contracts, and vendor solicitations issued by the Northwest Regional Airport Authority.</p>
+    </div>
+  </div>
+
+  <section class="rfp-section">
+    <div class="container">
+      <div class="app-subnav">
+        <a href="/nraa" class="subnav-btn">🏛️ Authority Overview</a>
+        <a href="/nraa/meetings" class="subnav-btn">📅 Board Meetings</a>
+        <a href="/documents" class="subnav-btn">📄 Public Documents Library</a>
+        <a href="/business-opportunities" class="subnav-btn active">💼 Bids & RFPs Portal</a>
+      </div>
+
+      <!-- Featured Active Solicitation Card -->
+      <div class="rfp-featured-card tvc-card mb-8">
+        <div class="rfp-status-strip">
+          <span class="rfp-open-tag">SOLICITATION OPEN</span>
+          <span class="rfp-num">NRAA RFP 2026-01</span>
+        </div>
+
+        <h2 class="rfp-title">Website Redesign, Content Strategy & CMS Modernization</h2>
+        <p class="rfp-desc">
+          The Northwest Regional Airport Authority (NRAA) is seeking competitive electronic proposals from qualified digital agency partners for discovery, UX planning, decoupled frontend architecture, Craft CMS deployment, accessibility (WCAG 2.2 AA), document portal migration, and ongoing technical support.
+        </p>
+
+        <div class="rfp-timeline-box">
+          <div class="time-item">
+            <span class="time-lbl">Issued:</span>
+            <span class="time-val">July 28, 2026</span>
+          </div>
+          <div class="time-item highlight-due">
+            <span class="time-lbl">Questions Due:</span>
+            <span class="time-val">August 10, 2026</span>
+          </div>
+          <div class="time-item highlight-due">
+            <span class="time-lbl">Proposals Due:</span>
+            <span class="time-val">August 21, 2026 @ 4:30 PM ET</span>
+          </div>
+          <div class="time-item">
+            <span class="time-lbl">Anticipated Award:</span>
+            <span class="time-val">August 26, 2026</span>
+          </div>
+        </div>
+
+        <div class="addendum-alert">
+          <strong>⚠️ Addendum No. 1 Issued (Aug 10, 2026):</strong> Includes official answers to pre-proposal questions submitted by vendors. Electronic submissions must be delivered as a PDF (max 20 pages) via email.
+        </div>
+
+        <div class="rfp-actions-flex">
+          <a href="/documents" class="btn btn-primary">Download Complete RFP Package (PDF) →</a>
+          <a href="/documents" class="btn btn-navy">View Addendum No. 1 Q&A →</a>
+          <a href="/proposal" class="btn btn-outline">Preview FOURAK's Prototype Response</a>
+        </div>
+      </div>
+
+      <!-- Additional Solicitations List -->
+      <div class="solicitations-grid">
+        <div class="rfp-card tvc-card">
+          <div class="rfp-meta">
+            <span class="tag-closed">CLOSED / AWARDED</span>
+            <span class="sol-num">RFP 2026-02</span>
+          </div>
+          <h3>Terminal Expansion Jet Bridge Package</h3>
+          <p>Supply and installation of three passenger loading bridges for Gate Concourse Expansion.</p>
+          <div class="sol-date">Awarded: June 2026</div>
+        </div>
+
+        <div class="rfp-card tvc-card">
+          <div class="rfp-meta">
+            <span class="tag-closed">CLOSED / AWARDED</span>
+            <span class="sol-num">RFQ 2025-09</span>
+          </div>
+          <h3>General Airport Engineering Services</h3>
+          <p>Five-year architectural and engineering consulting contract for airfield and apron pavement management.</p>
+          <div class="sol-date">Awarded: December 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 40px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; }
+
+  .rfp-section { padding: 40px 0 80px; }
+
+  .app-subnav { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+  .subnav-btn { background-color: white; border: 1px solid var(--color-border); padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; color: var(--color-navy-dark); font-size: 0.9rem; text-decoration: none; }
+  .subnav-btn.active { background-color: var(--color-navy); color: white; }
+
+  .mb-8 { margin-bottom: 32px; }
+
+  .rfp-featured-card { border: 2px solid var(--color-cherry); box-shadow: var(--shadow-lg); }
+  .rfp-status-strip { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .rfp-open-tag { background: var(--color-cherry); color: white; font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: var(--radius-full); }
+  .rfp-num { font-family: var(--font-tabular); font-weight: 700; color: var(--color-text-muted); font-size: 0.85rem; }
+
+  .rfp-title { font-size: 1.8rem; color: var(--color-navy-dark); margin-bottom: 10px; }
+  .rfp-desc { color: var(--color-text-muted); line-height: 1.6; margin-bottom: 20px; font-size: 0.95rem; }
+
+  .rfp-timeline-box { background: var(--color-sand); border-radius: var(--radius-md); padding: 16px; display: grid; grid-template-columns: repeat(1, 1fr); gap: 12px; margin-bottom: 20px; border: 1px solid var(--color-border); }
+  @media (min-width: 640px) { .rfp-timeline-box { grid-template-columns: repeat(4, 1fr); } }
+
+  .time-item { display: flex; flex-direction: column; }
+  .time-lbl { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--color-text-muted); }
+  .time-val { font-size: 0.9rem; font-weight: 800; color: var(--color-navy-dark); margin-top: 2px; }
+  .highlight-due .time-val { color: var(--color-cherry); }
+
+  .addendum-alert { background: #FFFBEB; border: 1px solid #F59E0B; padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.88rem; color: #92400E; margin-bottom: 24px; }
+
+  .rfp-actions-flex { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .solicitations-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+  @media (min-width: 640px) { .solicitations-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .rfp-meta { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .tag-closed { background: #E2E8F0; color: #475569; font-weight: 800; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; }
+  .sol-num { font-size: 0.8rem; color: var(--color-text-light); }
+  .rfp-card h3 { font-size: 1.15rem; color: var(--color-navy-dark); margin-bottom: 6px; }
+  .rfp-card p { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.4; margin-bottom: 12px; }
+  .sol-date { font-size: 0.78rem; color: var(--color-text-light); font-weight: 600; }
+</style>

@@ -1,0 +1,276 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Careers & Employment · TVC Cherry Capital Airport"
+  description="Join the Northwest Regional Airport Authority (NRAA) team. Explore open airport operations, public safety, maintenance, and administrative job opportunities."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/nraa">NRAA</a> / <span>Careers</span>
+      </div>
+      <h1 class="page-title">Careers at TVC Airport</h1>
+      <p class="page-intro">Build a rewarding public sector career keeping Northern Michigan connected to the world with competitive state pensions, health benefits, and professional advancement.</p>
+    </div>
+  </div>
+
+  <!-- Benefits Banner -->
+  <section class="benefits-banner">
+    <div class="container">
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">🏥</div>
+          <h4>Comprehensive Health</h4>
+          <p>Medical, dental, and vision insurance with low employee premium contributions.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏦</div>
+          <h4>MERS Pension & Retirement</h4>
+          <p>Municipal Employees' Retirement System defined benefit pension & 457 savings matching.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🌴</div>
+          <h4>Paid Vacation & Holidays</h4>
+          <p>Generous paid time off (PTO), paid parental leave, and 12 paid authority holidays per year.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🎓</div>
+          <h4>Education Assistance</h4>
+          <p>Tuition reimbursement and AAAE (American Association of Airport Executives) certifications.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Job Postings -->
+  <section class="careers-section">
+    <div class="container">
+      <div class="section-title text-center mb-8">
+        <span class="badge-tag">Current Openings</span>
+        <h2>Explore Career Opportunities</h2>
+        <p>Join the Northwest Regional Airport Authority dedicated team of aviation professionals.</p>
+      </div>
+
+      <div class="jobs-list">
+        <!-- Job 1 -->
+        <div class="job-card tvc-card mb-6">
+          <div class="job-header">
+            <div>
+              <span class="job-badge">FULL-TIME · PUBLIC SAFETY</span>
+              <h3 class="job-title">Airport Public Safety Officer (ARFF / Law Enforcement)</h3>
+            </div>
+            <span class="job-date">Closing: August 28, 2026</span>
+          </div>
+
+          <p class="job-summary">
+            Dual-role aircraft rescue firefighting (ARFF) and airport security compliance officer responsible for airfield emergency response, perimeter security patrol, and regulatory compliance under 14 CFR Part 139 and 49 CFR Part 1542.
+          </p>
+
+          <div class="job-details-grid">
+            <div><strong>Salary Range:</strong> $62,000 – $78,500 / year</div>
+            <div><strong>Shift:</strong> 24-Hour Rotating Operations</div>
+            <div><strong>Requirements:</strong> MCOLES certification or ARFF Firefighter II certification.</div>
+          </div>
+
+          <div class="job-actions mt-4">
+            <button type="button" class="btn btn-primary btn-sm open-app-modal" data-job="Airport Public Safety Officer">Apply Online →</button>
+            <a href="/documents" class="btn btn-outline btn-sm">Download Job Specs (PDF)</a>
+          </div>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="job-card tvc-card mb-6">
+          <div class="job-header">
+            <div>
+              <span class="job-badge">FULL-TIME · FIELD MAINTENANCE</span>
+              <h3 class="job-title">Airport Airfield Maintenance Specialist</h3>
+            </div>
+            <span class="job-date">Closing: September 05, 2026</span>
+          </div>
+
+          <p class="job-summary">
+            Operate heavy winter snow-removal equipment (multi-function brooms, blowers, plows), maintain runway lighting/PAPI systems, conduct pavement friction testing, and execute year-round airfield grounds keeping.
+          </p>
+
+          <div class="job-details-grid">
+            <div><strong>Salary Range:</strong> $54,000 – $68,000 / year</div>
+            <div><strong>Shift:</strong> Full-Time (Seasonal Winter Overtime)</div>
+            <div><strong>Requirements:</strong> Valid CDL Class A license required within 90 days.</div>
+          </div>
+
+          <div class="job-actions mt-4">
+            <button type="button" class="btn btn-primary btn-sm open-app-modal" data-job="Airfield Maintenance Specialist">Apply Online →</button>
+            <a href="/documents" class="btn btn-outline btn-sm">Download Job Specs (PDF)</a>
+          </div>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="job-card tvc-card mb-6">
+          <div class="job-header">
+            <div>
+              <span class="job-badge">FULL-TIME · ADMINISTRATION</span>
+              <h3 class="job-title">Capital Projects & Compliance Coordinator</h3>
+            </div>
+            <span class="job-date">Closing: September 15, 2026</span>
+          </div>
+
+          <p class="job-summary">
+            Coordinate FAA Airport Improvement Program (AIP) grants, assist with the terminal expansion project engineering compliance, maintain environmental documentation, and liaise with consultant engineering firms.
+          </p>
+
+          <div class="job-details-grid">
+            <div><strong>Salary Range:</strong> $68,000 – $85,000 / year</div>
+            <div><strong>Shift:</strong> Monday – Friday (8:00 AM – 5:00 PM)</div>
+            <div><strong>Requirements:</strong> Bachelor's Degree in Aviation Management, Civil Engineering, or Public Administration.</div>
+          </div>
+
+          <div class="job-actions mt-4">
+            <button type="button" class="btn btn-primary btn-sm open-app-modal" data-job="Capital Projects Coordinator">Apply Online →</button>
+            <a href="/documents" class="btn btn-outline btn-sm">Download Job Specs (PDF)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Application Modal -->
+  <div id="jobModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card tvc-card">
+      <div class="modal-header">
+        <h3 id="modalJobTitle">Apply for Position</h3>
+        <button type="button" id="closeModalBtn" class="close-btn">&times;</button>
+      </div>
+
+      <form id="jobAppForm" onsubmit="event.preventDefault(); submitApplication();">
+        <div class="form-group mb-4">
+          <label for="applicantName">Full Name *</label>
+          <input type="text" id="applicantName" class="form-input" required placeholder="e.g. Jane Doe" />
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="applicantEmail">Email Address *</label>
+          <input type="email" id="applicantEmail" class="form-input" required placeholder="jane.doe@example.com" />
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="applicantPhone">Phone Number *</label>
+          <input type="tel" id="applicantPhone" class="form-input" required placeholder="(231) 555-0199" />
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="applicantResume">Resume / Cover Letter Summary *</label>
+          <textarea id="applicantResume" class="form-textarea" rows="4" required placeholder="Summarize your relevant aviation, public safety, or trade experience..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancelModalBtn" class="btn btn-outline btn-sm">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Submit Application →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('jobModal');
+    const titleElem = document.getElementById('modalJobTitle');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelModalBtn');
+    const openBtns = document.querySelectorAll('.open-app-modal');
+
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const jobName = btn.getAttribute('data-job') || 'Position';
+        if (titleElem) titleElem.textContent = `Apply for: ${jobName}`;
+        if (modal) {
+          modal.classList.add('active');
+          modal.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+
+    const closeModal = () => {
+      if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+  });
+
+  (window as any).submitApplication = function() {
+    alert('Thank you for submitting your application to the Northwest Regional Airport Authority! An NRAA Human Resources representative will review your application and contact you.');
+    const modal = document.getElementById('jobModal');
+    if (modal) {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+  };
+</script>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 44px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; font-weight: 800; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; max-width: 760px; line-height: 1.6; }
+
+  /* Benefits Banner */
+  .benefits-banner { background: var(--color-navy-dark); padding: 30px 0; border-bottom: 3px solid var(--color-teal); }
+  .benefits-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; }
+  @media (min-width: 640px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 992px) { .benefits-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .benefit-card { background: rgba(255, 255, 255, 0.05); padding: 18px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.08); }
+  .benefit-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .benefit-card h4 { font-size: 1rem; color: #38BDF8; font-weight: 700; margin-bottom: 4px; }
+  .benefit-card p { font-size: 0.8rem; color: #94A3B8; line-height: 1.4; }
+
+  /* Careers List */
+  .careers-section { padding: 60px 0; background: #F8FAFC; }
+  .mb-8 { margin-bottom: 32px; }
+  .mb-6 { margin-bottom: 24px; }
+  .badge-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-teal); letter-spacing: 1px; }
+
+  .job-card { background: white; padding: 28px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+  .job-header { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  @media (min-width: 640px) { .job-header { flex-direction: row; justify-content: space-between; align-items: flex-start; } }
+
+  .job-badge { font-size: 0.72rem; font-weight: 800; color: var(--color-cherry); text-transform: uppercase; letter-spacing: 0.5px; }
+  .job-title { font-size: 1.35rem; color: var(--color-navy-dark); font-weight: 800; margin-top: 2px; }
+  .job-date { font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); background: #F1F5F9; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+
+  .job-summary { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 16px; }
+
+  .job-details-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 8px; background: #F8FAFC; padding: 14px 18px; border-radius: 8px; font-size: 0.84rem; color: var(--color-navy); border: 1px solid #E2E8F0; }
+  @media (min-width: 768px) { .job-details-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .job-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+
+  /* Modal */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+  .modal-overlay.active { display: flex; }
+  .modal-card { background: white; max-width: 540px; width: 100%; padding: 28px; border-radius: 14px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #E2E8F0; padding-bottom: 12px; }
+  .modal-header h3 { font-size: 1.25rem; color: var(--color-navy-dark); font-weight: 800; }
+  .close-btn { background: none; border: none; font-size: 1.6rem; color: #94A3B8; cursor: pointer; line-height: 1; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.82rem; font-weight: 700; color: var(--color-navy); }
+  .form-input, .form-textarea { padding: 10px 14px; border: 1fr solid #CBD5E1; border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--color-teal); outline: none; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15); }
+  .mb-4 { margin-bottom: 16px; }
+
+  .modal-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px; border-top: 1fr solid #E2E8F0; padding-top: 16px; }
+</style>

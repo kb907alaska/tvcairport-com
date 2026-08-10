@@ -1,0 +1,291 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Why Fly TVC · Cherry Capital Airport Advantages"
+  description="Discover the advantages of flying from Cherry Capital Airport: shorter lines, modern terminal, competitive fares, close-in parking, and nonstops to major hubs."
+>
+  <div class="page-header-bg">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <span>Why Fly TVC</span>
+      </div>
+      <h1 class="page-title">Why Fly Cherry Capital Airport?</h1>
+      <p class="page-intro">Skip the 4-hour drive to Detroit or Chicago. Fly local, save hours of windshield time, and enjoy a seamless Northern Michigan travel experience.</p>
+    </div>
+  </div>
+
+  <!-- Key Advantage Stats Hero Banner -->
+  <section class="stats-banner">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">8+ Hrs</div>
+          <div class="stat-label">Round-Trip Drive Time Saved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">< 10 Min</div>
+          <div class="stat-label">Average TSA Security Wait</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">12</div>
+          <div class="stat-label">Nonstop Hub Destinations</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">3 Min</div>
+          <div class="stat-label">Walk From Parking to Gate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Advantages Grid -->
+  <section class="why-section">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="section-tag">Passenger Benefits</span>
+        <h2>Designed Around Your Convenience</h2>
+        <p>Whether traveling for business or leisure, TVC eliminates the stress of big-city hub airports.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="tvc-card feature-card">
+          <div class="feature-icon">⏱️</div>
+          <h3>Save 8+ Hours of Driving</h3>
+          <p>Avoid driving 250+ highway miles downstate to Detroit or Chicago. Board your flight in Traverse City and connect globally through major carrier hubs.</p>
+          <ul class="feature-list">
+            <li>✓ Convenient morning departure flights</li>
+            <li>✓ Same-day return business itineraries</li>
+            <li>✓ Avoid winter highway hazards & traffic delays</li>
+          </ul>
+        </div>
+
+        <div class="tvc-card feature-card">
+          <div class="feature-icon">🅿️</div>
+          <h3>Parking Steps From Security</h3>
+          <p>Forget long shuttle bus rides and crowded parking garages. TVC Short Term, Long Term, and Economy lots are all a 1 to 4 minute walk to the terminal doors.</p>
+          <ul class="feature-list">
+            <li>✓ Touchless credit card entry/exit</li>
+            <li>✓ Covered passenger drop-off zone</li>
+            <li>✓ Electric vehicle charging stations</li>
+          </ul>
+        </div>
+
+        <div class="tvc-card feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Effortless TSA & Security</h3>
+          <p>TVC features modern security checkpoints with dedicated TSA PreCheck lanes, courteous local security staff, and average wait times under 10 minutes.</p>
+          <ul class="feature-list">
+            <li>✓ Dedicated TSA PreCheck lane</li>
+            <li>✓ Efficient baggage screening technology</li>
+            <li>✓ Relaxed concourse atmosphere</li>
+          </ul>
+        </div>
+
+        <div class="tvc-card feature-card">
+          <div class="feature-icon">✈️</div>
+          <h3>5 Major Airline Partners</h3>
+          <p>Fly American, Delta, United, Allegiant, and Sun Country with seamless baggage check-through to over 200 international destinations worldwide.</p>
+          <ul class="feature-list">
+            <li>✓ Year-round nonstops to ORD, DTW, MSP, ATL</li>
+            <li>✓ Seasonal nonstops to CLT, DFW, DEN, LGA, DCA</li>
+            <li>✓ Competitive fare choices across carriers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Drive vs. Fly Time & Cost Savings Calculator -->
+  <section class="calc-section">
+    <div class="container">
+      <div class="calc-box tvc-card">
+        <div class="calc-header">
+          <span class="calc-tag">Interactive Calculator</span>
+          <h2>Calculate Your Fly TVC Time & Cost Savings</h2>
+          <p>Compare flying from TVC versus driving to Detroit Metro (DTW) or Chicago O'Hare (ORD).</p>
+        </div>
+
+        <div class="calc-grid">
+          <div class="calc-inputs">
+            <div class="form-group">
+              <label for="calcDestination">Target Connection Hub:</label>
+              <select id="calcDestination" class="form-select">
+                <option value="DTW">Detroit Metro (DTW) — 240 Miles</option>
+                <option value="ORD">Chicago O'Hare (ORD) — 320 Miles</option>
+                <option value="MSP">Minneapolis (MSP) — 480 Miles</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="travelerCount">Number of Travelers:</label>
+              <input type="number" id="travelerCount" class="form-input" value="1" min="1" max="10" />
+            </div>
+
+            <div class="form-group">
+              <label for="tripDays">Trip Duration (Days):</label>
+              <input type="number" id="tripDays" class="form-input" value="3" min="1" max="30" />
+            </div>
+          </div>
+
+          <div class="calc-results" id="calcResults">
+            <div class="result-card highlight">
+              <span class="result-title">Drive Time Saved</span>
+              <span class="result-number" id="timeSavedVal">8.5 Hours</span>
+              <span class="result-note">No 480-mile round-trip highway fatigue</span>
+            </div>
+
+            <div class="result-card">
+              <span class="result-title">Est. Gas & Parking Saved</span>
+              <span class="result-number" id="costSavedVal">$185.00</span>
+              <span class="result-note">Based on 28 MPG gas & DTW/ORD garage fees</span>
+            </div>
+
+            <div class="result-card">
+              <span class="result-title">TSA Wait Difference</span>
+              <span class="result-number" id="tsaSavedVal">35 Mins</span>
+              <span class="result-note">Average TVC wait < 10 mins vs 45+ mins hub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="container text-center">
+      <h2>Ready to Experience Easy Northern Michigan Aviation?</h2>
+      <p>Explore current nonstop destinations or search live flight schedules for your next journey.</p>
+      <div class="cta-buttons">
+        <a href="/flights/nonstop-destinations" class="btn btn-primary">View Nonstop Cities →</a>
+        <a href="/flights" class="btn btn-outline-white">Check Flight Status</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  function updateCalculator() {
+    const destSelect = document.getElementById('calcDestination') as HTMLSelectElement;
+    const countInput = document.getElementById('travelerCount') as HTMLInputElement;
+    const daysInput = document.getElementById('tripDays') as HTMLInputElement;
+
+    const dest = destSelect ? destSelect.value : 'DTW';
+    const travelers = parseInt(countInput ? countInput.value : '1') || 1;
+    const days = parseInt(daysInput ? daysInput.value : '3') || 3;
+
+    let driveMiles = 240;
+    let driveHours = 4.25;
+    let hubParkingRate = 28;
+
+    if (dest === 'ORD') {
+      driveMiles = 320;
+      driveHours = 5.5;
+      hubParkingRate = 42;
+    } else if (dest === 'MSP') {
+      driveMiles = 480;
+      driveHours = 7.75;
+      hubParkingRate = 30;
+    }
+
+    const roundTripMiles = driveMiles * 2;
+    const roundTripHours = driveHours * 2;
+    
+    // Gas cost approx $3.60/gal at 28mpg
+    const gasCost = (roundTripMiles / 28) * 3.60;
+    // Hub parking cost
+    const hubParkingTotal = days * hubParkingRate;
+    // TVC parking cost ($14/day long term)
+    const tvcParkingTotal = days * 14;
+    
+    const costSavings = Math.round(gasCost + hubParkingTotal - tvcParkingTotal);
+
+    const timeSavedElem = document.getElementById('timeSavedVal');
+    const costSavedElem = document.getElementById('costSavedVal');
+    const tsaSavedElem = document.getElementById('tsaSavedVal');
+
+    if (timeSavedElem) timeSavedElem.textContent = `${roundTripHours.toFixed(1)} Hours`;
+    if (costSavedElem) costSavedElem.textContent = `$${costSavings > 0 ? costSavings : 45}.00`;
+    if (tsaSavedElem) tsaSavedElem.textContent = dest === 'ORD' ? '45 Mins' : '30 Mins';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const inputs = ['calcDestination', 'travelerCount', 'tripDays'];
+    inputs.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', updateCalculator);
+        el.addEventListener('input', updateCalculator);
+      }
+    });
+  });
+</script>
+
+<style>
+  .page-header-bg { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%); color: white; padding: 44px 0; }
+  .breadcrumb { font-size: 0.85rem; color: #94A3B8; margin-bottom: 10px; }
+  .breadcrumb a { color: #CBD5E1; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .page-title { font-size: 2.5rem; color: white; margin-bottom: 8px; font-weight: 800; }
+  .page-intro { color: #CBD5E1; font-size: 1.05rem; max-width: 760px; line-height: 1.6; }
+
+  /* Stats Hero */
+  .stats-banner { background: var(--color-navy-dark); padding: 24px 0; border-bottom: 3px solid var(--color-teal); }
+  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; text-center: center; }
+  @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+  .stat-card { background: rgba(255, 255, 255, 0.05); padding: 16px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); }
+  .stat-value { font-size: 1.8rem; font-weight: 900; color: #38BDF8; margin-bottom: 4px; }
+  .stat-label { font-size: 0.78rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+
+  /* Core Section */
+  .why-section { padding: 60px 0; background: #F8FAFC; }
+  .section-heading { margin-bottom: 40px; }
+  .section-heading h2 { font-size: 2.1rem; color: var(--color-navy-dark); font-weight: 800; margin-top: 6px; }
+  .section-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-teal); letter-spacing: 1px; }
+  .text-center { text-center: center; }
+
+  .why-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+  @media (min-width: 768px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .feature-card { background: white; padding: 28px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; transition: transform 0.2s, box-shadow 0.2s; }
+  .feature-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+  .feature-icon { font-size: 2.2rem; margin-bottom: 12px; }
+  .feature-card h3 { font-size: 1.35rem; color: var(--color-navy-dark); font-weight: 700; margin-bottom: 8px; }
+  .feature-card p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 16px; }
+  .feature-list { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: var(--color-navy); font-weight: 600; display: flex; flex-direction: column; gap: 6px; }
+  .feature-list li { display: flex; align-items: center; gap: 6px; }
+
+  /* Calculator Section */
+  .calc-section { padding: 60px 0; background: white; }
+  .calc-box { background: linear-gradient(145deg, #0F172A 0%, #1E293B 100%); color: white; border-radius: 16px; padding: 36px; border: 1fr solid rgba(255,255,255,0.1); }
+  .calc-header { margin-bottom: 28px; }
+  .calc-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #38BDF8; letter-spacing: 1px; }
+  .calc-header h2 { font-size: 1.8rem; color: white; margin-top: 4px; font-weight: 800; }
+  .calc-header p { color: #94A3B8; font-size: 0.92rem; }
+
+  .calc-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 32px; }
+  @media (min-width: 768px) { .calc-grid { grid-template-columns: 1fr 1fr; align-items: center; } }
+
+  .calc-inputs { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.82rem; font-weight: 700; color: #CBD5E1; }
+  .form-select, .form-input { padding: 10px 14px; background: #334155; border: 1px solid #475569; color: white; border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
+  .form-select:focus, .form-input:focus { border-color: #38BDF8; outline: none; }
+
+  .calc-results { display: grid; grid-template-columns: repeat(1, 1fr); gap: 12px; }
+  .result-card { background: rgba(255, 255, 255, 0.06); padding: 16px 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-direction: column; }
+  .result-card.highlight { background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(56, 189, 248, 0.1) 100%); border-color: rgba(56, 189, 248, 0.4); }
+  .result-title { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #94A3B8; }
+  .result-number { font-size: 1.6rem; font-weight: 900; color: #38BDF8; margin: 2px 0; }
+  .result-note { font-size: 0.75rem; color: #CBD5E1; }
+
+  /* CTA Banner */
+  .cta-banner { background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-dark) 100%); color: white; padding: 50px 0; text-align: center; }
+  .cta-banner h2 { font-size: 1.9rem; font-weight: 800; margin-bottom: 8px; color: white; }
+  .cta-banner p { color: #CBD5E1; margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .btn-outline-white { border: 2px solid white; color: white; background: transparent; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+</style>

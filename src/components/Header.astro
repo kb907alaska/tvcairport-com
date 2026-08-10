@@ -1,0 +1,567 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header" id="site-header">
+  <!-- Utility Top Bar -->
+  <div class="utility-bar">
+    <div class="container utility-container">
+      <div class="utility-left">
+        <span class="airport-tag">
+          <span class="tvc-code">TVC</span> · Cherry Capital Airport · Traverse City, Michigan
+        </span>
+      </div>
+      <div class="utility-right">
+        <a href="/flights" class={`utility-link ${currentPath.startsWith('/flights') ? 'active' : ''}`}>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+          Flight Status
+        </a>
+        <a href="/parking-transportation" class={`utility-link ${currentPath.startsWith('/parking-transportation') ? 'active' : ''}`}>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+          </svg>
+          Parking Rates
+        </a>
+        <a href="/airport-guide" class={`utility-link ${currentPath.startsWith('/airport-guide') ? 'active' : ''}`}>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          Terminal Guide
+        </a>
+        <a href="/documents" class={`utility-link ${currentPath.startsWith('/documents') ? 'active' : ''}`}>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          NRAA Documents
+        </a>
+        <button 
+          type="button" 
+          class="utility-link-btn" 
+          onclick="window.toggleSearchModal()"
+          aria-label="Open global site search"
+        >
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          Search <kbd class="search-kbd">/</kbd>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <div class="main-header">
+    <div class="container main-header-container">
+      <a href="/" class="brand-logo" aria-label="Cherry Capital Airport Home">
+        <div class="logo-mark">
+          <span class="logo-code">TVC</span>
+          <span class="logo-cherry-icon" aria-hidden="true">🍒</span>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">Cherry Capital Airport</span>
+          <span class="logo-subtitle">Traverse City, Michigan</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/flights" class={`nav-link ${currentPath.startsWith('/flights') ? 'active' : ''}`}>
+              Fly
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/parking-transportation" class={`nav-link ${currentPath.startsWith('/parking-transportation') ? 'active' : ''}`}>
+              Park & Arrive
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/airport-guide" class={`nav-link ${currentPath.startsWith('/airport-guide') ? 'active' : ''}`}>
+              Airport Guide
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/visit-northern-michigan" class={`nav-link ${currentPath.startsWith('/visit-northern-michigan') ? 'active' : ''}`}>
+              Explore N. Michigan
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/nraa" class={`nav-link ${currentPath.startsWith('/nraa') ? 'active' : ''}`}>
+              Airport Authority (NRAA)
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/gates-to-the-future" class="nav-link nav-highlight">
+              Gates Expansion
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Desktop CTA & Actions -->
+      <div class="header-actions">
+        <button 
+          type="button" 
+          class="btn btn-primary btn-sm search-action-btn"
+          onclick="window.toggleSearchModal()"
+          aria-label="Search site"
+        >
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          Search
+        </button>
+
+        <!-- Mobile Drawer Toggle (375px Mobile First) -->
+        <button 
+          type="button" 
+          class="mobile-nav-toggle" 
+          id="mobile-menu-btn"
+          aria-expanded="false" 
+          aria-controls="mobile-drawer"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu (Mobile-first 375px design) -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="mobile-drawer-inner">
+      <div class="mobile-drawer-header">
+        <div class="mobile-brand">
+          <span class="mobile-logo-code">TVC</span>
+          <span class="mobile-logo-title">Cherry Capital Airport</span>
+        </div>
+        <button type="button" class="mobile-close-btn" id="mobile-close-btn" aria-label="Close menu">
+          ✕
+        </button>
+      </div>
+
+      <div class="mobile-quick-actions">
+        <a href="/flights" class="quick-action-card">
+          <span class="qa-icon">✈️</span>
+          <span class="qa-label">Flights</span>
+        </a>
+        <a href="/parking-transportation" class="quick-action-card">
+          <span class="qa-icon">🅿️</span>
+          <span class="qa-label">Parking</span>
+        </a>
+        <a href="/airport-guide" class="quick-action-card">
+          <span class="qa-icon">🗺️</span>
+          <span class="qa-label">Terminal Map</span>
+        </a>
+        <a href="/documents" class="quick-action-card">
+          <span class="qa-icon">📄</span>
+          <span class="qa-label">Documents</span>
+        </a>
+      </div>
+
+      <nav class="mobile-nav-list" aria-label="Mobile Navigation">
+        <a href="/" class="mobile-nav-link">Home Dashboard</a>
+        <a href="/flights" class="mobile-nav-link">Arrivals & Departures</a>
+        <a href="/flights/airlines" class="mobile-nav-link">Airlines Directory</a>
+        <a href="/flights/nonstop-destinations" class="mobile-nav-link">Nonstop Destinations Map</a>
+        <a href="/parking-transportation" class="mobile-nav-link">Parking & Ground Transport</a>
+        <a href="/airport-guide" class="mobile-nav-link">Airport Guide & Amenities</a>
+        <a href="/airport-guide/accessibility" class="mobile-nav-link">Accessibility & Assistance</a>
+        <a href="/visit-northern-michigan" class="mobile-nav-link">Explore Northern Michigan</a>
+        <a href="/nraa" class="mobile-nav-link">Airport Authority (NRAA)</a>
+        <a href="/nraa/meetings" class="mobile-nav-link">NRAA Board Meetings</a>
+        <a href="/documents" class="mobile-nav-link">Public Document Library</a>
+        <a href="/business-opportunities" class="mobile-nav-link">Business Bids & RFPs</a>
+        <a href="/gates-to-the-future" class="mobile-nav-link text-cherry">Gates to the Future Expansion</a>
+        <a href="/careers" class="mobile-nav-link">Careers & Employment</a>
+        <a href="/proposal" class="mobile-nav-link">FOURAK Proposal Overview</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--color-surface-card);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Utility Bar */
+  .utility-bar {
+    background-color: var(--color-navy-dark);
+    color: #94A3B8;
+    font-size: 0.8rem;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .utility-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .airport-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #E2E8F0;
+    font-weight: 500;
+  }
+
+  .tvc-code {
+    background-color: var(--color-cherry);
+    color: white;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+  }
+
+  .utility-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .utility-link, .utility-link-btn {
+    color: #CBD5E1;
+    font-size: 0.78rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .utility-link:hover, .utility-link-btn:hover, .utility-link.active {
+    color: white;
+  }
+
+  .search-kbd {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-family: var(--font-tabular);
+  }
+
+  /* Main Header */
+  .main-header {
+    padding: 12px 0;
+    background-color: white;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .main-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  /* Logo */
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .logo-code {
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-cherry-icon {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    font-size: 0.85rem;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--color-navy-dark);
+    line-height: 1.1;
+  }
+
+  .logo-subtitle {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  /* Desktop Nav */
+  .desktop-nav {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .desktop-nav {
+      display: block;
+    }
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .nav-link {
+    color: var(--color-navy-dark);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 6px 0;
+    position: relative;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--color-cherry);
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-cherry);
+    border-radius: 2px;
+  }
+
+  .nav-highlight {
+    background-color: var(--color-sky-light);
+    color: var(--color-navy);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+  }
+
+  .nav-highlight:hover {
+    background-color: var(--color-navy);
+    color: white;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .search-action-btn {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .search-action-btn {
+      display: inline-flex;
+    }
+  }
+
+  /* Mobile Burger Toggle */
+  .mobile-nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-nav-toggle {
+      display: none;
+    }
+  }
+
+  .hamburger-line {
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-navy-dark);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  /* Mobile Drawer */
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 380px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: var(--shadow-xl);
+    z-index: 9999;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  .mobile-drawer.open {
+    right: 0;
+  }
+
+  .mobile-drawer-inner {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mobile-logo-code {
+    background-color: var(--color-navy-dark);
+    color: white;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .mobile-logo-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-navy-dark);
+  }
+
+  .mobile-close-btn {
+    background: var(--color-sand);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  .mobile-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .quick-action-card {
+    background: var(--color-sand);
+    padding: 12px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--color-navy-dark);
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-nav-link {
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    color: var(--color-navy-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+
+  }
+
+  .mobile-nav-link:hover {
+    background-color: var(--color-sand);
+    color: var(--color-cherry);
+  }
+
+  .text-cherry {
+    color: var(--color-cherry);
+  }
+
+  @media (max-width: 640px) {
+    .utility-right .utility-link:nth-child(n+3) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Mobile menu interactive controller
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const closeBtn = document.getElementById('mobile-close-btn');
+  const drawer = document.getElementById('mobile-drawer');
+
+  function openDrawer() {
+    drawer?.classList.add('open');
+    drawer?.setAttribute('aria-hidden', 'false');
+    menuBtn?.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeDrawer() {
+    drawer?.classList.remove('open');
+    drawer?.setAttribute('aria-hidden', 'true');
+    menuBtn?.setAttribute('aria-expanded', 'false');
+  }
+
+  menuBtn?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+</script>

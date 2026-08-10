@@ -1,0 +1,348 @@
+---
+---
+
+<div id="search-modal" class="search-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+  <div class="search-modal-container">
+    <div class="search-modal-header">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input 
+          type="search" 
+          id="global-search-input" 
+          placeholder="Search flights, parking, board documents, RFPs, amenities..." 
+          autocomplete="off"
+        />
+        <span class="esc-badge">ESC</span>
+      </div>
+      <button type="button" class="close-modal-btn" onclick="window.toggleSearchModal(false)" aria-label="Close search">
+        ✕
+      </button>
+    </div>
+
+    <!-- Quick Search Suggestions -->
+    <div class="search-suggestions">
+      <span class="suggestion-label">Popular Searches:</span>
+      <button type="button" class="chip-btn" onclick="window.runQuickSearch('parking')">Parking Rates</button>
+      <button type="button" class="chip-btn" onclick="window.runQuickSearch('flight')">Live Flights</button>
+      <button type="button" class="chip-btn" onclick="window.runQuickSearch('tsa')">TSA PreCheck</button>
+      <button type="button" class="chip-btn" onclick="window.runQuickSearch('packet')">Board Packets</button>
+      <button type="button" class="chip-btn" onclick="window.runQuickSearch('rfp')">RFP 2026-01</button>
+      <button type="button" class="chip-btn" onclick="window.runQuickSearch('uber')">Rideshare / Uber</button>
+    </div>
+
+    <!-- Live Results Container -->
+    <div class="search-results-area" id="search-results-area">
+      <div class="search-initial-state">
+        <p>Type your query above or click a popular shortcut. Press <kbd class="kbd-inline">ESC</kbd> to close.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .search-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(11, 25, 44, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 99999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 60px 16px 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .search-modal-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .search-modal-container {
+    width: 100%;
+    max-width: 720px;
+    background-color: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+  }
+
+  .search-modal-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #F8FAFC;
+  }
+
+  .search-input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-md);
+    padding: 8px 14px;
+  }
+
+  .search-icon {
+    color: var(--color-navy);
+  }
+
+  #global-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.05rem;
+    font-family: var(--font-body);
+    color: var(--color-text-main);
+  }
+
+  .esc-badge {
+    background: #E2E8F0;
+    color: var(--color-text-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .close-modal-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 8px;
+  }
+
+  .close-modal-btn:hover {
+    color: var(--color-cherry);
+  }
+
+  .search-suggestions {
+    padding: 12px 16px;
+    background-color: #F1F5F9;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .suggestion-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .chip-btn {
+    background: white;
+    border: 1px solid #CBD5E1;
+    border-radius: var(--radius-full);
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .chip-btn:hover {
+    background: var(--color-navy);
+    color: white;
+    border-color: var(--color-navy);
+  }
+
+  .search-results-area {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 50vh;
+  }
+
+  .search-initial-state {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    padding: 30px 0;
+  }
+
+  .kbd-inline {
+    background: #E2E8F0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-tabular);
+    font-weight: 700;
+  }
+
+  .search-result-group {
+    margin-bottom: 20px;
+  }
+
+  .search-group-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-cherry);
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #F1F5F9;
+    padding-bottom: 4px;
+  }
+
+  .search-result-item {
+    display: block;
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .search-result-item:hover {
+    background-color: var(--color-sand);
+  }
+
+  .item-title {
+    font-weight: 700;
+    color: var(--color-navy-dark);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .item-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+</style>
+
+<script>
+  // Global search modal controller
+  const modal = document.getElementById('search-modal');
+  const searchInput = document.getElementById('global-search-input') as HTMLInputElement;
+  const resultsArea = document.getElementById('search-results-area');
+
+  const SEARCH_DATA = [
+    { title: 'Live Arrivals & Departures', category: 'Flights', desc: 'Real-time flight board, gate info, and schedule updates.', url: '/flights' },
+    { title: 'United UA1234 (Chicago ORD -> TVC)', category: 'Flights', desc: 'On time, Gate 3, Baggage Carousel 2.', url: '/flights' },
+    { title: 'Delta DL2841 (Detroit DTW -> TVC)', category: 'Flights', desc: 'Delayed, Gate 2, Baggage Carousel 1.', url: '/flights' },
+    { title: 'Short Term & Long Term Parking Rates', category: 'Parking', desc: 'Compare daily rates and use our online parking cost estimator.', url: '/parking-transportation' },
+    { title: 'Interactive Parking & Terminal Map', category: 'Parking', desc: 'Find short term, long term, economy, and accessible parking spaces.', url: '/parking-transportation' },
+    { title: 'Rental Cars & Rideshare (Uber / Lyft)', category: 'Ground Transport', desc: 'Ground transport directory, pickup zones, and BATA Route 14.', url: '/parking-transportation' },
+    { title: 'TSA PreCheck & Passenger Security', category: 'Guide', desc: 'Security guidelines, TSA Cares assistance, and line information.', url: '/airport-guide' },
+    { title: 'NRAA RFP 2026-01 Website Redesign', category: 'RFPs & Bids', desc: 'Full RFP procurement document, addenda, and submission details.', url: '/business-opportunities' },
+    { title: 'NRAA Board Meeting Agendas & Packets', category: 'Public Documents', desc: 'Download upcoming meeting packets and historical board minutes.', url: '/documents' },
+    { title: 'Gates to the Future Terminal Expansion', category: 'Projects', desc: 'Terminal growth project timeline, passenger advisories, and FAQs.', url: '/gates-to-the-future' },
+    { title: 'Explore Northern Michigan Gateway', category: 'Tourism', desc: 'Traverse City, Sleeping Bear Dunes, regional lakes, and wine tours.', url: '/visit-northern-michigan' },
+    { title: 'WCAG 2.2 AA Accessibility Services', category: 'Accessibility', desc: 'Wheelchair requests, service animal relief, and screen reader aids.', url: '/airport-guide/accessibility' }
+  ];
+
+  (window as any).toggleSearchModal = function(show?: boolean) {
+    const isCurrentlyOpen = modal?.classList.contains('open');
+    const shouldOpen = show !== undefined ? show : !isCurrentlyOpen;
+
+    if (shouldOpen) {
+      modal?.classList.add('open');
+      modal?.setAttribute('aria-hidden', 'false');
+      setTimeout(() => searchInput?.focus(), 100);
+    } else {
+      modal?.classList.remove('open');
+      modal?.setAttribute('aria-hidden', 'true');
+    }
+  };
+
+  (window as any).runQuickSearch = function(query: string) {
+    if (searchInput) {
+      searchInput.value = query;
+      performSearch(query);
+    }
+  };
+
+  function performSearch(q: string) {
+    const query = q.toLowerCase().trim();
+    if (!query) {
+      if (resultsArea) {
+        resultsArea.innerHTML = `
+          <div class="search-initial-state">
+            <p>Type your query above or click a popular shortcut. Press <kbd class="kbd-inline">ESC</kbd> to close.</p>
+          </div>
+        `;
+      }
+      return;
+    }
+
+    const filtered = SEARCH_DATA.filter(item => 
+      item.title.toLowerCase().includes(query) || 
+      item.category.toLowerCase().includes(query) || 
+      item.desc.toLowerCase().includes(query)
+    );
+
+    if (!resultsArea) return;
+
+    if (filtered.length === 0) {
+      resultsArea.innerHTML = `
+        <div class="search-initial-state">
+          <p>No results found for "<strong>${q}</strong>". Try searching for "parking", "flights", "packet", or "rfp".</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Group by category
+    const groups: { [key: string]: typeof SEARCH_DATA } = {};
+    filtered.forEach(item => {
+      if (!groups[item.category]) groups[item.category] = [];
+      groups[item.category].push(item);
+    });
+
+    let html = '';
+    for (const cat in groups) {
+      html += `<div class="search-result-group">`;
+      html += `<div class="search-group-title">${cat}</div>`;
+      groups[cat].forEach(item => {
+        html += `
+          <a href="${item.url}" class="search-result-item" onclick="window.toggleSearchModal(false)">
+            <div class="item-title">
+              <span>${item.title}</span>
+              <span style="font-size: 0.75rem; color: #94A3B8;">→</span>
+            </div>
+            <div class="item-desc">${item.desc}</div>
+          </a>
+        `;
+      });
+      html += `</div>`;
+    }
+
+    resultsArea.innerHTML = html;
+  }
+
+  searchInput?.addEventListener('input', (e) => {
+    performSearch((e.target as HTMLInputElement).value);
+  });
+
+  // Hotkey '/' to open search and 'ESC' to close
+  window.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      (window as any).toggleSearchModal(true);
+    } else if (e.key === 'Escape' && modal?.classList.contains('open')) {
+      (window as any).toggleSearchModal(false);
+    }
+  });
+</script>
