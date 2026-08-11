@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AirlineLogo from '../../components/AirlineLogo.astro';
+import WayfindingIcon from '../../components/WayfindingIcon.astro';
 import { AIRLINES_DATA } from '../../data/flights';
 ---
 
@@ -20,46 +22,49 @@ import { AIRLINES_DATA } from '../../data/flights';
   <section class="airlines-section">
     <div class="container">
       <div class="app-subnav">
-        <a href="/flights" class="subnav-btn">🛬 Flight Status Board</a>
-        <a href="/flights/airlines" class="subnav-btn active">✈️ Airlines Directory</a>
-        <a href="/flights/nonstop-destinations" class="subnav-btn">🗺️ Nonstop Route Map</a>
+        <a href="/flights" class="subnav-btn flex items-center gap-2">
+          <WayfindingIcon name="departures" size={16} /> Flight Status Board
+        </a>
+        <a href="/flights/airlines" class="subnav-btn active flex items-center gap-2">
+          <WayfindingIcon name="flight" size={16} /> Airlines Directory
+        </a>
+        <a href="/flights/nonstop-destinations" class="subnav-btn flex items-center gap-2">
+          <WayfindingIcon name="ground" size={16} /> Nonstop Route Map
+        </a>
       </div>
 
       <div class="airlines-grid">
         {AIRLINES_DATA.map((airline) => (
           <div class="airline-card tvc-card">
-            <div class="airline-card-header">
-              <div>
-                <span class="airline-code-badge">{airline.code}</span>
-                <h2 class="airline-name">{airline.name}</h2>
-              </div>
-              <span class="gate-tag">{airline.gates}</span>
+            <div class="airline-card-header flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+              <AirlineLogo code={airline.code} name={airline.name} height={36} />
+              <span class="gate-tag font-mono font-bold text-xs bg-slate-900 text-white px-2.5 py-1 rounded">{airline.gates}</span>
             </div>
 
-            <p class="airline-desc">{airline.description}</p>
+            <p class="airline-desc text-sm text-slate-600 mb-4">{airline.description}</p>
 
-            <div class="airline-meta-block">
-              <div class="meta-item">
-                <span class="meta-label">Customer Service Phone:</span>
-                <a href={`tel:${airline.phone}`} class="meta-val">{airline.phone}</a>
+            <div class="airline-meta-block bg-slate-50 p-3 rounded-lg border border-slate-200 mb-4">
+              <div class="meta-item text-xs mb-1">
+                <span class="meta-label font-bold text-slate-500">Customer Service Phone:</span>
+                <a href={`tel:${airline.phone}`} class="meta-val font-mono font-bold text-navy ml-2">{airline.phone}</a>
               </div>
-              <div class="meta-item">
-                <span class="meta-label">Terminal Gate Location:</span>
-                <span class="meta-val">{airline.gates}</span>
+              <div class="meta-item text-xs">
+                <span class="meta-label font-bold text-slate-500">Terminal Gate Location:</span>
+                <span class="meta-val font-bold text-navy-dark ml-2">{airline.gates}</span>
               </div>
             </div>
 
-            <div class="routes-block">
-              <span class="routes-title">Nonstops Served from TVC:</span>
-              <div class="route-chips">
+            <div class="routes-block mb-4">
+              <span class="routes-title text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Nonstops Served from TVC:</span>
+              <div class="route-chips flex flex-wrap gap-1.5">
                 {airline.destinations.map((dest) => (
-                  <span class="route-chip">{dest}</span>
+                  <span class="route-chip text-xs font-bold bg-slate-100 text-navy-dark px-2.5 py-1 rounded border border-slate-200">{dest}</span>
                 ))}
               </div>
             </div>
 
-            <div class="airline-actions">
-              <a href={airline.website} target="_blank" rel="noopener noreferrer" class="btn btn-navy btn-sm">Official Airline Website ↗</a>
+            <div class="airline-actions flex gap-2 flex-wrap">
+              <a href={airline.website} target="_blank" rel="noopener noreferrer" class="btn btn-navy btn-sm">Official Airline Site ↗</a>
               <a href={airline.baggageUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Baggage Policy ↗</a>
             </div>
           </div>

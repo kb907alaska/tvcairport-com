@@ -1,0 +1,79 @@
+---
+export interface Props {
+  code: string;
+  name?: string;
+  height?: number;
+  class?: string;
+}
+
+const { code, name = '', height = 32, class: className = '' } = Astro.props;
+const codeUpper = code.toUpperCase();
+---
+
+<div class={`airline-logo-container ${className}`} style={`height: ${height}px;`}>
+  {codeUpper === 'AA' && (
+    <svg height={height} viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="American Airlines Logo">
+      <path d="M22 6L4 34H12L17 26H27L32 34H40L22 6ZM19 22L22 14L25 22H19Z" fill="#0078D2"/>
+      <path d="M34 6L28 16L32 22L42 6H34Z" fill="#C8102E"/>
+      <text x="48" y="28" font-family="sans-serif" font-weight="800" font-size="20" fill="#002A5C" letter-spacing="-0.5">American</text>
+    </svg>
+  )}
+
+  {codeUpper === 'DL' && (
+    <svg height={height} viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Delta Air Lines Logo">
+      <path d="M20 4L34 32H6L20 4Z" fill="#E31837"/>
+      <path d="M20 12L28 32H12L20 12Z" fill="#002244"/>
+      <text x="42" y="28" font-family="sans-serif" font-weight="900" font-size="22" fill="#002244" letter-spacing="1">DELTA</text>
+    </svg>
+  )}
+
+  {codeUpper === 'UA' && (
+    <svg height={height} viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="United Airlines Logo">
+      <circle cx="20" cy="20" r="15" stroke="#005DA6" stroke-width="3" fill="none"/>
+      <path d="M8 20H32M20 8V32M11 12C15 16 25 16 29 12M11 28C15 24 25 24 29 28" stroke="#005DA6" stroke-width="2"/>
+      <text x="44" y="28" font-family="sans-serif" font-weight="900" font-size="22" fill="#002244" letter-spacing="0.5">UNITED</text>
+    </svg>
+  )}
+
+  {codeUpper === 'G4' && (
+    <svg height={height} viewBox="0 0 170 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Allegiant Air Logo">
+      <circle cx="18" cy="20" r="12" fill="#FF8200"/>
+      <path d="M18 4V12M18 28V36M4 20H12M24 20H32M8 10L14 16M22 24L28 30M8 30L14 24M22 16L28 10" stroke="#FF8200" stroke-width="2.5"/>
+      <text x="38" y="28" font-family="sans-serif" font-weight="800" font-size="20" fill="#0072CE" letter-spacing="-0.5">allegiant</text>
+    </svg>
+  )}
+
+  {codeUpper === 'SY' && (
+    <svg height={height} viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Sun Country Airlines Logo">
+      <circle cx="18" cy="20" r="13" fill="#F37021"/>
+      <path d="M12 20C12 16.6863 14.6863 14 18 14C21.3137 14 24 16.6863 24 20C24 23.3137 21.3137 26 18 26" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="38" y="28" font-family="sans-serif" font-weight="800" font-size="18" fill="#002F6C" letter-spacing="-0.5">sun country</text>
+    </svg>
+  )}
+
+  {codeUpper === 'XP' && (
+    <svg height={height} viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Avelo Airlines Logo">
+      <path d="M8 30L20 8L32 30H24L20 20L16 30H8Z" fill="#582C83"/>
+      <circle cx="20" cy="12" r="3" fill="#64CCC9"/>
+      <text x="38" y="28" font-family="sans-serif" font-weight="900" font-size="22" fill="#582C83" letter-spacing="0">avelo</text>
+    </svg>
+  )}
+
+  {!['AA', 'DL', 'UA', 'G4', 'SY', 'XP'].includes(codeUpper) && (
+    <div class="fallback-airline-badge">
+      <span class="code font-mono font-bold text-xs bg-navy text-white px-2 py-1 rounded">{code}</span>
+      <span class="name font-bold text-sm text-navy-dark ml-2">{name}</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .airline-logo-container {
+    display: inline-flex;
+    align-items: center;
+  }
+  .fallback-airline-badge {
+    display: inline-flex;
+    align-items: center;
+  }
+</style>

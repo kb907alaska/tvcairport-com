@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import WayfindingIcon from '../../components/WayfindingIcon.astro';
 import { FLIGHTS_DATA } from '../../data/flights';
 
 const arrivals = FLIGHTS_DATA.filter(f => f.type === 'arrival');
@@ -24,9 +25,15 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure');
     <div class="container">
       <!-- Master Navigation Bar -->
       <div class="app-subnav">
-        <a href="/flights" class="subnav-btn active">🛬 Flight Status Board</a>
-        <a href="/flights/airlines" class="subnav-btn">✈️ Airlines Directory</a>
-        <a href="/flights/nonstop-destinations" class="subnav-btn">🗺️ Nonstop Route Map</a>
+        <a href="/flights" class="subnav-btn active flex items-center gap-2">
+          <WayfindingIcon name="departures" size={16} /> Flight Status Board
+        </a>
+        <a href="/flights/airlines" class="subnav-btn flex items-center gap-2">
+          <WayfindingIcon name="flight" size={16} /> Airlines Directory
+        </a>
+        <a href="/flights/nonstop-destinations" class="subnav-btn flex items-center gap-2">
+          <WayfindingIcon name="ground" size={16} /> Nonstop Route Map
+        </a>
       </div>
 
       <!-- Interactive Preflight "When Should I Leave?" Calculator -->
