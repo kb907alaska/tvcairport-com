@@ -117,16 +117,25 @@ import { MEETINGS_DATA } from '../../data/meetings';
   (window as any).downloadICS = function(title: string, dateStr: string, timeStr: string) {
     const cleanTitle = title.replace(/[^\w\s]/gi, '');
     const dateFormatted = dateStr.replace(/-/g, '');
+
+    let hour = 15;
+    if (timeStr.includes('4:00 PM')) hour = 16;
+    else if (timeStr.includes('3:00 PM')) hour = 15;
+    else if (timeStr.includes('9:00 AM')) hour = 9;
+
+    const startHourStr = hour.toString().padStart(2, '0');
+    const endHourStr = (hour + 2).toString().padStart(2, '0');
+
     const icsData = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
       'PRODID:-//NRAA Board Meetings//TVC Airport//EN',
       'BEGIN:VEVENT',
       `SUMMARY:${cleanTitle}`,
-      `DESCRIPTION:Northwest Regional Airport Authority Board Meeting at TVC Terminal Board Room`,
+      `DESCRIPTION:Northwest Regional Airport Authority Board Meeting at TVC Terminal Board Room (${timeStr})`,
       `LOCATION:Cherry Capital Airport Terminal Board Room, 727 Fly Dont Drive, Traverse City, MI`,
-      `DTSTART:${dateFormatted}T090000Z`,
-      `DTEND:${dateFormatted}T110000Z`,
+      `DTSTART:${dateFormatted}T${startHourStr}0000`,
+      `DTEND:${dateFormatted}T${endHourStr}0000`,
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\r\n');
