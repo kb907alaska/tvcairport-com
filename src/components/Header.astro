@@ -1,5 +1,14 @@
 ---
 const currentPath = Astro.url.pathname;
+
+let contextualMobileTitle = 'TVC / CHERRY CAPITAL AIRPORT';
+if (currentPath.startsWith('/flights')) contextualMobileTitle = 'TVC / FLIGHT STATUS & SCHEDULES';
+else if (currentPath.startsWith('/parking-transportation')) contextualMobileTitle = 'TVC / PARKING & GROUND TRANSPORT';
+else if (currentPath.startsWith('/airport-guide')) contextualMobileTitle = 'TVC / TERMINAL GUIDE & AMENITIES';
+else if (currentPath.startsWith('/documents')) contextualMobileTitle = 'TVC / PUBLIC RECORDS REPOSITORY';
+else if (currentPath.startsWith('/nraa')) contextualMobileTitle = 'TVC / AIRPORT AUTHORITY (NRAA)';
+else if (currentPath.startsWith('/gates-to-the-future')) contextualMobileTitle = 'TVC / EXPANSION 2026–2030';
+else if (currentPath.startsWith('/visit-northern-michigan')) contextualMobileTitle = 'TVC / EXPLORE NORTHERN MICHIGAN';
 ---
 
 <header class="site-header" id="site-header">
@@ -8,7 +17,7 @@ const currentPath = Astro.url.pathname;
     <div class="container utility-container">
       <div class="utility-left">
         <span class="airport-tag">
-          <span class="tvc-code">TVC</span> · Cherry Capital Airport · Traverse City, Michigan
+          <span class="tvc-code">TVC</span> · 45.7775° N / 85.5822° W · ELEV 624 FT · Traverse City, MI
         </span>
       </div>
       <div class="utility-right">

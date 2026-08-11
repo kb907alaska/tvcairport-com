@@ -20,54 +20,56 @@ import { MEETINGS_DATA } from '../../data/meetings';
   <section class="meetings-section">
     <div class="container">
       <div class="app-subnav">
-        <a href="/nraa" class="subnav-btn">🏛️ Authority Overview</a>
-        <a href="/nraa/meetings" class="subnav-btn active">📅 Board Meetings & Agendas</a>
-        <a href="/documents" class="subnav-btn">📄 Public Documents Library</a>
-        <a href="/business-opportunities" class="subnav-btn">💼 Bids & RFPs Portal</a>
+        <a href="/nraa" class="subnav-btn">Authority Overview</a>
+        <a href="/nraa/meetings" class="subnav-btn active">Board Meetings & Agendas</a>
+        <a href="/documents" class="subnav-btn">Public Documents Repository</a>
+        <a href="/business-opportunities" class="subnav-btn">RFPs & Procurement</a>
       </div>
 
       <div class="meetings-list">
         {MEETINGS_DATA.map((mtg) => (
           <div class="meeting-card tvc-card mb-6">
             <div class="mtg-header-flex">
-              <div>
+              <div class="giant-date-block bg-slate-950 text-white p-4 rounded-lg text-center min-w-[90px]">
+                <span class="block text-xs font-bold uppercase tracking-wider text-slate-400">
+                  {new Date(mtg.date).toLocaleString('default', { month: 'short' })}
+                </span>
+                <span class="block text-3xl font-black font-mono leading-none my-1">
+                  {new Date(mtg.date).getDate() + 1}
+                </span>
+                <span class="block text-[10px] font-bold text-amber-400 font-mono">
+                  {new Date(mtg.date).getFullYear()}
+                </span>
+              </div>
+              <div class="flex-1">
                 <span class={`status-tag ${mtg.status === 'Upcoming' ? 'tag-upcoming' : 'tag-completed'}`}>
                   {mtg.status}
                 </span>
                 <span class="committee-name">{mtg.committee}</span>
-                <h2 class="mtg-title">{mtg.title}</h2>
-              </div>
-              <div class="mtg-date-badge">
-                <span class="d-day">{new Date(mtg.date).getDate() + 1}</span>
-                <span class="d-month">{new Date(mtg.date).toLocaleString('default', { month: 'short' })}</span>
-                <span class="d-year">{new Date(mtg.date).getFullYear()}</span>
+                <h2 class="mtg-title text-xl font-bold text-navy-dark mt-1">{mtg.title}</h2>
+                <div class="mtg-details-bar text-xs text-slate-600 font-semibold mt-2 flex gap-4">
+                  <span>📍 {mtg.location}</span>
+                  <span>⏰ {mtg.time}</span>
+                </div>
               </div>
             </div>
 
-            <div class="mtg-details-bar">
-              <span>📍 <strong>Location:</strong> {mtg.location}</span>
-              <span>⏰ <strong>Time:</strong> {mtg.time}</span>
-            </div>
+            <p class="mtg-desc text-sm text-slate-600 my-3">{mtg.description}</p>
 
-            <p class="mtg-desc">{mtg.description}</p>
-
-            <div class="mtg-actions-flex">
+            <div class="mtg-actions-flex flex gap-2 flex-wrap">
               {mtg.agendaUrl && (
-                <a href={mtg.agendaUrl} target="_blank" class="btn btn-navy btn-sm">📄 View Agenda PDF</a>
+                <a href={mtg.agendaUrl} target="_blank" class="btn btn-navy btn-sm">AGENDA PDF ↓</a>
               )}
               {mtg.packetUrl && (
-                <a href={mtg.packetUrl} target="_blank" class="btn btn-primary btn-sm">📦 Board Packet PDF</a>
+                <a href={mtg.packetUrl} target="_blank" class="btn btn-primary btn-sm">BOARD PACKET PDF ↓</a>
               )}
               {mtg.status === 'Upcoming' && (
                 <button type="button" class="btn btn-teal btn-sm" onclick={`window.downloadICS('${mtg.title}', '${mtg.date}', '${mtg.time}')`}>
-                  📅 Add to Calendar (.ics)
+                  ADD TO CALENDAR (.ICS)
                 </button>
               )}
               {mtg.minutesUrl && (
-                <a href={mtg.minutesUrl} target="_blank" class="btn btn-outline btn-sm">Approved Minutes PDF</a>
-              )}
-              {mtg.videoUrl && (
-                <a href={mtg.videoUrl} target="_blank" class="btn btn-outline btn-sm">🎥 Webcast Recording</a>
+                <a href={mtg.minutesUrl} target="_blank" class="btn btn-outline btn-sm">APPROVED MINUTES ↓</a>
               )}
             </div>
           </div>
