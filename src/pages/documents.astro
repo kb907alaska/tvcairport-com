@@ -23,10 +23,10 @@ import { DOCUMENTS_DATA } from '../data/documents';
   <section class="docs-section">
     <div class="container">
       <div class="app-subnav">
-        <a href="/nraa" class="subnav-btn">🏛️ Authority Overview</a>
-        <a href="/nraa/meetings" class="subnav-btn">📅 Board Meetings</a>
-        <a href="/documents" class="subnav-btn active">📄 Public Documents Library</a>
-        <a href="/business-opportunities" class="subnav-btn">💼 Bids & RFPs Portal</a>
+        <a href="/nraa" class="subnav-btn">Authority Overview</a>
+        <a href="/nraa/meetings" class="subnav-btn">Board Meetings & Agendas</a>
+        <a href="/documents" class="subnav-btn active">Public Records Repository</a>
+        <a href="/business-opportunities" class="subnav-btn">RFPs & Procurement</a>
       </div>
 
       <!-- Live Search & Filter Bar -->
@@ -35,7 +35,7 @@ import { DOCUMENTS_DATA } from '../data/documents';
           <input 
             type="search" 
             id="doc-search-input" 
-            placeholder="Search documents by title, keyword, or document ID (e.g. RFP 2026-01)..." 
+            placeholder="Search documents by title, keyword, or document ID..." 
             oninput="window.filterDocuments()"
           />
         </div>
@@ -70,19 +70,23 @@ import { DOCUMENTS_DATA } from '../data/documents';
             data-search={`${doc.title} ${doc.description} ${doc.id} ${doc.category}`.toLowerCase()}
           >
             <div class="doc-main-flex">
-              <div class="doc-icon-box">📄</div>
+              <div class="doc-icon-box font-mono font-bold text-xs bg-slate-900 text-slate-200 px-3 py-2 rounded">
+                {doc.year}
+              </div>
               <div class="doc-details">
                 <div class="doc-tags">
                   <span class="doc-cat-tag">{doc.category}</span>
                   <span class="doc-dept-tag">{doc.department}</span>
-                  <span class="doc-year-tag">{doc.year}</span>
+                  <span class="font-mono text-xs text-slate-500 font-bold ml-2">ID: {doc.id.toUpperCase()}</span>
                 </div>
                 <h2 class="doc-title">{doc.title}</h2>
                 <p class="doc-desc">{doc.description}</p>
                 <div class="doc-meta-strip">
-                  <span>📅 Published: {doc.date}</span>
-                  <span>📦 File: PDF ({doc.fileSize})</span>
-                  <span>⬇️ Downloads: {doc.downloadCount}</span>
+                  <span>Published: {doc.date}</span>
+                  <span>·</span>
+                  <span>Format: PDF ({doc.fileSize})</span>
+                  <span>·</span>
+                  <span>Downloads: {doc.downloadCount}</span>
                 </div>
               </div>
 
@@ -93,15 +97,7 @@ import { DOCUMENTS_DATA } from '../data/documents';
                   class="btn btn-navy btn-sm"
                   onclick={`window.trackDocDownload('${doc.id}', '${doc.title}')`}
                 >
-                  View Document
-                </a>
-                <a 
-                  href={doc.url} 
-                  download 
-                  class="btn btn-outline btn-sm"
-                  onclick={`window.trackDocDownload('${doc.id}', '${doc.title}')`}
-                >
-                  Download PDF ({doc.fileSize})
+                  OPEN PDF ↓
                 </a>
               </div>
             </div>
