@@ -11,38 +11,8 @@ const departures = FLIGHTS_DATA.filter(f => f.type === 'departure').slice(0, 5);
   title="TVC · Cherry Capital Airport · Traverse City, Michigan"
   description="Official Cherry Capital Airport (TVC) passenger portal. Check live flight arrivals and departures, parking rates, terminal amenities, nonstop routes, and NRAA public records."
 >
-  <!-- Design View Switcher Control Bar -->
-  <div class="homepage-view-switcher-bar bg-slate-900 text-white border-b border-slate-700 py-2 px-4">
-    <div class="container flex justify-between items-center flex-wrap gap-2 text-xs">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-amber-400">🎛️ HOMEPAGE DESIGN SYSTEM SWITCHER:</span>
-        <span class="text-slate-300 hidden sm:inline">Compare alternative Great Lakes Modernism composition against standard dashboard</span>
-      </div>
-      <div class="flex gap-1.5">
-        <button 
-          type="button" 
-          id="btn-view-modernist"
-          class="px-3 py-1 rounded font-bold text-xs bg-cherry text-white border border-cherry" 
-          onclick="window.switchHomepageView('modernist')"
-        >
-          Great Lakes Modernism (New)
-        </button>
-        <button 
-          type="button" 
-          id="btn-view-standard"
-          class="px-3 py-1 rounded font-bold text-xs bg-slate-800 text-slate-300 border border-slate-700 hover:text-white" 
-          onclick="window.switchHomepageView('standard')"
-        >
-          Standard Dashboard
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Alternative View Container (Great Lakes Modernism) -->
-  <div id="view-modernist-container">
-    <HomepageModernist />
-  </div>
+  <!-- Clean Homepage Experience (Great Lakes Modernism Art Direction) -->
+  <HomepageModernist />
 
   <!-- Standard View Container (Dashboard) -->
   <div id="view-standard-container" style="display: none;">
